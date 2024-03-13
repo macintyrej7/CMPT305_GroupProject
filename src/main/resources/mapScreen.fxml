@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane fx:id="mapPane" prefHeight="1080.0" prefWidth="1796.0" />
+      <VBox fx:id="filterBox" prefHeight="1080.0" prefWidth="212.0">
+         <children>
+            <Label fx:id="filterBoxLabel" prefHeight="103.0" prefWidth="156.0" text="Filter">
+               <font>
+                  <Font size="70.0" />
+               </font>
+            </Label>
+            <CheckBox mnemonicParsing="false" text="CheckBox" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" />
+            <CheckBox mnemonicParsing="false" text="CheckBox" />
+         </children>
+      </VBox>
+   </children>
+</HBox>
