@@ -16,6 +16,18 @@
 
 package com.mycompany.app;
 
+
+
+import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.geometry.PointCollection;
+import com.esri.arcgisruntime.geometry.Polygon;
+import com.esri.arcgisruntime.geometry.Polyline;
+import com.esri.arcgisruntime.geometry.SpatialReferences;
+import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
+import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
+import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
+import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import java.awt.Dimension;
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
@@ -34,6 +46,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -41,9 +54,9 @@ import java.io.IOException;
 public class App extends Application {
 
     private MapView mapView;
+    private ArcGISMap map;
 
     public static void main(String[] args) {
-
         Application.launch(args);
     }
 
@@ -81,13 +94,25 @@ public class App extends Application {
         // create a MapView to display the map and add it to the stack pane
         mapView = new MapView();
         // Sets map style
-        ArcGISMap map = new ArcGISMap(BasemapStyle.ARCGIS_STREETS);
+        map = new ArcGISMap(BasemapStyle.ARCGIS_STREETS);
         mapView.setMap(map);
+
         // Set Default location
         mapView.setViewpoint(new Viewpoint(53.5409, -113.5084, 122227.638572));
         // Set to StackPane inside tab
         StackPane otherStackPane = (StackPane) otherMapScene.lookup("#mapPane"); // This is how to lookup elements
         otherStackPane.getChildren().add(mapView);                                 // You set the ID under code in SceneBuilder
+
+        // create a graphics overlay and add it to the map view
+        GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+        mapView.getGraphicsOverlays().add(graphicsOverlay);
+
+        // create a point geometry with a geo-coords
+        Graphic pointGraphic = createPointGraphic(-113.6243, 53.5221);
+
+        // add the point graphic to the graphics overlay
+        graphicsOverlay.getGraphics().add(pointGraphic);
+
 
         stage.setScene(new Scene(root, screenSizeWidth, screenSizeHeight));
         stage.show();
@@ -103,5 +128,22 @@ public class App extends Application {
         if (mapView != null) {
             mapView.dispose();
         }
+    }
+
+
+    public Graphic createPointGraphic(double latitude, double longitude){
+        Point point = new Point(latitude, longitude, SpatialReferences.getWgs84());
+        // create an opaque orange point symbol with a opaque blue outline symbol
+        SimpleMarkerSymbol simpleMarkerSymbol =
+                new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, Color.ORANGE, 14);
+        SimpleLineSymbol blueOutlineSymbol =
+                new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 2);
+
+        simpleMarkerSymbol.setOutline(blueOutlineSymbol);
+
+        // create a graphic with the point geometry and symbol
+        Graphic pointGraphic = new Graphic(point, simpleMarkerSymbol);
+
+        return pointGraphic;
     }
 }
