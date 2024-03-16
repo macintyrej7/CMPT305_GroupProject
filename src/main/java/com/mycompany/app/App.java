@@ -89,9 +89,8 @@ public class App extends Application {
         String yourApiKey = "AAPKcf22eb129c224bb3bcf55014b784da1fvhWq8R48qV0B_h9dyoMOy0fHMJoqSE2f12Lxud4ty8-Fzm8WjkoTFpNb1wek2rJS";
         ArcGISRuntimeEnvironment.setApiKey(yourApiKey);
 
-        // create a MapView to display the map and add it to the stack pane
+        // create a MapView and set style, add it to the stack pane
         mapView = new MapView();
-        // Sets map style
         map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY);
         mapView.setMap(map);
 
@@ -106,11 +105,12 @@ public class App extends Application {
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
         // create a point geometry with a geo-coords, Detail can be added to Point/Graphics via attribute dictionary
-        Graphic pointGraphic = createPointGraphic(-113.6243, 53.5221);
-        pointGraphic.getAttributes().put("name", "West Edmonton Mall");
+        Graphic pointGraphic = createPointGraphic(53.5221,-113.6243, "West Edmonton Mall");
+        Graphic pointGraphicOther = createPointGraphic(53.546989, -113.503929, "Macewan University");
 
         // add the point graphic to the graphics overlay
         graphicsOverlay.getGraphics().add(pointGraphic);
+        graphicsOverlay.getGraphics().add(pointGraphicOther);
 
 
         mapView.setOnMouseClicked(mouseEvent -> {
@@ -159,7 +159,11 @@ public class App extends Application {
                 dialog.setHeaderText(null);
                 dialog.setTitle("Information Dialog Sample");
                 // Should map Graphic name to school/data here to retrieve its details
-                dialog.setContentText("Clicked on " + graphics.get(0).getAttributes().get("name") + " graphic");
+                Graphic clickedGraphic =  graphics.get(0);
+                dialog.setContentText("Clicked on " + clickedGraphic.getAttributes().get("name") + " point"
+                + "\n Lat/Long: " + clickedGraphic.getAttributes().get("latitude") +
+                                ", " +  clickedGraphic.getAttributes().get("longitude")
+                );
                 dialog.showAndWait();
             }
         } catch (Exception e) {
@@ -170,19 +174,20 @@ public class App extends Application {
 
 
 
-    public Graphic createPointGraphic(double latitude, double longitude){
-        Point point = new Point(latitude, longitude, SpatialReferences.getWgs84());
+    public Graphic createPointGraphic(double latitude, double longitude, String name){
+        Point point = new Point(longitude, latitude, SpatialReferences.getWgs84());
         // create an opaque orange point symbol with a opaque blue outline symbol
         SimpleMarkerSymbol simpleMarkerSymbol =
                 new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, Color.ORANGE, 14);
         SimpleLineSymbol blueOutlineSymbol =
                 new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 2);
-
         simpleMarkerSymbol.setOutline(blueOutlineSymbol);
 
         // create a graphic with the point geometry and symbol
         Graphic pointGraphic = new Graphic(point, simpleMarkerSymbol);
-
+        pointGraphic.getAttributes().put("name", name);
+        pointGraphic.getAttributes().put("latitude", latitude);
+        pointGraphic.getAttributes().put("longitude", longitude);
         return pointGraphic;
     }
 }
