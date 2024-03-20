@@ -58,6 +58,9 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 
         stage.setTitle("Exploring Edmonton - A CMPT305 Endeavor");
+        Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        double screenSizeWidth = screenSize.getWidth();
+        double screenSizeHeight = screenSize.getHeight() * 0.90;
 
         // Load objects from FXML file into scenes and then into tabs
         Scene tabLayout = loadSceneFromFXML("tabLayout.fxml");
@@ -103,6 +106,8 @@ public class App extends Application {
         });
 
         stage.setScene(tabLayout);
+        stage.setHeight(screenSizeHeight);
+        stage.setWidth(screenSizeWidth);
         stage.show();
 
     }
