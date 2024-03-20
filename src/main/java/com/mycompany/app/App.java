@@ -21,7 +21,6 @@ package com.mycompany.app;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.geometry.*;
 import com.esri.arcgisruntime.mapping.view.*;
-import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import java.awt.Dimension;
@@ -31,17 +30,14 @@ import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -62,28 +58,10 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
 
         stage.setTitle("Exploring Edmonton - A CMPT305 Endeavor");
-        TabPane root = new TabPane();
-        Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        double screenSizeWidth = screenSize.getWidth();
-        double screenSizeHeight = screenSize.getHeight() * 0.96;
 
-        // Load objects from FXML file into scenes and then into tabs (this can be grouped into a function I think)
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/reports.fxml")); // Make sure to have / in front of file name
-        Scene reportsScene = new Scene(fxmlLoader.load());
-
-        FXMLLoader mapFxmlLoader = new FXMLLoader(App.class.getResource("/mapScreen.fxml"));
-        Scene mapScene = new Scene(mapFxmlLoader.load());
-
-        FXMLLoader settingsFxmlLoader = new FXMLLoader(App.class.getResource("/settings.fxml"));
-        Scene settingsScene = new Scene(settingsFxmlLoader.load());
-
-        Tab tab1 = new Tab("Map", mapScene.getRoot());
-        Tab tab2 = new Tab("Reports"  , reportsScene.getRoot());
-        Tab tab3 = new Tab("Settings" , settingsScene.getRoot());
-
-        root.getTabs().add(tab1);
-        root.getTabs().add(tab2);
-        root.getTabs().add(tab3);
+        // Load objects from FXML file into scenes and then into tabs
+        Scene tabLayout = loadSceneFromFXML("tabLayout.fxml");
+        StackPane mapStackPane = (StackPane) tabLayout.getRoot().lookup("#mapPane");
 
         // Set API KEY
         String yourApiKey = "AAPKcf22eb129c224bb3bcf55014b784da1fvhWq8R48qV0B_h9dyoMOy0fHMJoqSE2f12Lxud4ty8-Fzm8WjkoTFpNb1wek2rJS";
@@ -91,13 +69,12 @@ public class App extends Application {
 
         // create a MapView and set style, add it to the stack pane
         mapView = new MapView();
-        map = new ArcGISMap(BasemapStyle.ARCGIS_IMAGERY);
+        map = new ArcGISMap(BasemapStyle.OSM_NAVIGATION);
         mapView.setMap(map);
 
         // Set Default location
         mapView.setViewpoint(new Viewpoint(53.5409, -113.5084, 122227.638572));
         // Set to StackPane inside tab
-        StackPane mapStackPane = (StackPane) mapScene.lookup("#mapPane"); // This is how to lookup elements
         mapStackPane.getChildren().add(mapView);                                 // You set the ID under code in SceneBuilder
 
         // create a graphics overlay and add it to the map view
@@ -125,7 +102,7 @@ public class App extends Application {
             }
         });
 
-        stage.setScene(new Scene(root, screenSizeWidth, screenSizeHeight));
+        stage.setScene(tabLayout);
         stage.show();
 
     }
@@ -139,6 +116,11 @@ public class App extends Application {
         if (mapView != null) {
             mapView.dispose();
         }
+    }
+
+    public Scene loadSceneFromFXML(String fxmlFileName) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/" + fxmlFileName)); // Make sure to have / in front of file name
+        return new Scene(fxmlLoader.load());
     }
 
 
