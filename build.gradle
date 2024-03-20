@@ -43,6 +43,7 @@ configurations {
 
 dependencies {
     implementation "com.esri.arcgisruntime:arcgis-java:$arcgisVersion"
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     natives "com.esri.arcgisruntime:arcgis-java-jnilibs:$arcgisVersion"
     natives "com.esri.arcgisruntime:arcgis-java-resources:$arcgisVersion"
     // handle SLF4J http://www.slf4j.org/codes.html#StaticLoggerBinder using a no-operation logger
@@ -70,4 +71,9 @@ task copyNatives(type: Copy) {
 
 run {
     dependsOn copyNatives
+}
+
+test {
+    useJUnitPlatform()
+
 }
