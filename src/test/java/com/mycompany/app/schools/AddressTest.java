@@ -15,14 +15,19 @@ public class AddressTest {
     @Test
     void testToString() {
         String expected = "1234 Fake Street";
-        assertEquals(expected,testAddress);
+        assertEquals(expected,testAddress.toString());
     }
 
     @Test
     void testEquals() {
+        Address expectedAddress = new Address("1234","Fake Street");
+        assertEquals(expectedAddress,testAddress);
     }
 
     @Test
     void testHashCode() {
+        Address expectedAddress = new Address("1234","Fake Street");
+        assertEquals(expectedAddress.hashCode(),testAddress.hashCode());
+
     }
 }
