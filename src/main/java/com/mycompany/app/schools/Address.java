@@ -14,7 +14,7 @@ public class Address {
     @Override
     public String toString() {
 
-        String addressReturnString = this.streetName + " " + this.buildingNumber;
+        String addressReturnString = this.buildingNumber + " " + this.streetName;
         return addressReturnString;
     }
 

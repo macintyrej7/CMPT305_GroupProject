@@ -1,6 +1,9 @@
 package com.mycompany.app.schools;
 
+import java.util.Objects;
+
 public class School {
+
     private int schoolNumber;
     private String schoolName;
     private String schoolType;
@@ -74,6 +77,18 @@ public class School {
 
     public String getSchoolWebsite() {
         return this.schoolWebsite;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof School school)) return false;
+        return schoolNumber == school.schoolNumber && hasSpanish == school.hasSpanish && hasFrench == school.hasFrench && schoolName.equals(school.schoolName) && schoolType.equals(school.schoolType) && schoolAddress.equals(school.schoolAddress) && schoolCoordinates.equals(school.schoolCoordinates) && schooLGradeLevel.equals(school.schooLGradeLevel) && email.equals(school.email) && schoolPhoneNumber.equals(school.schoolPhoneNumber) && schoolWebsite.equals(school.schoolWebsite);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(schoolNumber, schoolName, schoolType, schoolAddress, schoolCoordinates, schooLGradeLevel, hasSpanish, hasFrench, email, schoolPhoneNumber, schoolWebsite);
     }
 }
 

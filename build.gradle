@@ -72,3 +72,8 @@ task copyNatives(type: Copy) {
 run {
     dependsOn copyNatives
 }
+
+test {
+    useJUnitPlatform()
+
+}

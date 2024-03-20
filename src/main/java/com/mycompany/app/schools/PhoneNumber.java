@@ -3,6 +3,8 @@ package com.mycompany.app.schools;
 import java.util.Objects;
 
 public class PhoneNumber {
+
+
     private String areaCode;
     private String phonePrefix;
     private String phoneNumber;
@@ -24,6 +26,7 @@ public class PhoneNumber {
     private String removeNonIntegers(String input) {
         return input.replaceAll("[^0-9]", "");
     }
+
     private Boolean isValidLength(String input){
         if(input.length() == 10){
             return true;
@@ -33,9 +36,13 @@ public class PhoneNumber {
         }
     }
 
+    public String getAreaCode() {
+        return areaCode;
+    }
+
     @Override
     public String toString() {
-        return "(" + this.areaCode + ") " + this.phonePrefix + " - " + this.phoneNumber;
+        return "(" + this.areaCode + ") " + this.phonePrefix + "-" + this.phoneNumber;
     }
 
     @Override
