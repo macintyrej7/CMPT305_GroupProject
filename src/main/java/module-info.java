@@ -23,4 +23,5 @@ module com.mycompany.app {
     requires java.desktop;
 
     exports com.mycompany.app;
+    exports com.mycompany.app.schools;
 }
