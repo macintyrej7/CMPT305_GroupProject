@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+
+<TabPane fx:id="mainTabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="200.0" tabMaxWidth="200.0" tabMinHeight="50.0" tabMinWidth="300.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <tabs>
+      <Tab fx:id="mapTab" text="Map">
+          <fx:include fx:id="mapPage" source="mapScreen.fxml" />
+          <graphic>
+              <ImageView>
+                  <image>
+                      <Image url="@images/map.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Tab>
+      <Tab fx:id="reportTab" text="Reports">
+        <content>
+            <fx:include fx:id="reportPage" source="reports.fxml" />
+        </content>
+          <graphic>
+              <ImageView>
+                  <image>
+                      <Image url="@images/reports.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+
+      </Tab>
+      <Tab fx:id="settingsTab" text="Settings">
+        <content>
+            <fx:include fx:id="settingsPage" source="settings.fxml" />
+        </content>
+          <graphic>
+              <ImageView>
+                  <image>
+                      <Image url="@images/settings.png" />
+                  </image>
+              </ImageView>
+          </graphic>
+      </Tab>
+   </tabs>
+   <padding>
+      <Insets left="-10.0" />
+   </padding>
+</TabPane>
