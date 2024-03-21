@@ -52,7 +52,7 @@ public class School {
     }
 
     public List<String> getSchoolGradeLevels() {
-        return new ArrayList<>(schoolGradeLevels);
+        return List.copyOf(schoolGradeLevels);
     }
 
     public boolean isSpanishBilingual() {
