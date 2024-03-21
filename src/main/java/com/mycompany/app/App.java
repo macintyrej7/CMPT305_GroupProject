@@ -89,7 +89,7 @@ public class App extends Application {
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
 
-        schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_19_2024.csv");
+        schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
         double schoolX, schoolY;
         for (School school: schoolList){
             schoolX = school.getSchoolCoordinates().getLatitude();
