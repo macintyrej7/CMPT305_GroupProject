@@ -52,7 +52,7 @@ public class MapScreenController {
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
 
     @FXML
-    public Label languageProgramsLabel, appliedFiltersLabel;
+    public Label languageProgramsLabel, appliedFiltersLabel, resultsReturnedLabel;
     @FXML
     private StackPane mapPane;
     @FXML
@@ -91,6 +91,7 @@ public class MapScreenController {
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             graphicsOverlay.getGraphics().add(schoolGraphic);
         }
+        resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
 
         mapView.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.isStillSincePress()) {
@@ -209,6 +210,7 @@ public class MapScreenController {
 
         getMapOverlay().getGraphics().clear();
         List<School> filteredSchools = schoolList.stream().filter(finalPred).toList();
+        resultsReturnedLabel.setText(String.valueOf(filteredSchools.size()) + " Results");
         getSchools(filteredSchools, getMapOverlay());
     }
 
