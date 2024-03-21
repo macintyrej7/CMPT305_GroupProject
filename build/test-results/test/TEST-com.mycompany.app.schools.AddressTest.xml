@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.app.schools.AddressTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-03-20T16:46:44" hostname="brians-mac.lan" time="0.024">
+<testsuite name="com.mycompany.app.schools.AddressTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2024-03-20T23:57:40" hostname="JASON-INTEL" time="0.073">
   <properties/>
-  <testcase name="testToString()" classname="com.mycompany.app.schools.AddressTest" time="0.023"/>
+  <testcase name="testToString()" classname="com.mycompany.app.schools.AddressTest" time="0.069"/>
   <testcase name="testHashCode()" classname="com.mycompany.app.schools.AddressTest" time="0.001"/>
-  <testcase name="testEquals()" classname="com.mycompany.app.schools.AddressTest" time="0.0"/>
+  <testcase name="testEquals()" classname="com.mycompany.app.schools.AddressTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

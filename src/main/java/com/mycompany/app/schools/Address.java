@@ -3,18 +3,26 @@ package com.mycompany.app.schools;
 import java.util.Objects;
 
 public class Address {
-    private String buildingNumber;
-    private String streetName;
+    private String schoolAddress;
+    private String postalCode;
 
-    public Address(String buildingNumber, String streetName){
-        this.buildingNumber = buildingNumber;
-        this.streetName = streetName;
+    public Address(String schoolAddress, String postalCode){
+        this.schoolAddress = schoolAddress;
+        this.postalCode = postalCode;
+    }
+
+    public String getSchoolAddress() {
+        return schoolAddress;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
     }
 
     @Override
     public String toString() {
 
-        String addressReturnString = this.buildingNumber + " " + this.streetName;
+        String addressReturnString = this.schoolAddress + " " + this.postalCode;
         return addressReturnString;
     }
 
@@ -23,11 +31,11 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address that = (Address) o;
-        return buildingNumber.equals(that.buildingNumber) && streetName.equals(that.streetName);
+        return schoolAddress.equals(that.schoolAddress) && postalCode.equals(that.postalCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(buildingNumber, streetName);
+        return Objects.hash(schoolAddress, postalCode);
     }
 }
