@@ -79,7 +79,10 @@ public class ImportSchools {
 
         Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
 
-        return new School(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels
-                , schoolSpanishBilingual, schoolFrenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite);
+        String schoolType = values[14];
+
+        return new School(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels,
+                schoolSpanishBilingual, schoolFrenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite,
+                schoolType);
     }
 }
