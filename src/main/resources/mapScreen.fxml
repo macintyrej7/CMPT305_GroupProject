@@ -54,6 +54,11 @@
                   <Font size="22.0" />
                </font>
             </Label>
+            <Label fx:id="resultsReturnedLabel" text="n returned: ">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
    </children>
