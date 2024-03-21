@@ -16,11 +16,12 @@ public class School {
     private boolean spanishBilingual;
     private boolean frenchImmersion;
     private Coordinates schoolCoordinates;
+    private String schoolType;
 
     public School(int schoolNumber, String schoolName, Address schoolAddress,
                   Coordinates schoolCoordinates, List<String> schoolGradeLevels, boolean spanishBilingual,
                   boolean frenchImmersion, String schoolEmail, PhoneNumber schoolPhoneNumber,
-                  String schoolWebsite) {
+                  String schoolWebsite, String schoolType) {
 
         this.schoolNumber = schoolNumber;
         this.schoolName = schoolName;
@@ -32,6 +33,7 @@ public class School {
         this.schoolEmail = schoolEmail;
         this.schoolPhoneNumber = schoolPhoneNumber;
         this.schoolWebsite = schoolWebsite;
+        this.schoolType = schoolType;
     }
 
 
@@ -75,6 +77,8 @@ public class School {
         return this.schoolWebsite;
     }
 
+    public String getSchoolType() {return this.schoolType;}
+
     @Override
     public String toString() {
 
@@ -82,6 +86,7 @@ public class School {
 
         schoolString.append("School Name: " + schoolName + "\n");
         schoolString.append("School Number: " + schoolNumber + "\n");
+        schoolString.append("School Type: " + schoolType + "\n");
         schoolString.append("School Address: " + schoolAddress.toString() + "\n");
         schoolString.append("School Phone Number: " + schoolPhoneNumber.toString() + "\n");
         schoolString.append("School Email: " + schoolEmail + "\n");
@@ -98,12 +103,12 @@ public class School {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof School school)) return false;
-        return schoolNumber == school.schoolNumber && spanishBilingual == school.spanishBilingual && frenchImmersion == school.frenchImmersion && schoolName.equals(school.schoolName) && schoolAddress.equals(school.schoolAddress) && schoolCoordinates.equals(school.schoolCoordinates) && schoolGradeLevels.equals(school.schoolGradeLevels) && schoolEmail.equals(school.schoolEmail) && schoolPhoneNumber.equals(school.schoolPhoneNumber) && schoolWebsite.equals(school.schoolWebsite);
+        return schoolNumber == school.schoolNumber && spanishBilingual == school.spanishBilingual && frenchImmersion == school.frenchImmersion && schoolName.equals(school.schoolName) && schoolAddress.equals(school.schoolAddress) && schoolCoordinates.equals(school.schoolCoordinates) && schoolGradeLevels.equals(school.schoolGradeLevels) && schoolEmail.equals(school.schoolEmail) && schoolPhoneNumber.equals(school.schoolPhoneNumber) && schoolWebsite.equals(school.schoolWebsite) && schoolType.equals(school.schoolType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels, spanishBilingual, frenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite);
+        return Objects.hash(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels, spanishBilingual, frenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite, schoolType);
     }
 }
 

@@ -25,7 +25,8 @@ class SchoolTest {
                 true,
                 "email@school.com",
                 new PhoneNumber("1234567890"),
-                "http://school.com"
+                "http://school.com",
+                "Public"
                 );
 
 
@@ -93,7 +94,13 @@ class SchoolTest {
     @Test
     void getSchoolWebsite() {
         String expected = "http://school.com";
-        assertEquals(expected,testSchool.getSchoolWebsite());
+        assertEquals(expected, testSchool.getSchoolWebsite());
+    }
+
+    @Test
+    void getSchoolType() {
+        String expected = "Public";
+        assertEquals(expected, testSchool.getSchoolType());
     }
 
     @Test
@@ -111,7 +118,8 @@ class SchoolTest {
                 true,
                 "email@school.com",
                 new PhoneNumber("1234567890"),
-                "http://school.com"
+                "http://school.com",
+                "Public"
         );
         assertEquals(expected,testSchool);
     }
@@ -131,7 +139,8 @@ class SchoolTest {
                 true,
                 "email@school.com",
                 new PhoneNumber("1234567890"),
-                "http://school.com"
+                "http://school.com",
+                "Public"
         );
         assertEquals(expected.hashCode(),testSchool.hashCode());
     }
