@@ -1,4 +1,15 @@
 /**
+* Authors: Legan Hunter-Mutima, Brian Lin, Jason MacIntyre, Sankalp Shrivastav
+* Course: CMPT 305 AS01
+* Instructor: Dr. Indratmo
+* Assignment: Group project
+* Due date: ???
+* Last worked on: Mar 21, 2024
+* Program name:
+* Program description:
+*/
+
+/**
  * Copyright 2019 Esri
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -74,7 +85,6 @@ public class App extends Application {
         stage.setHeight(screenSizeHeight);
         stage.setWidth(screenSizeWidth);
         stage.show();
-
     }
 
     /**

@@ -1,3 +1,14 @@
+/**
+ * Authors: Legan Hunter-Mutima, Brian Lin, Jason MacIntyre, Sankalp Shrivastav
+ * Course: CMPT 305 AS01
+ * Instructor: Dr. Indratmo
+ * Assignment: Group project
+ * Due date: ???
+ * Last worked on: Mar 21, 2024
+ * Program name:
+ * Program description:
+ */
+
 package com.mycompany.app;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
@@ -37,7 +48,6 @@ public class MapScreenController {
     private ArcGISMap map;
 
     private List<School> schoolList;
-
 
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
 
@@ -80,8 +90,6 @@ public class MapScreenController {
             Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName());
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             graphicsOverlay.getGraphics().add(schoolGraphic);
-
-
         }
 
         mapView.setOnMouseClicked(mouseEvent -> {
@@ -106,7 +114,6 @@ public class MapScreenController {
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             graphicsOverlay.getGraphics().add(schoolGraphic);
         }
-
     }
 
     /**
@@ -138,7 +145,6 @@ public class MapScreenController {
             // on any error, display the stack trace
             e.printStackTrace();
         }
-
     }
 
     public Scene loadSceneFromFXML(String fxmlFileName) throws IOException {
@@ -202,8 +208,8 @@ public class MapScreenController {
         appliedFiltersLabel.setText(appliedFiltersString);
 
         getMapOverlay().getGraphics().clear();
-        List<School> frenchSchools = schoolList.stream().filter(finalPred).toList();
-        getSchools(frenchSchools, getMapOverlay());
+        List<School> filteredSchools = schoolList.stream().filter(finalPred).toList();
+        getSchools(filteredSchools, getMapOverlay());
     }
 
 
