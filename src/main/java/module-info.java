@@ -21,7 +21,7 @@ module com.mycompany.app {
   requires org.slf4j.nop;
     requires javafx.fxml;
     requires java.desktop;
-
+    opens com.mycompany.app to javafx.fxml;
     exports com.mycompany.app;
     exports com.mycompany.app.schools;
 }
