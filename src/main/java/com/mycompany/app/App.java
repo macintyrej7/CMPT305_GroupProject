@@ -28,6 +28,7 @@ import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Viewpoint;
+import com.mycompany.app.schools.School;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +36,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -49,6 +51,8 @@ public class App extends Application {
     private ArcGISMap map;
 
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
+
+    private List<School> schoolList;
 
     public static void main(String[] args) {
         Application.launch(args);
@@ -84,14 +88,18 @@ public class App extends Application {
         GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
-        // create a point geometry with a geo-coords, Detail can be added to Point/Graphics via attribute dictionary
-        Graphic pointGraphic = createPointGraphic(53.5221,-113.6243, "West Edmonton Mall");
-        Graphic pointGraphicOther = createPointGraphic(53.546989, -113.503929, "Macewan University");
 
-        // add the point graphic to the graphics overlay
-        graphicsOverlay.getGraphics().add(pointGraphic);
-        graphicsOverlay.getGraphics().add(pointGraphicOther);
+        schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_19_2024.csv");
+        double schoolX, schoolY;
+        for (School school: schoolList){
+            schoolX = school.getSchoolCoordinates().getLatitude();
+            schoolY = school.getSchoolCoordinates().getLongitude();
+            Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName());
+            schoolGraphic.getAttributes().put("SCHOOL", school.toString());
+            graphicsOverlay.getGraphics().add(schoolGraphic);
 
+
+        }
 
         mapView.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.isStillSincePress()) {
@@ -144,13 +152,14 @@ public class App extends Application {
                 var dialog = new Alert(Alert.AlertType.INFORMATION);
                 dialog.initOwner(mapView.getScene().getWindow());
                 dialog.setHeaderText(null);
-                dialog.setTitle("Information Dialog Sample");
                 // Should map Graphic name to school/data here to retrieve its details
                 Graphic clickedGraphic =  graphics.get(0);
-                dialog.setContentText("Clicked on " + clickedGraphic.getAttributes().get("name") + " point"
-                + "\n Lat/Long: " + clickedGraphic.getAttributes().get("latitude") +
-                                ", " +  clickedGraphic.getAttributes().get("longitude")
+                dialog.setTitle((String) clickedGraphic.getAttributes().get("name") + " School");
+                dialog.setContentText((String) clickedGraphic.getAttributes().get("SCHOOL")
                 );
+                dialog.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+                dialog.getDialogPane().setStyle("-fx-font: 16 arial;");
+
                 dialog.showAndWait();
             }
         } catch (Exception e) {
@@ -165,9 +174,9 @@ public class App extends Application {
         Point point = new Point(longitude, latitude, SpatialReferences.getWgs84());
         // create an opaque orange point symbol with a opaque blue outline symbol
         SimpleMarkerSymbol simpleMarkerSymbol =
-                new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, Color.ORANGE, 14);
+                new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, Color.DARKSEAGREEN, 14);
         SimpleLineSymbol blueOutlineSymbol =
-                new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.BLUE, 2);
+                new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.DARKSLATEGRAY, 2);
         simpleMarkerSymbol.setOutline(blueOutlineSymbol);
 
         // create a graphic with the point geometry and symbol
