@@ -80,6 +80,6 @@ public class ImportSchools {
         Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
 
         return new School(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels
-                , schoolFrenchImmersion, schoolSpanishBilingual, schoolEmail, schoolPhoneNumber, schoolWebsite);
+                , schoolSpanishBilingual, schoolFrenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite);
     }
 }
