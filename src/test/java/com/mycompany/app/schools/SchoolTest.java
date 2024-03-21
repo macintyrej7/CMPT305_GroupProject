@@ -3,6 +3,9 @@ package com.mycompany.app.schools;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SchoolTest {
@@ -10,12 +13,14 @@ class SchoolTest {
     @BeforeEach
     void setUp() {
 
+        List<String> gradeLevels = new ArrayList<>();
+        gradeLevels.add("Elementary");
+
         testSchool = new School(1234,
                 "Fake School",
-                "Public",
                 new Address("123","Fake Street"),
                 new Coordinates(123.123,456.456),
-                "Elementary",
+                gradeLevels,
                 true,
                 true,
                 "email@school.com",
@@ -40,12 +45,6 @@ class SchoolTest {
     }
 
     @Test
-    void getSchoolType() {
-        String expected = "Public";
-        assertEquals(expected,testSchool.getSchoolType());
-    }
-
-    @Test
     void getSchoolAddress() {
         Address expected = new Address("123","Fake Street");
         assertEquals(expected,testSchool.getSchoolAddress());
@@ -60,26 +59,28 @@ class SchoolTest {
 
     @Test
     void getSchooLGradeLevel() {
-        String expected = "Elementary";
-        assertEquals(expected,testSchool.getSchooLGradeLevel());
+        List<String> testGradeLevels = new ArrayList<>();
+        testGradeLevels.add("Elementary");
+
+        assertEquals(testGradeLevels, testSchool.getSchoolGradeLevels());
     }
 
     @Test
     void isHasSpanish() {
         boolean expected = true;
-        assertEquals(expected,testSchool.isHasSpanish());
+        assertEquals(expected,testSchool.isSpanishBilingual());
     }
 
     @Test
     void isHasFrench() {
         boolean expected = true;
-        assertEquals(expected,testSchool.isHasFrench());
+        assertEquals(expected,testSchool.isFrenchImmersion());
     }
 
     @Test
     void getEmail() {
         String expected = "email@school.com";
-        assertEquals(expected,testSchool.getEmail());
+        assertEquals(expected,testSchool.getSchoolEmail());
 
     }
 
@@ -97,12 +98,15 @@ class SchoolTest {
 
     @Test
     void testEquals() {
+
+        List<String> expectedGradeLevels = new ArrayList<>();
+        expectedGradeLevels.add("Elementary");
+
         School expected = new School(1234,
                 "Fake School",
-                "Public",
                 new Address("123","Fake Street"),
                 new Coordinates(123.123,456.456),
-                "Elementary",
+                expectedGradeLevels,
                 true,
                 true,
                 "email@school.com",
@@ -114,12 +118,15 @@ class SchoolTest {
 
     @Test
     void testHashCode() {
+
+        List<String> expectedGradeLevels = new ArrayList<>();
+        expectedGradeLevels.add("Elementary");
+
         School expected = new School(1234,
                 "Fake School",
-                "Public",
                 new Address("123","Fake Street"),
                 new Coordinates(123.123,456.456),
-                "Elementary",
+                expectedGradeLevels,
                 true,
                 true,
                 "email@school.com",

@@ -9,7 +9,7 @@ public class PhoneNumber {
     private String phonePrefix;
     private String phoneNumber;
 
-    PhoneNumber(String input){
+    public PhoneNumber(String input){
         String processedNumber = removeNonIntegers(input);
 
         if(isValidLength(processedNumber)){
