@@ -42,11 +42,11 @@ public class MapScreenController {
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
 
     @FXML
-    public Label languageProgramsLabel;
+    public Label languageProgramsLabel, appliedFiltersLabel;
     @FXML
     private StackPane mapPane;
     @FXML
-    private CheckBox spanishCheckbox, frenchCheckbox;
+    private CheckBox spanishCheckbox, frenchCheckbox, publicCheckbox, catholicCheckbox;
 
 
 
@@ -169,28 +169,41 @@ public class MapScreenController {
 
         Predicate<School> frenchPred = school -> school.isFrenchImmersion();
         Predicate<School> spanishPred = school -> school.isSpanishBilingual();
+        Predicate<School> publicPred = school -> school.getSchoolType().equals("Public");
+        Predicate<School> catholicPred = school -> school.getSchoolType().equals("Catholic");
         Predicate<School> allPred = school -> school.equals(school);
         Predicate<School> finalPred = school -> school.equals(school);
+
+        String appliedFiltersString = "Applied Filters: ";
+
         if (spanishCheckbox.isSelected()){
-            languageProgramsLabel.setText("SHOWING SPANISH");
-            finalPred = spanishPred;
+            appliedFiltersString = appliedFiltersString + "\nSPANISH";
+            finalPred = finalPred.and(spanishPred);
         }
-        if (frenchCheckbox.isSelected() && !spanishCheckbox.isSelected()){
-            languageProgramsLabel.setText("SHOWING FRENCH");
-            finalPred = frenchPred;
+        if (frenchCheckbox.isSelected()){
+            appliedFiltersString = appliedFiltersString + "\nFRENCH";
+            finalPred = finalPred.and(frenchPred);
         }
-        if (frenchCheckbox.isSelected() && spanishCheckbox.isSelected()){
-            languageProgramsLabel.setText("SHOWING FRENCH + SPANISH");
-            finalPred = frenchPred.and(spanishPred);
+
+        if (publicCheckbox.isSelected()) {
+            appliedFiltersString = appliedFiltersString + "\nPUBLIC";
+            finalPred = finalPred.and(publicPred);
         }
-        if (!frenchCheckbox.isSelected() && !spanishCheckbox.isSelected()){
-            languageProgramsLabel.setText("SHOWING ALL");
+        if (catholicCheckbox.isSelected()) {
+            appliedFiltersString = appliedFiltersString + "\nCATHOLIC";
+            finalPred = finalPred.and(catholicPred);
+        }
+
+        if (!frenchCheckbox.isSelected() && !spanishCheckbox.isSelected() && !publicCheckbox.isSelected() && !catholicCheckbox.isSelected()){
+            //showingString = showingString + "";
             finalPred = allPred;
         }
+
+        appliedFiltersLabel.setText(appliedFiltersString);
+
         getMapOverlay().getGraphics().clear();
         List<School> frenchSchools = schoolList.stream().filter(finalPred).toList();
         getSchools(frenchSchools, getMapOverlay());
-
     }
 
 
