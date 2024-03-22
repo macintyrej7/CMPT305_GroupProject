@@ -1,15 +1,4 @@
 /**
-* Authors: Legan Hunter-Mutima, Brian Lin, Jason MacIntyre, Sankalp Shrivastav
-* Course: CMPT 305 AS01
-* Instructor: Dr. Indratmo
-* Assignment: Group project
-* Due date: ???
-* Last worked on: Mar 21, 2024
-* Program name:
-* Program description:
-*/
-
-/**
  * Copyright 2019 Esri
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -30,27 +19,15 @@ package com.mycompany.app;
 
 
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
-import com.esri.arcgisruntime.geometry.*;
 import com.esri.arcgisruntime.mapping.view.*;
-import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
-import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
+
 import java.awt.Dimension;
-import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
-import com.esri.arcgisruntime.mapping.BasemapStyle;
+
 import com.esri.arcgisruntime.mapping.ArcGISMap;
-import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.mycompany.app.schools.School;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -85,6 +62,7 @@ public class App extends Application {
         stage.setHeight(screenSizeHeight);
         stage.setWidth(screenSizeWidth);
         stage.show();
+
     }
 
     /**

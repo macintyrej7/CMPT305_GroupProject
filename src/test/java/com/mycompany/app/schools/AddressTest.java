@@ -1,16 +1,6 @@
-/**
- * Authors: Legan Hunter-Mutima, Brian Lin, Jason MacIntyre, Sankalp Shrivastav
- * Course: CMPT 305 AS01
- * Instructor: Dr. Indratmo
- * Assignment: Group project
- * Due date: ???
- * Last worked on: Mar 21, 2024
- * Program name:
- * Program description:
- */
-
 package com.mycompany.app.schools;
 
+import com.mycompany.app.properties.Address;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

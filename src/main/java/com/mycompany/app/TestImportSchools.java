@@ -1,14 +1,3 @@
-/**
- * Authors: Legan Hunter-Mutima, Brian Lin, Jason MacIntyre, Sankalp Shrivastav
- * Course: CMPT 305 AS01
- * Instructor: Dr. Indratmo
- * Assignment: Group project
- * Due date: ???
- * Last worked on: Mar 21, 2024
- * Program name: TestImportSchools.java
- * Program description: this program is a simple test that calls the methods from ImportSchools.
- */
-
 package com.mycompany.app;
 
 import com.mycompany.app.schools.School;
@@ -24,7 +13,7 @@ public class TestImportSchools {
         List<School> testList = new ArrayList<>();
 
         try {
-            testList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
+            testList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_19_2024.csv");
         }
         catch (IOException ex) {
             System.out.println("Error: " + ex);

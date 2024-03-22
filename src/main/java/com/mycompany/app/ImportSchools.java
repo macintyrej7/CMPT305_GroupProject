@@ -1,17 +1,8 @@
-/**
- * Authors: Legan Hunter-Mutima, Brian Lin, Jason MacIntyre, Sankalp Shrivastav
- * Course: CMPT 305 AS01
- * Instructor: Dr. Indratmo
- * Assignment: Group project
- * Due date: ???
- * Last worked on: Mar 21, 2024
- * Program name: ImportSchool.java
- * Program description: this program parses a passed .csv file for Edmonton school data, and converts each row in the
- * .csv file into a School object.
- */
-
 package com.mycompany.app;
-import com.mycompany.app.schools.*;
+import com.mycompany.app.properties.Address;
+import com.mycompany.app.properties.Coordinates;
+import com.mycompany.app.schools.PhoneNumber;
+import com.mycompany.app.schools.School;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,36 +14,31 @@ import java.util.List;
 public class ImportSchools {
 
     public static List<School> readCSV(String fileName) throws IOException {
-        // this function returns a List<School> object, containing School objects whose data correspond to the data in
-        // the provided CSV file. This function uses the schoolHelper() helper function to parse each line in the CSV.
 
         List<School> schools = new ArrayList<>();
 
         BufferedReader reader = Files.newBufferedReader(Paths.get(fileName));
 
-        reader.readLine(); // read first line to skip the header row.
+        reader.readLine();
 
         String currentLine;
 
-        // keep looping until EOF.
         while ((currentLine = reader.readLine()) != null){
 
-            String[] values = currentLine.split(","); // split on commas.
+            String[] values = currentLine.split(",");
 
-            School currentSchool = schoolHelper(values); // parse current line.
+            School currentSchool = schoolHelper(values);
 
-            schools.add(currentSchool); // add to List.
+            schools.add(currentSchool);
         }
 
         return schools;
     }
 
     private static School schoolHelper(String[] values) {
-        // this function returns a School object based on the list of Strings it is passed.
 
         int schoolNumber;
 
-        // check if the school number is empty (Administration building does not have a school number).
         if (!values[0].isEmpty()){
             schoolNumber = Integer.parseInt(values[0]);
         }
@@ -66,9 +52,9 @@ public class ImportSchools {
 
         String schoolPostalCode = values[3];
 
-        Address schoolAddress = new Address(schoolStreet, schoolPostalCode); // build Address object.
+        Address schoolAddress = new Address(schoolStreet, schoolPostalCode);
 
-        PhoneNumber schoolPhoneNumber = new PhoneNumber(values[4]); // build PhoneNumber object.
+        PhoneNumber schoolPhoneNumber = new PhoneNumber(values[4]);
 
         String schoolEmail = values[5];
 
@@ -76,13 +62,12 @@ public class ImportSchools {
 
         List<String> schoolGradeLevels = new ArrayList<>();
 
-        // there will always be at least one grade level.
         schoolGradeLevels.add(values[7]);
 
-        // check if next two columns are empty - if not, add to list of grade levels.
         if (!values[8].isEmpty()){
             schoolGradeLevels.add(values[8]);
         }
+
         if (!values[9].isEmpty()){
             schoolGradeLevels.add(values[9]);
         }
@@ -95,11 +80,10 @@ public class ImportSchools {
 
         double schoolLongitude = Double.parseDouble(values[13]);
 
-        Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude); // build Coordinates object.
+        Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
 
         String schoolType = values[14];
 
-        // return a new School object with parsed information.
         return new School(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels,
                 schoolSpanishBilingual, schoolFrenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite,
                 schoolType);
