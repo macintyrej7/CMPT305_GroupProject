@@ -108,8 +108,8 @@ public class MapScreenController {
     private void drawSchools(List<School> tschoolList, GraphicsOverlay graphicsOverlay){
         double schoolX, schoolY;
         for (School school : tschoolList) {
-            schoolX = school.getSchoolCoordinates().getLatitude();
-            schoolY = school.getSchoolCoordinates().getLongitude();
+            schoolX = school.getCoordinates().getLatitude();
+            schoolY = school.getCoordinates().getLongitude();
             Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName(), decideColor(school));
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             graphicsOverlay.getGraphics().add(schoolGraphic);
