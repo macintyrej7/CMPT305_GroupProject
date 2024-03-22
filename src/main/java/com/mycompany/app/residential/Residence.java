@@ -15,9 +15,9 @@ public class Residence extends Property {
 
 
     public Residence(int accountNumber, List<AssessmentClass> assessmentClassList, int assessedValue,
-                     Neighbourhood neighbourhood, Address address, Coordinates coordinates) {
+                     Neighbourhood neighbourhood, Coordinates coordinates) {
 
-        super(address,coordinates, neighbourhood);
+        super(null,coordinates, neighbourhood);
 
         this.accountNumber = accountNumber;
         this.assessementClassList = assessmentClassList;

@@ -6,7 +6,7 @@ public class AssessmentClass {
     private String assessmentClassName;
     private double assessmentClassPercent;
 
-    AssessmentClass(String assessmentClass, double percent) {
+    public AssessmentClass(String assessmentClass, double percent) {
         this.assessmentClassName = assessmentClass;
         this.assessmentClassPercent = percent;
     }
