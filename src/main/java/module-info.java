@@ -24,4 +24,5 @@ module com.mycompany.app {
     opens com.mycompany.app to javafx.fxml;
     exports com.mycompany.app;
     exports com.mycompany.app.schools;
+    exports com.mycompany.app.properties;
 }

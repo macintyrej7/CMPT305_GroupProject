@@ -1,5 +1,7 @@
-package com.mycompany.app.schools;
+package com.mycompany.app.properties;
 
+
+import com.mycompany.app.properties.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,7 @@
 package com.mycompany.app.schools;
 
+import com.mycompany.app.properties.Address;
+import com.mycompany.app.properties.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,14 +50,14 @@ class SchoolTest {
     @Test
     void getSchoolAddress() {
         Address expected = new Address("123","Fake Street");
-        assertEquals(expected,testSchool.getSchoolAddress());
+        assertEquals(expected,testSchool.getAddress());
 
     }
 
     @Test
     void getSchoolCoordinates() {
         Coordinates expected = new Coordinates(123.123,456.456);
-        assertEquals(expected,testSchool.getSchoolCoordinates());
+        assertEquals(expected,testSchool.getCoordinates());
     }
 
     @Test
@@ -143,5 +145,27 @@ class SchoolTest {
                 "Public"
         );
         assertEquals(expected.hashCode(),testSchool.hashCode());
+
+
+    }
+
+
+    @Test
+    void testToString() {
+        String expected =
+                "School Name: Fake School\n" +
+                "School Number: 1234\n" +
+                        "School Type: Public\n" +
+                "School Address: 123 Fake Street\n" +
+                "School Phone Number: (123) 456-7890\n" +
+                "School Email: email@school.com\n" +
+                "School Website: http://school.com\n" +
+                "School Grade Levels: [Elementary]\n" +
+                "French Immersion: true\n" +
+                "Spanish Bilingual: true\n" +
+                "School Coordinates: (123.123, 456.456)\n";
+
+        assertEquals(expected,testSchool.toString());
+
     }
 }

@@ -1,5 +1,8 @@
 package com.mycompany.app;
-import com.mycompany.app.schools.*;
+import com.mycompany.app.properties.Address;
+import com.mycompany.app.properties.Coordinates;
+import com.mycompany.app.schools.PhoneNumber;
+import com.mycompany.app.schools.School;
 
 import java.io.BufferedReader;
 import java.io.IOException;

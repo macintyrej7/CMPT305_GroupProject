@@ -1,4 +1,4 @@
-package com.mycompany.app.schools;
+package com.mycompany.app.properties;
 
 import java.util.Objects;
 

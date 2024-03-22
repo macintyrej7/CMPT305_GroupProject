@@ -75,8 +75,8 @@ public class MapScreenController {
         schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
         double schoolX, schoolY;
         for (School school : schoolList) {
-            schoolX = school.getSchoolCoordinates().getLatitude();
-            schoolY = school.getSchoolCoordinates().getLongitude();
+            schoolX = school.getCoordinates().getLatitude();
+            schoolY = school.getCoordinates().getLongitude();
             Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName());
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             graphicsOverlay.getGraphics().add(schoolGraphic);
@@ -100,8 +100,8 @@ public class MapScreenController {
     private void getSchools(List<School> tschoolList, GraphicsOverlay graphicsOverlay){
         double schoolX, schoolY;
         for (School school : tschoolList) {
-            schoolX = school.getSchoolCoordinates().getLatitude();
-            schoolY = school.getSchoolCoordinates().getLongitude();
+            schoolX = school.getCoordinates().getLatitude();
+            schoolY = school.getCoordinates().getLongitude();
             Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName());
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             graphicsOverlay.getGraphics().add(schoolGraphic);

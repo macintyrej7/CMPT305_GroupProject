@@ -1,4 +1,7 @@
-package com.mycompany.app.schools;
+package com.mycompany.app.properties;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 
 import com.mycompany.app.properties.Address;
 import org.junit.jupiter.api.BeforeEach;
