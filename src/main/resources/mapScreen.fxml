@@ -3,62 +3,100 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="1440.0" maxWidth="2560.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.app.MapScreenController">
+<HBox maxHeight="1440.0" maxWidth="2560.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" spacing="10.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.app.MapScreenController">
    <children>
       <StackPane fx:id="mapPane" minHeight="1080.0" prefWidth="1200.0" />
-      <VBox fx:id="filterBox" minHeight="1080.0" minWidth="200.0" prefHeight="1080.0" prefWidth="200.0" spacing="5.0">
+      <VBox fx:id="filterBox" minHeight="1080.0" minWidth="200.0" prefHeight="1080.0" prefWidth="214.0" spacing="40.0">
          <children>
-            <Label fx:id="filterBoxLabel" prefHeight="103.0" prefWidth="156.0" text="Filter">
-               <font>
-                  <Font size="70.0" />
-               </font>
-            </Label>
-            <Label fx:id="languageProgramsLabel" text="Language programs" textFill="#0f6ad6">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <CheckBox fx:id="spanishCheckbox" mnemonicParsing="false" text="has Spanish">
-               <font>
-                  <Font size="14.0" />
-               </font></CheckBox>
-            <CheckBox fx:id="frenchCheckbox" mnemonicParsing="false" text="has French Immerison">
-               <font>
-                  <Font size="14.0" />
-               </font></CheckBox>
-            <Label fx:id="schoolBoardLabel" text="School board" textFill="#0f6ad6">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <CheckBox fx:id="publicCheckbox" mnemonicParsing="false" text="Public">
-               <font>
-                  <Font size="14.0" />
-               </font></CheckBox>
-            <CheckBox fx:id="catholicCheckbox" mnemonicParsing="false" text="Catholic">
-               <font>
-                  <Font size="14.0" />
-               </font></CheckBox>
-            <Button fx:id="mapApplyButton" mnemonicParsing="false" onMouseClicked="#onMapApplyButtonClick" prefHeight="28.0" prefWidth="202.0" text="Apply">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
-            <Label fx:id="appliedFiltersLabel" text="Applied Filters: " textFill="#0f6ad6">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Label fx:id="resultsReturnedLabel" text="n returned: ">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
+            <VBox fx:id="LanguageFilterVBox" prefHeight="56.0" prefWidth="214.0" spacing="10.0">
+               <children>
+                  <Label fx:id="filterBoxLabel" prefHeight="149.0" prefWidth="227.0" text="Filter">
+                     <font>
+                        <Font name="Dubai Regular" size="96.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="languageProgramsLabel" prefHeight="70.0" prefWidth="194.0" text="Language programs" textFill="#21bf75" underline="true">
+                     <font>
+                        <Font name="Dubai Regular" size="24.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="spanishCheckbox" mnemonicParsing="false" text="Spanish Bilingual">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="frenchCheckbox" mnemonicParsing="false" text="French Immerison">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="60.0" prefWidth="214.0" spacing="12.0">
+               <children>
+                  <Label fx:id="schoolBoardLabel" text="School board" textFill="#21bf75" underline="true">
+                     <font>
+                        <Font name="Dubai Regular" size="24.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="27.0">
+                     <children>
+                        <CheckBox fx:id="publicCheckbox" mnemonicParsing="false" text="Public">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </CheckBox>
+                        <Circle fill="#0000803b" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <CheckBox fx:id="catholicCheckbox" mnemonicParsing="false" text="Catholic">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </CheckBox>
+                        <Circle fill="#ffd4003b" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="120.0" prefWidth="214.0">
+               <children>
+                  <Label text="Property Radius" textFill="#21bf75" underline="true">
+                     <font>
+                        <Font name="Dubai Regular" size="24.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="propertyRadiusSlider" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+               <children>
+                  <Button fx:id="mapApplyButton" mnemonicParsing="false" onMouseClicked="#onMapApplyButtonClick" prefHeight="28.0" prefWidth="202.0" text="Apply">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="appliedFiltersLabel" text="Applied Filters: " textFill="#21bf75" underline="true">
+                     <font>
+                        <Font name="Dubai Regular" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="resultsReturnedLabel" prefHeight="55.0" prefWidth="133.0" text="n returned: ">
+                     <font>
+                        <Font name="Dubai Regular" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
          </children>
       </VBox>
    </children>

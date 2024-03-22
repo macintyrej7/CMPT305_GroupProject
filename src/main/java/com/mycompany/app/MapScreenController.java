@@ -17,6 +17,7 @@ import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
+import com.esri.arcgisruntime.mapping.popup.Popup;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.Graphic;
 import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
@@ -152,13 +153,15 @@ public class MapScreenController {
      */
     public Color decideColor(School schoolObj){
         String schoolType = schoolObj.getSchoolType().toLowerCase();
+        double opacity = 0.2;
         if(schoolType.equals("public")){
-            return Color.PALEVIOLETRED;
+            return Color.rgb(0, 0, 128, opacity); // purple
+
         }
         else if(schoolType.equals("catholic")){
-            return Color.BLUEVIOLET;
+            return Color.rgb(255, 215, 0, opacity); // yellow
         }
-        return Color.DARKSEAGREEN;
+        return Color.ORANGE;
     }
 
 
