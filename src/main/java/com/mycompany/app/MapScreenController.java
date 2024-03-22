@@ -14,6 +14,7 @@ package com.mycompany.app;
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
 import com.esri.arcgisruntime.concurrent.ListenableFuture;
 import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
@@ -96,6 +97,7 @@ public class MapScreenController {
                 identifyGraphics = mapView.identifyGraphicsOverlayAsync(graphicsOverlay, mapViewPoint, 5, false);
 
                 identifyGraphics.addDoneListener(() -> Platform.runLater(this::createGraphicDialog));
+
             }
         });
     }
@@ -112,9 +114,22 @@ public class MapScreenController {
             schoolY = school.getCoordinates().getLongitude();
             Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName(), decideColor(school));
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
+            schoolGraphic.getAttributes().put("X", schoolX);
+            schoolGraphic.getAttributes().put("Y", schoolY);
             graphicsOverlay.getGraphics().add(schoolGraphic);
         }
     }
+
+
+    private void moveToTargetPoint(double x, double y) {
+        // Create a point representing the location you want to move to
+        Point targetPoint = new Point(x, y, SpatialReference.create(4326));
+
+        // Set the viewpoint to center on the target point
+        mapView.setViewpoint(new Viewpoint(targetPoint, 10000)); // 10,000 is the scale
+    }
+
+
 
     /**
      * Indicates when a graphic is clicked by showing an Alert.
@@ -138,7 +153,8 @@ public class MapScreenController {
                 );
                 dialog.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
                 dialog.getDialogPane().setStyle("-fx-font: 16 arial;");
-
+                // Zoom on school click
+                moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
                 dialog.showAndWait();
             }
         } catch (Exception e) {
