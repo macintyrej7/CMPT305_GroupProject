@@ -11,6 +11,8 @@
  */
 
 package com.mycompany.app;
+import com.mycompany.app.properties.Address;
+import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.schools.*;
 
 import java.io.BufferedReader;
