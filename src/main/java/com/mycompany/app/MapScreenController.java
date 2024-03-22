@@ -1,3 +1,14 @@
+/**
+ * Authors: Legan Hunter-Mutima, Brian Lin, Jason MacIntyre, Sankalp Shrivastav
+ * Course: CMPT 305 AS01
+ * Instructor: Dr. Indratmo
+ * Assignment: Group project
+ * Due date: ???
+ * Last worked on: Mar 21, 2024
+ * Program name:
+ * Program description:
+ */
+
 package com.mycompany.app;
 
 import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
@@ -38,15 +49,14 @@ public class MapScreenController {
 
     private List<School> schoolList;
 
-
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
 
     @FXML
-    public Label languageProgramsLabel;
+    public Label languageProgramsLabel, appliedFiltersLabel, resultsReturnedLabel;
     @FXML
     private StackPane mapPane;
     @FXML
-    private CheckBox spanishCheckbox, frenchCheckbox;
+    private CheckBox spanishCheckbox, frenchCheckbox, publicCheckbox, catholicCheckbox;
 
 
 
@@ -75,14 +85,13 @@ public class MapScreenController {
         schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
         double schoolX, schoolY;
         for (School school : schoolList) {
-            schoolX = school.getCoordinates().getLatitude();
-            schoolY = school.getCoordinates().getLongitude();
+            schoolX = school.getSchoolCoordinates().getLatitude();
+            schoolY = school.getSchoolCoordinates().getLongitude();
             Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName());
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             graphicsOverlay.getGraphics().add(schoolGraphic);
-
-
         }
+        resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
 
         mapView.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.isStillSincePress()) {
@@ -100,13 +109,12 @@ public class MapScreenController {
     private void getSchools(List<School> tschoolList, GraphicsOverlay graphicsOverlay){
         double schoolX, schoolY;
         for (School school : tschoolList) {
-            schoolX = school.getCoordinates().getLatitude();
-            schoolY = school.getCoordinates().getLongitude();
+            schoolX = school.getSchoolCoordinates().getLatitude();
+            schoolY = school.getSchoolCoordinates().getLongitude();
             Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName());
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             graphicsOverlay.getGraphics().add(schoolGraphic);
         }
-
     }
 
     /**
@@ -138,7 +146,6 @@ public class MapScreenController {
             // on any error, display the stack trace
             e.printStackTrace();
         }
-
     }
 
     public Scene loadSceneFromFXML(String fxmlFileName) throws IOException {
@@ -169,28 +176,42 @@ public class MapScreenController {
 
         Predicate<School> frenchPred = school -> school.isFrenchImmersion();
         Predicate<School> spanishPred = school -> school.isSpanishBilingual();
+        Predicate<School> publicPred = school -> school.getSchoolType().equals("Public");
+        Predicate<School> catholicPred = school -> school.getSchoolType().equals("Catholic");
         Predicate<School> allPred = school -> school.equals(school);
         Predicate<School> finalPred = school -> school.equals(school);
+
+        String appliedFiltersString = "Applied Filters: ";
+
         if (spanishCheckbox.isSelected()){
-            languageProgramsLabel.setText("SHOWING SPANISH");
-            finalPred = spanishPred;
+            appliedFiltersString = appliedFiltersString + "\nSPANISH";
+            finalPred = finalPred.and(spanishPred);
         }
-        if (frenchCheckbox.isSelected() && !spanishCheckbox.isSelected()){
-            languageProgramsLabel.setText("SHOWING FRENCH");
-            finalPred = frenchPred;
+        if (frenchCheckbox.isSelected()){
+            appliedFiltersString = appliedFiltersString + "\nFRENCH";
+            finalPred = finalPred.and(frenchPred);
         }
-        if (frenchCheckbox.isSelected() && spanishCheckbox.isSelected()){
-            languageProgramsLabel.setText("SHOWING FRENCH + SPANISH");
-            finalPred = frenchPred.and(spanishPred);
+
+        if (publicCheckbox.isSelected()) {
+            appliedFiltersString = appliedFiltersString + "\nPUBLIC";
+            finalPred = finalPred.and(publicPred);
         }
-        if (!frenchCheckbox.isSelected() && !spanishCheckbox.isSelected()){
-            languageProgramsLabel.setText("SHOWING ALL");
+        if (catholicCheckbox.isSelected()) {
+            appliedFiltersString = appliedFiltersString + "\nCATHOLIC";
+            finalPred = finalPred.and(catholicPred);
+        }
+
+        if (!frenchCheckbox.isSelected() && !spanishCheckbox.isSelected() && !publicCheckbox.isSelected() && !catholicCheckbox.isSelected()){
+            //showingString = showingString + "";
             finalPred = allPred;
         }
-        getMapOverlay().getGraphics().clear();
-        List<School> frenchSchools = schoolList.stream().filter(finalPred).toList();
-        getSchools(frenchSchools, getMapOverlay());
 
+        appliedFiltersLabel.setText(appliedFiltersString);
+
+        getMapOverlay().getGraphics().clear();
+        List<School> filteredSchools = schoolList.stream().filter(finalPred).toList();
+        resultsReturnedLabel.setText(String.valueOf(filteredSchools.size()) + " Results");
+        getSchools(filteredSchools, getMapOverlay());
     }
 
 

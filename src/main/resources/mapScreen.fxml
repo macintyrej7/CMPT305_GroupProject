@@ -31,11 +31,34 @@
                <font>
                   <Font size="14.0" />
                </font></CheckBox>
+            <Label fx:id="schoolBoardLabel" text="School board" textFill="#0f6ad6">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="publicCheckbox" mnemonicParsing="false" text="Public">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
+            <CheckBox fx:id="catholicCheckbox" mnemonicParsing="false" text="Catholic">
+               <font>
+                  <Font size="14.0" />
+               </font></CheckBox>
             <Button fx:id="mapApplyButton" mnemonicParsing="false" onMouseClicked="#onMapApplyButtonClick" prefHeight="28.0" prefWidth="202.0" text="Apply">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
+            <Label fx:id="appliedFiltersLabel" text="Applied Filters: " textFill="#0f6ad6">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="resultsReturnedLabel" text="n returned: ">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
          </children>
       </VBox>
    </children>
