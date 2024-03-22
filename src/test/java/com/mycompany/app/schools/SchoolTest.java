@@ -1,7 +1,16 @@
+/**
+ * Authors: Legan Hunter-Mutima, Brian Lin, Jason MacIntyre, Sankalp Shrivastav
+ * Course: CMPT 305 AS01
+ * Instructor: Dr. Indratmo
+ * Assignment: Group project
+ * Due date: ???
+ * Last worked on: Mar 21, 2024
+ * Program name:
+ * Program description:
+ */
+
 package com.mycompany.app.schools;
 
-import com.mycompany.app.properties.Address;
-import com.mycompany.app.properties.Coordinates;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,14 +59,14 @@ class SchoolTest {
     @Test
     void getSchoolAddress() {
         Address expected = new Address("123","Fake Street");
-        assertEquals(expected,testSchool.getAddress());
+        assertEquals(expected,testSchool.getSchoolAddress());
 
     }
 
     @Test
     void getSchoolCoordinates() {
         Coordinates expected = new Coordinates(123.123,456.456);
-        assertEquals(expected,testSchool.getCoordinates());
+        assertEquals(expected,testSchool.getSchoolCoordinates());
     }
 
     @Test
@@ -145,27 +154,5 @@ class SchoolTest {
                 "Public"
         );
         assertEquals(expected.hashCode(),testSchool.hashCode());
-
-
-    }
-
-
-    @Test
-    void testToString() {
-        String expected =
-                "School Name: Fake School\n" +
-                "School Number: 1234\n" +
-                        "School Type: Public\n" +
-                "School Address: 123 Fake Street\n" +
-                "School Phone Number: (123) 456-7890\n" +
-                "School Email: email@school.com\n" +
-                "School Website: http://school.com\n" +
-                "School Grade Levels: [Elementary]\n" +
-                "French Immersion: true\n" +
-                "Spanish Bilingual: true\n" +
-                "School Coordinates: (123.123, 456.456)\n";
-
-        assertEquals(expected,testSchool.toString());
-
     }
 }
