@@ -72,7 +72,8 @@ public class MapScreenController {
         mapView.setMap(map);
 
         // Set Default location
-        mapView.setViewpoint(new Viewpoint(53.5409, -113.5084, 122227.638572));
+        mapView.setViewpoint(new Viewpoint(53.5000, -113.4909, 220000));
+
         // Set to StackPane inside tab
         mapPane.getChildren().add(mapView);
 
