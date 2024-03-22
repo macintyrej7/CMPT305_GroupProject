@@ -17,6 +17,7 @@ import com.esri.arcgisruntime.geometry.Point;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
+import com.esri.arcgisruntime.mapping.popup.Popup;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.Graphic;
 import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
@@ -27,9 +28,7 @@ import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import com.mycompany.app.schools.School;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -73,7 +72,8 @@ public class MapScreenController {
         mapView.setMap(map);
 
         // Set Default location
-        mapView.setViewpoint(new Viewpoint(53.5409, -113.5084, 122227.638572));
+        mapView.setViewpoint(new Viewpoint(53.5000, -113.4909, 220000));
+
         // Set to StackPane inside tab
         mapPane.getChildren().add(mapView);
 
@@ -83,14 +83,8 @@ public class MapScreenController {
 
 
         schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
-        double schoolX, schoolY;
-        for (School school : schoolList) {
-            schoolX = school.getSchoolCoordinates().getLatitude();
-            schoolY = school.getSchoolCoordinates().getLongitude();
-            Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName());
-            schoolGraphic.getAttributes().put("SCHOOL", school.toString());
-            graphicsOverlay.getGraphics().add(schoolGraphic);
-        }
+
+        drawSchools(schoolList, graphicsOverlay);
         resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
 
         mapView.setOnMouseClicked(mouseEvent -> {
@@ -106,12 +100,17 @@ public class MapScreenController {
         });
     }
 
-    private void getSchools(List<School> tschoolList, GraphicsOverlay graphicsOverlay){
+    /**
+     * Method which takes a list of object w/ coordinates and draws them to the graphics overlay.
+     * @param tschoolList
+     * @param graphicsOverlay
+     */
+    private void drawSchools(List<School> tschoolList, GraphicsOverlay graphicsOverlay){
         double schoolX, schoolY;
         for (School school : tschoolList) {
             schoolX = school.getSchoolCoordinates().getLatitude();
             schoolY = school.getSchoolCoordinates().getLongitude();
-            Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName());
+            Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName(), decideColor(school));
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             graphicsOverlay.getGraphics().add(schoolGraphic);
         }
@@ -148,17 +147,30 @@ public class MapScreenController {
         }
     }
 
-    public Scene loadSceneFromFXML(String fxmlFileName) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/" + fxmlFileName)); // Make sure to have / in front of file name
-        return new Scene(fxmlLoader.load());
+    /**
+     * Decide a color for a school point graphic based on its attributes.
+     * @param schoolObj
+     * @return
+     */
+    public Color decideColor(School schoolObj){
+        String schoolType = schoolObj.getSchoolType().toLowerCase();
+        double opacity = 0.2;
+        if(schoolType.equals("public")){
+            return Color.rgb(0, 0, 128, opacity); // purple
+
+        }
+        else if(schoolType.equals("catholic")){
+            return Color.rgb(255, 215, 0, opacity); // yellow
+        }
+        return Color.ORANGE;
     }
 
 
-    public Graphic createPointGraphic(double latitude, double longitude, String name){
+    public Graphic createPointGraphic(double latitude, double longitude, String name, Color pointColor){
         Point point = new Point(longitude, latitude, SpatialReferences.getWgs84());
         // create an opaque orange point symbol with a opaque blue outline symbol
         SimpleMarkerSymbol simpleMarkerSymbol =
-                new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, Color.DARKSEAGREEN, 14);
+                new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, pointColor, 14);
         SimpleLineSymbol blueOutlineSymbol =
                 new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.DARKSLATEGRAY, 2);
         simpleMarkerSymbol.setOutline(blueOutlineSymbol);
@@ -211,7 +223,7 @@ public class MapScreenController {
         getMapOverlay().getGraphics().clear();
         List<School> filteredSchools = schoolList.stream().filter(finalPred).toList();
         resultsReturnedLabel.setText(String.valueOf(filteredSchools.size()) + " Results");
-        getSchools(filteredSchools, getMapOverlay());
+        drawSchools(filteredSchools, getMapOverlay());
     }
 
 
