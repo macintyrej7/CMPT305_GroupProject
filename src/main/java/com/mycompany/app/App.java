@@ -89,6 +89,7 @@ public class App extends Application {
         stage.setScene(tabLayout);
         stage.setHeight(screenSizeHeight);
         stage.setWidth(screenSizeWidth);
+        stage.setMaximized(true);
         stage.show();
     }
 
