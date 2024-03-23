@@ -27,7 +27,10 @@ import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import com.esri.arcgisruntime.symbology.TextSymbol;
+import com.mycompany.app.properties.Coordinates;
+import com.mycompany.app.residential.Residence;
 import com.mycompany.app.schools.School;
+import com.mycompany.app.utilities.Calculations;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
@@ -52,6 +55,7 @@ public class MapScreenController {
     private ArcGISMap map;
 
     private List<School> schoolList;
+    private List<Residence> residenceList;
 
     private boolean popupShowing = false;
     private List<CustomPopup> popupList;
@@ -93,6 +97,8 @@ public class MapScreenController {
 
 
         schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
+        residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv");
+
         popupList = new ArrayList<>();
 
         drawSchools(schoolList, graphicsOverlay);
@@ -130,6 +136,7 @@ public class MapScreenController {
             schoolGraphic.getAttributes().put("SCHOOL", school.toString());
             schoolGraphic.getAttributes().put("X", schoolX);
             schoolGraphic.getAttributes().put("Y", schoolY);
+
             graphicsOverlay.getGraphics().add(schoolGraphic);
         }
     }
@@ -157,10 +164,18 @@ public class MapScreenController {
 
             if (!graphics.isEmpty()) {
 
+
                 // Should map Graphic name to school/data here to retrieve its details
                 Graphic clickedGraphic = graphics.get(0);
+
+                double schoolLatitude = (Double) clickedGraphic.getAttributes().get("X");
+                double schoolLongitude = (Double) clickedGraphic.getAttributes().get("Y");
+                Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
+
+                String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,2.0,schoolCoordinates);
+
                 String schoolName = (String) clickedGraphic.getAttributes().get("name") + " School";
-                String contentText = (String) clickedGraphic.getAttributes().get("SCHOOL");
+                String contentText = (String) clickedGraphic.getAttributes().get("SCHOOL") + "Average Value within 2.0 KM: $" + averageValue;
 
                 // Zoom on school click
                 //moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));

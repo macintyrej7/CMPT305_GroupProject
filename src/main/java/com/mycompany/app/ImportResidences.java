@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ImportResidences {
 
-    public List<Residence> readCSV(String fileName) throws IOException {
+    public static List<Residence> readCSV(String fileName) throws IOException {
 
         List<Residence> residences = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class ImportResidences {
         return residences;
     }
 
-    private Residence residenceHelper(String[] values) {
+    private static Residence residenceHelper(String[] values) {
 
         int propertyAssessmentNumber;
 
@@ -61,7 +61,7 @@ public class ImportResidences {
                 coordinates);
     }
 
-    public List<AssessmentClass> assessmentClassListHelper(String[] rowData,int startColumn, int endColumn) {
+    public static List<AssessmentClass> assessmentClassListHelper(String[] rowData, int startColumn, int endColumn) {
         List<AssessmentClass> assessmentClassList = new ArrayList<>();
 
         for(int i = startColumn;i<endColumn+1;i++){

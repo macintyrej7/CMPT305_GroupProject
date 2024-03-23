@@ -1,6 +1,12 @@
 package com.mycompany.app.utilities;
 
 import com.mycompany.app.properties.Coordinates;
+import com.mycompany.app.residential.Residence;
+
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+import java.util.OptionalDouble;
 
 public class Calculations {
 
@@ -18,12 +24,17 @@ public class Calculations {
         return distance;
     }
 
-        public static Double CalculateAverageAssessmentValue(List<Residence> residences, Double distance, Coordinates coordinates) {
+        public static String CalculateAverageAssessmentValue(List<Residence> residences, Double distance, Coordinates coordinates) {
         OptionalDouble average = residences.stream()
                 .filter(t -> CalculateDistance(t.getCoordinates(), coordinates) < distance)
                 .mapToDouble(t -> t.getAssessedValue())
                 .average();
 
-        return average.isPresent() ? average.getAsDouble() : 0.0;
+            if (average.isPresent()) {
+                NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
+                return currencyFormat.format(average.getAsDouble());
+            } else {
+                return NumberFormat.getCurrencyInstance(Locale.CANADA).format(0.0);
+            }
     }
 }
