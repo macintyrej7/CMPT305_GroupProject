@@ -24,13 +24,13 @@ Label {
 
 /* Styling for subheadings */
 #languageProgramsLabel, #schoolBoardLabel, #resultsReturnedLabel {
-    -fx-font-size: 20px;
+    -fx-font-size: 24px;
     -fx-text-fill: #21bf75; /* Green */
 }
 
 /* Styling for checkboxes */
 CheckBox {
-    -fx-font-size: 14px;
+    -fx-font-size: 12px;
     -fx-text-fill: #333333; /* Dark gray */
 }
 
@@ -41,6 +41,4 @@ Button {
     -fx-border-radius: 5px;
 }
 
-Button:hover {
-    -fx-background-color: #1a9e5;
-}
+
