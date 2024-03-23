@@ -66,6 +66,8 @@ public class App extends Application {
 
     private List<School> schoolList;
 
+
+
     public static void main(String[] args) {
         Application.launch(args);
     }

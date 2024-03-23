@@ -32,6 +32,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
@@ -142,20 +143,19 @@ public class MapScreenController {
             List<Graphic> graphics = result.getGraphics();
 
             if (!graphics.isEmpty()) {
-                // show an alert dialog box if a graphic was returned
-                var dialog = new Alert(Alert.AlertType.INFORMATION);
-                dialog.initOwner(mapView.getScene().getWindow());
-                dialog.setHeaderText(null);
+
                 // Should map Graphic name to school/data here to retrieve its details
                 Graphic clickedGraphic = graphics.get(0);
-                dialog.setTitle((String) clickedGraphic.getAttributes().get("name") + " School");
-                dialog.setContentText((String) clickedGraphic.getAttributes().get("SCHOOL")
-                );
-                dialog.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-                dialog.getDialogPane().setStyle("-fx-font: 16 arial;");
+                String schoolName = (String) clickedGraphic.getAttributes().get("name") + " School";
+                String contentText = (String) clickedGraphic.getAttributes().get("SCHOOL");
+
                 // Zoom on school click
-                moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
-                dialog.showAndWait();
+                //moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
+                CustomPopup schoolPopup = new CustomPopup();
+                double sceneX = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinX();
+                double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinY();
+                schoolPopup.setContent(schoolName, contentText);
+                schoolPopup.show(mapView.getScene().getWindow(), sceneX, sceneY);
             }
         } catch (Exception e) {
             // on any error, display the stack trace
@@ -246,5 +246,7 @@ public class MapScreenController {
     public GraphicsOverlay getMapOverlay(){
         return mapView.getGraphicsOverlays().get(0);
     }
+
+
 
 }
