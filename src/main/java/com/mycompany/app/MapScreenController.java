@@ -273,6 +273,24 @@ public class MapScreenController {
     }
 
 
+    public void onResetButtonClick(){
+        spanishCheckbox.setSelected(false);
+        frenchCheckbox.setSelected(false);
+        catholicCheckbox.setSelected(false);
+        publicCheckbox.setSelected(false);
+        appliedFiltersLabel.setText("Applied filters: ");
+        // Add line for Property slider
+        resetSchoolMap();
+    }
+
+
+    public void resetSchoolMap(){
+        getMapOverlay().getGraphics().clear();
+        resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
+        drawSchools(schoolList, getMapOverlay());
+    }
+
+
     public GraphicsOverlay getMapOverlay(){
         return mapView.getGraphicsOverlays().get(0);
     }
