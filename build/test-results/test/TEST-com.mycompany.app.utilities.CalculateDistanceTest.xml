@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mycompany.app.utilities.CalculateDistanceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-23T02:21:40" hostname="brians-mac.lan" time="0.017">
+  <properties/>
+  <testcase name="averageAssessmentValue()" classname="com.mycompany.app.utilities.CalculateDistanceTest" time="0.017"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
