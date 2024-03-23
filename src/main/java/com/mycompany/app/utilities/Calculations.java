@@ -1,6 +1,10 @@
 package com.mycompany.app.utilities;
 
 import com.mycompany.app.properties.Coordinates;
+import com.mycompany.app.residential.Residence;
+
+import java.util.List;
+import java.util.OptionalDouble;
 
 public class Calculations {
 
@@ -16,5 +20,14 @@ public class Calculations {
         double distance = Math.sqrt(x * x + y * y) * 6371;
 
         return distance;
+    }
+
+    public static Double CalculateAverageAssessmentValue(List<Residence> residences, Double distance, Coordinates coordinates) {
+        OptionalDouble average = residences.stream()
+                .filter(t -> CalculateDistance(t.getCoordinates(), coordinates) < distance)
+                .mapToDouble(t -> t.getAssessedValue())
+                .average();
+
+        return average.isPresent() ? average.getAsDouble() : 0.0;
     }
 }
