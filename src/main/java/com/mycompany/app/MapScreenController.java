@@ -175,7 +175,7 @@ public class MapScreenController {
                 String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,2.0,schoolCoordinates);
 
                 String schoolName = (String) clickedGraphic.getAttributes().get("name") + " School";
-                String contentText = (String) clickedGraphic.getAttributes().get("SCHOOL") + "Average Value within 2.0 KM: $" + averageValue;
+                String contentText = (String) clickedGraphic.getAttributes().get("SCHOOL") + "Average Value within 2.0 KM: " + averageValue;
 
                 // Zoom on school click
                 //moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
