@@ -49,7 +49,7 @@ class CalculateDistanceTest {
         double distance = 8.0;
         Coordinates coordinates = new Coordinates(53.63235491366557,-113.43446135956096);
 
-        double average = Calculations.CalculateAverageAssessmentValue(residences,distance,coordinates);
+        String average = Calculations.CalculateAverageAssessmentValue(residences,distance,coordinates);
 
         double expected = 15000.0;
 
