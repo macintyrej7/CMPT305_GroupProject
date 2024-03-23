@@ -30,6 +30,7 @@ import com.mycompany.app.schools.School;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialog;
@@ -49,6 +50,8 @@ public class MapScreenController {
     private ArcGISMap map;
 
     private List<School> schoolList;
+
+    private boolean popupShowing = false;
 
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
 
@@ -150,12 +153,15 @@ public class MapScreenController {
                 String contentText = (String) clickedGraphic.getAttributes().get("SCHOOL");
 
                 // Zoom on school click
-                //moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
+                moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
+                // Create Custom popup for school info
                 CustomPopup schoolPopup = new CustomPopup();
                 double sceneX = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinX();
                 double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinY();
                 schoolPopup.setContent(schoolName, contentText);
                 schoolPopup.show(mapView.getScene().getWindow(), sceneX, sceneY);
+
+
             }
         } catch (Exception e) {
             // on any error, display the stack trace

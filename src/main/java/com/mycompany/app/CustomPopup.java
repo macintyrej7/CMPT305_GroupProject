@@ -16,9 +16,8 @@ public class CustomPopup extends Popup {
 
     public CustomPopup() {
         VBox root = new VBox();
-        Color rgbColor = Color.rgb(118, 194, 175);
-        root.setStyle("-fx-padding: 10px;");
-        root.setBackground(new Background((new BackgroundFill(rgbColor, CornerRadii.EMPTY, null))));
+        // mint green + rounded edges
+        root.setStyle("-fx-padding: 10px; -fx-background-color: rgba(118, 194, 175, 0.8); -fx-background-radius: 10;");
         Label titleLabel = new Label();
         Label descriptionLabel = new Label();
 
@@ -58,15 +57,14 @@ public class CustomPopup extends Popup {
             setX(event.getScreenX() - xOffset);
             setY(event.getScreenY() - yOffset);
         });
-
         this.getContent().add(root);
     }
 
     public void setContent(String title, String description) {
         VBox root = (VBox) this.getContent().get(0);
         // Update the labels with the provided title and description
-        ((Label) root.getChildren().get(1)).setText(title); // Assuming the title label is the second child
-        ((Label) root.getChildren().get(2)).setText(description); // Assuming the description label is the third child
+        ((Label) root.getChildren().get(1)).setText(title);
+        ((Label) root.getChildren().get(2)).setText(description);
     }
 
     public void show(Window owner, double x, double y) {
@@ -74,4 +72,6 @@ public class CustomPopup extends Popup {
         this.setX(owner.getX() + owner.getWidth() / 2 - this.getWidth() / 2);
         this.setY(owner.getY() + owner.getHeight() / 2 - this.getHeight() / 2);
     }
+
+
 }
