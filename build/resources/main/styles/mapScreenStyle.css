@@ -1,0 +1,46 @@
+/* Apply modern styling to the map tab */
+#mapPane {
+    -fx-background-color: #f0f0f0; /* Light gray background */
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+}
+
+#filterBox {
+    -fx-background-color: #ffffff; /* White background */
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+}
+
+/* Styling for labels */
+Label {
+    -fx-font-family: "Dubai Light";
+}
+
+/* Styling for headings */
+#filterBoxLabel {
+    -fx-font-size: 60px;
+    -fx-text-fill: #333333; /* Dark gray */
+}
+
+/* Styling for subheadings */
+#languageProgramsLabel, #schoolBoardLabel, #resultsReturnedLabel {
+    -fx-font-size: 20px;
+    -fx-text-fill: #21bf75; /* Green */
+}
+
+/* Styling for checkboxes */
+CheckBox {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Dark gray */
+}
+
+/* Styling for buttons */
+Button {
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+}
+
+Button:hover {
+    -fx-background-color: #1a9e5;
+}

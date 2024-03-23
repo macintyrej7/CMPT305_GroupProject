@@ -46,6 +46,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -55,6 +56,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class App extends Application {
 
@@ -66,6 +68,8 @@ public class App extends Application {
 
     private List<School> schoolList;
 
+
+
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -73,13 +77,14 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        stage.setTitle("Exploring Edmonton - A CMPT305 Endeavor");
+        stage.setTitle("Exploring Edmonton");
         Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         double screenSizeWidth = screenSize.getWidth();
         double screenSizeHeight = screenSize.getHeight() * 0.90;
 
         // Load objects from FXML file into scenes and then into tabs
         Scene tabLayout = loadSceneFromFXML("tabLayout.fxml");
+        //tabLayout.getStylesheets().add(Objects.requireNonNull(getClass().getResource("tabStyle.css")).toExternalForm());
 
         stage.setScene(tabLayout);
         stage.setHeight(screenSizeHeight);

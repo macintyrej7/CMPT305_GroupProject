@@ -26,12 +26,15 @@ import com.esri.arcgisruntime.mapping.view.IdentifyGraphicsOverlayResult;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
+import com.esri.arcgisruntime.symbology.TextSymbol;
 import com.mycompany.app.schools.School;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Region;
@@ -39,6 +42,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -49,6 +53,9 @@ public class MapScreenController {
 
     private List<School> schoolList;
 
+    private boolean popupShowing = false;
+    private List<CustomPopup> popupList;
+
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
 
     @FXML
@@ -57,6 +64,8 @@ public class MapScreenController {
     private StackPane mapPane;
     @FXML
     private CheckBox spanishCheckbox, frenchCheckbox, publicCheckbox, catholicCheckbox;
+
+
 
 
 
@@ -84,6 +93,7 @@ public class MapScreenController {
 
 
         schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
+        popupList = new ArrayList<>();
 
         drawSchools(schoolList, graphicsOverlay);
         resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
@@ -91,16 +101,20 @@ public class MapScreenController {
         mapView.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.isStillSincePress()) {
                 // create a point from location clicked
-                Point2D mapViewPoint = new Point2D(mouseEvent.getX(), mouseEvent.getY());
+                double clickedX, clickedY;
+                clickedX = mouseEvent.getX();
+                clickedY = mouseEvent.getY();
+                Point2D mapViewPoint = new Point2D(clickedX, clickedY);
+
 
                 // identify graphics on the graphics overlay
                 identifyGraphics = mapView.identifyGraphicsOverlayAsync(graphicsOverlay, mapViewPoint, 5, false);
-
                 identifyGraphics.addDoneListener(() -> Platform.runLater(this::createGraphicDialog));
 
             }
         });
     }
+
 
     /**
      * Method which takes a list of object w/ coordinates and draws them to the graphics overlay.
@@ -142,25 +156,41 @@ public class MapScreenController {
             List<Graphic> graphics = result.getGraphics();
 
             if (!graphics.isEmpty()) {
-                // show an alert dialog box if a graphic was returned
-                var dialog = new Alert(Alert.AlertType.INFORMATION);
-                dialog.initOwner(mapView.getScene().getWindow());
-                dialog.setHeaderText(null);
+
                 // Should map Graphic name to school/data here to retrieve its details
                 Graphic clickedGraphic = graphics.get(0);
-                dialog.setTitle((String) clickedGraphic.getAttributes().get("name") + " School");
-                dialog.setContentText((String) clickedGraphic.getAttributes().get("SCHOOL")
-                );
-                dialog.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-                dialog.getDialogPane().setStyle("-fx-font: 16 arial;");
+                String schoolName = (String) clickedGraphic.getAttributes().get("name") + " School";
+                String contentText = (String) clickedGraphic.getAttributes().get("SCHOOL");
+
                 // Zoom on school click
-                moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
-                dialog.showAndWait();
+                //moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
+
+
+                // Create Custom popup for school info
+                CustomPopup schoolPopup = new CustomPopup();
+                double sceneX = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinX();
+                double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinY();
+                schoolPopup.setContent(schoolName, contentText);
+                if (!popupIsShowing()) {
+                    popupList.add(schoolPopup);
+                    schoolPopup.show(mapView.getScene().getWindow(), sceneX, sceneY);
+                }
+
+
             }
         } catch (Exception e) {
             // on any error, display the stack trace
             e.printStackTrace();
         }
+    }
+
+    public boolean popupIsShowing(){
+        for (CustomPopup popup: popupList){
+            if (popup.isShowing()){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -188,7 +218,7 @@ public class MapScreenController {
         SimpleMarkerSymbol simpleMarkerSymbol =
                 new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, pointColor, 14);
         SimpleLineSymbol blueOutlineSymbol =
-                new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.DARKSLATEGRAY, 2);
+                new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.rgb(0, 0, 0, 0.5), 1);
         simpleMarkerSymbol.setOutline(blueOutlineSymbol);
 
         // create a graphic with the point geometry and symbol
@@ -243,8 +273,28 @@ public class MapScreenController {
     }
 
 
+    public void onResetButtonClick(){
+        spanishCheckbox.setSelected(false);
+        frenchCheckbox.setSelected(false);
+        catholicCheckbox.setSelected(false);
+        publicCheckbox.setSelected(false);
+        appliedFiltersLabel.setText("Applied filters: ");
+        // Add line for Property slider
+        resetSchoolMap();
+    }
+
+
+    public void resetSchoolMap(){
+        getMapOverlay().getGraphics().clear();
+        resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
+        drawSchools(schoolList, getMapOverlay());
+    }
+
+
     public GraphicsOverlay getMapOverlay(){
         return mapView.getGraphicsOverlays().get(0);
     }
+
+
 
 }
