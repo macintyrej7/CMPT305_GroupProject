@@ -163,11 +163,8 @@ public class MapScreenController {
             List<Graphic> graphics = result.getGraphics();
 
             if (!graphics.isEmpty()) {
-
-
                 // Should map Graphic name to school/data here to retrieve its details
                 Graphic clickedGraphic = graphics.get(0);
-
                 double schoolLatitude = (Double) clickedGraphic.getAttributes().get("X");
                 double schoolLongitude = (Double) clickedGraphic.getAttributes().get("Y");
                 Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
@@ -178,29 +175,29 @@ public class MapScreenController {
                 String schoolName = (String) clickedGraphic.getAttributes().get("name") + " School";
                 String contentText = (String) clickedGraphic.getAttributes().get("school info") + "Average Value within 2.0 KM: " + averageValue;
                 String schoolType = (String) clickedGraphic.getAttributes().get("school type");
-                // Zoom on school click
-                //moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
 
-                // modify color on click && reset old clicked point
-                if (lastClickedSchoolGraphic!= null){
-                    changeGraphicColor(
-                            lastClickedSchoolGraphic,
-                            decideColor((String) clickedGraphic.getAttributes().get("school type"))
-                    );
-                }
-                changeGraphicColor(clickedGraphic, Color.RED);
-                lastClickedSchoolGraphic = clickedGraphic;
+                // Zoom on school click
+                moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
 
                 // Create Custom popup for school info
                 CustomPopup schoolPopup = new CustomPopup();
                 double sceneX = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinX();
                 double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinY();
                 schoolPopup.setContent(schoolName, contentText);
-                if (!popupIsShowing()) {
-                    popupList.add(schoolPopup);
-                    schoolPopup.show(mapView.getScene().getWindow(), sceneX, sceneY);
-                }
 
+                hidePopups();
+                popupList.add(schoolPopup);
+                schoolPopup.show(mapView.getScene().getWindow(), sceneX, sceneY);
+
+                // modify color on click && reset old clicked point
+                if (lastClickedSchoolGraphic!= null){
+                    changeGraphicColor(
+                            lastClickedSchoolGraphic,
+                            decideColor(schoolType)
+                    );
+                }
+                changeGraphicColor(clickedGraphic, Color.RED);
+                lastClickedSchoolGraphic = clickedGraphic;
 
             }
         } catch (Exception e) {
@@ -250,6 +247,13 @@ public class MapScreenController {
             }
         }
         return false;
+    }
+
+    public void hidePopups(){
+        for (CustomPopup popup: popupList){
+            popup.hide();
+        }
+        popupList.clear();
     }
 
     /**
