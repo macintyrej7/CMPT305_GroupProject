@@ -31,7 +31,10 @@ import com.mycompany.app.schools.School;
 import com.mycompany.app.utilities.Calculations;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -84,7 +87,7 @@ public class MapScreenController {
         mapView.setMap(map);
 
         // Set Default location
-        mapView.setViewpoint(new Viewpoint(53.5000, -113.4909, 220000));
+        resetZoom();
 
         // Set to StackPane inside tab
         mapPane.getChildren().add(mapView);
@@ -102,6 +105,14 @@ public class MapScreenController {
         drawSchools(schoolList, graphicsOverlay);
         resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
 
+        // Add zoom reset / home button to the map
+        Button homeButton = new Button("\uD83C\uDFE0");
+        StackPane.setMargin(homeButton, new Insets(0, 10, -450, 0)); // Adjust margin as needed
+        StackPane.setAlignment(homeButton, Pos.CENTER_RIGHT);
+        homeButton.setOnAction(e -> resetZoom());
+        mapPane.getChildren().add(homeButton);
+
+        // Handle map click events
         mapView.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.isStillSincePress()) {
                 // create a point from location clicked
@@ -322,8 +333,14 @@ public class MapScreenController {
         publicCheckbox.setSelected(false);
         lastClickedSchoolGraphic = null;
         appliedFiltersLabel.setText("Applied filters: ");
-        // Add line for Property slider
+        // TODO: Add line for Property slider reset
         resetSchoolMap();
+        hidePopups(); // clear any active popups
+        resetZoom();
+    }
+
+    public void resetZoom(){
+        mapView.setViewpoint(new Viewpoint(53.5000, -113.4909, 220000));
     }
 
 
