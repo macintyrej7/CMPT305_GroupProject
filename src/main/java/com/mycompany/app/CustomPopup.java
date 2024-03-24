@@ -67,11 +67,7 @@ public class CustomPopup extends Popup {
         ((Label) root.getChildren().get(2)).setText(description);
     }
 
-    public void show(Window owner, double x, double y) {
-        this.show(owner);
-        this.setX(owner.getX() + owner.getWidth() / 2 - this.getWidth() / 2);
-        this.setY(owner.getY() + owner.getHeight() / 2 - this.getHeight() / 2);
-    }
+
 
 
 }

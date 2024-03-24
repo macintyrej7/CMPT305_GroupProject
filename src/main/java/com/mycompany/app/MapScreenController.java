@@ -181,13 +181,14 @@ public class MapScreenController {
 
                 // Create Custom popup for school info
                 CustomPopup schoolPopup = new CustomPopup();
-                double sceneX = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinX();
-                double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinY();
+                double sceneX = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterX();
+                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.7;
+                double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMaxY() - yOffset;
                 schoolPopup.setContent(schoolName, contentText);
 
                 hidePopups();
                 popupList.add(schoolPopup);
-                schoolPopup.show(mapView.getScene().getWindow(), sceneX, sceneY);
+                schoolPopup.show(mapView.getScene().getWindow(), 0, sceneY - 300);
 
                 // modify color on click && reset old clicked point
                 if (lastClickedSchoolGraphic!= null){
@@ -205,29 +206,6 @@ public class MapScreenController {
             e.printStackTrace();
         }
     }
-
-    private void findSchoolGraphicByName(String schoolName){
-        List<Graphic> graphicList = getMapOverlay().getGraphics();
-
-    }
-
-
-    private void debugTextBox(){
-        TextArea debugTextArea = new TextArea();
-        debugTextArea.setEditable(false);
-        debugTextArea.setWrapText(true); // Wrap text to fit in the TextArea
-
-        // Example debug messages
-        debugTextArea.appendText("Debugging started.\n");
-        debugTextArea.appendText("Loading data...\n");
-
-        // Example of adding a debug message during runtime
-        debugTextArea.appendText("Data loaded successfully.\n");
-
-        // Create a layout
-        VBox root = new VBox(debugTextArea);
-    }
-
 
     private void changeGraphicColor(Graphic graphic, Color color) {
         if (graphic.getSymbol() instanceof SimpleMarkerSymbol) {
