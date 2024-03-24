@@ -18,7 +18,6 @@ import com.esri.arcgisruntime.geometry.SpatialReference;
 import com.esri.arcgisruntime.geometry.SpatialReferences;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.BasemapStyle;
-import com.esri.arcgisruntime.mapping.popup.Popup;
 import com.esri.arcgisruntime.mapping.Viewpoint;
 import com.esri.arcgisruntime.mapping.view.Graphic;
 import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
@@ -26,22 +25,22 @@ import com.esri.arcgisruntime.mapping.view.IdentifyGraphicsOverlayResult;
 import com.esri.arcgisruntime.mapping.view.MapView;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
-import com.esri.arcgisruntime.symbology.TextSymbol;
 import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.residential.Residence;
 import com.mycompany.app.schools.School;
 import com.mycompany.app.utilities.Calculations;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
@@ -59,6 +58,8 @@ public class MapScreenController {
 
     private boolean popupShowing = false;
     private List<CustomPopup> popupList;
+
+    private Graphic lastClickedSchoolGraphic = null; // Used to keep track of point colors.
 
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
 
@@ -86,7 +87,7 @@ public class MapScreenController {
         mapView.setMap(map);
 
         // Set Default location
-        mapView.setViewpoint(new Viewpoint(53.5000, -113.4909, 220000));
+        resetZoom();
 
         // Set to StackPane inside tab
         mapPane.getChildren().add(mapView);
@@ -104,6 +105,14 @@ public class MapScreenController {
         drawSchools(schoolList, graphicsOverlay);
         resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
 
+        // Add zoom reset / home button to the map
+        Button homeButton = new Button("\uD83C\uDFE0");
+        StackPane.setMargin(homeButton, new Insets(0, 10, -450, 0)); // Adjust margin as needed
+        StackPane.setAlignment(homeButton, Pos.CENTER_RIGHT);
+        homeButton.setOnAction(e -> resetZoom());
+        mapPane.getChildren().add(homeButton);
+
+        // Handle map click events
         mapView.setOnMouseClicked(mouseEvent -> {
             if (mouseEvent.getButton() == MouseButton.PRIMARY && mouseEvent.isStillSincePress()) {
                 // create a point from location clicked
@@ -115,7 +124,7 @@ public class MapScreenController {
 
                 // identify graphics on the graphics overlay
                 identifyGraphics = mapView.identifyGraphicsOverlayAsync(graphicsOverlay, mapViewPoint, 5, false);
-                identifyGraphics.addDoneListener(() -> Platform.runLater(this::createGraphicDialog));
+                identifyGraphics.addDoneListener(() -> Platform.runLater(this::handlePointClick));
 
             }
         });
@@ -132,8 +141,9 @@ public class MapScreenController {
         for (School school : tschoolList) {
             schoolX = school.getCoordinates().getLatitude();
             schoolY = school.getCoordinates().getLongitude();
-            Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName(), decideColor(school));
-            schoolGraphic.getAttributes().put("SCHOOL", school.toString());
+            Graphic schoolGraphic = createPointGraphic(schoolX, schoolY, school.getSchoolName(), decideColor(school.getSchoolType()));
+            schoolGraphic.getAttributes().put("school info", school.toString());
+            schoolGraphic.getAttributes().put("school type", school.getSchoolType());
             schoolGraphic.getAttributes().put("X", schoolX);
             schoolGraphic.getAttributes().put("Y", schoolY);
 
@@ -153,9 +163,10 @@ public class MapScreenController {
 
 
     /**
-     * Indicates when a graphic is clicked by showing an Alert.
+     * Method which handles a point click event on the map.
+     * Creates a popup and applies cosmetic changes to clicked point.
      */
-    private void createGraphicDialog() {
+    private void handlePointClick() {
 
         try {
             // get the list of graphics returned by identify
@@ -163,39 +174,58 @@ public class MapScreenController {
             List<Graphic> graphics = result.getGraphics();
 
             if (!graphics.isEmpty()) {
-
-
                 // Should map Graphic name to school/data here to retrieve its details
                 Graphic clickedGraphic = graphics.get(0);
-
                 double schoolLatitude = (Double) clickedGraphic.getAttributes().get("X");
                 double schoolLongitude = (Double) clickedGraphic.getAttributes().get("Y");
                 Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
 
+                // TODO: Modify radius based on slider here.
                 String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,2.0,schoolCoordinates);
 
                 String schoolName = (String) clickedGraphic.getAttributes().get("name") + " School";
-                String contentText = (String) clickedGraphic.getAttributes().get("SCHOOL") + "Average Value within 2.0 KM: " + averageValue;
+                String contentText = (String) clickedGraphic.getAttributes().get("school info") + "Average Value within 2.0 KM: " + averageValue;
+                String schoolType = (String) clickedGraphic.getAttributes().get("school type");
 
                 // Zoom on school click
-                //moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
-
+                moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
 
                 // Create Custom popup for school info
                 CustomPopup schoolPopup = new CustomPopup();
-                double sceneX = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinX();
-                double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMinY();
+                double sceneX = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterX();
+                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.7;
+                double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMaxY() - yOffset;
                 schoolPopup.setContent(schoolName, contentText);
-                if (!popupIsShowing()) {
-                    popupList.add(schoolPopup);
-                    schoolPopup.show(mapView.getScene().getWindow(), sceneX, sceneY);
-                }
 
+                hidePopups();
+                popupList.add(schoolPopup);
+                schoolPopup.show(mapView.getScene().getWindow(), 0, sceneY - 300);
+
+                // modify color on click && reset old clicked point
+                if (lastClickedSchoolGraphic!= null){
+                    changeGraphicColor(
+                            lastClickedSchoolGraphic,
+                            decideColor(schoolType)
+                    );
+                }
+                changeGraphicColor(clickedGraphic, Color.RED);
+                lastClickedSchoolGraphic = clickedGraphic;
 
             }
         } catch (Exception e) {
             // on any error, display the stack trace
             e.printStackTrace();
+        }
+    }
+
+    private void changeGraphicColor(Graphic graphic, Color color) {
+        if (graphic.getSymbol() instanceof SimpleMarkerSymbol) {
+            SimpleMarkerSymbol originalSymbol = (SimpleMarkerSymbol) graphic.getSymbol();
+            SimpleMarkerSymbol newSymbol = new SimpleMarkerSymbol(originalSymbol.getStyle(), color, originalSymbol.getSize());
+            SimpleLineSymbol blackOutlineSymbol =
+                    new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.rgb(0, 0, 0, 0.5), 1);
+            newSymbol.setOutline(blackOutlineSymbol);
+            graphic.setSymbol(newSymbol);
         }
     }
 
@@ -208,13 +238,20 @@ public class MapScreenController {
         return false;
     }
 
+    public void hidePopups(){
+        for (CustomPopup popup: popupList){
+            popup.hide();
+        }
+        popupList.clear();
+    }
+
     /**
-     * Decide a color for a school point graphic based on its attributes.
-     * @param schoolObj
+     * Decide a color for a school point graphic based on its school Type.
+     * @param schoolType
      * @return
      */
-    public Color decideColor(School schoolObj){
-        String schoolType = schoolObj.getSchoolType().toLowerCase();
+    public Color decideColor(String schoolType){
+        schoolType = schoolType.toLowerCase();
         double opacity = 0.2;
         if(schoolType.equals("public")){
             return Color.rgb(0, 0, 128, opacity); // purple
@@ -284,6 +321,7 @@ public class MapScreenController {
         getMapOverlay().getGraphics().clear();
         List<School> filteredSchools = schoolList.stream().filter(finalPred).toList();
         resultsReturnedLabel.setText(String.valueOf(filteredSchools.size()) + " Results");
+        lastClickedSchoolGraphic = null; // Reset last clicked if screen re-drawn with new.
         drawSchools(filteredSchools, getMapOverlay());
     }
 
@@ -293,9 +331,16 @@ public class MapScreenController {
         frenchCheckbox.setSelected(false);
         catholicCheckbox.setSelected(false);
         publicCheckbox.setSelected(false);
+        lastClickedSchoolGraphic = null;
         appliedFiltersLabel.setText("Applied filters: ");
-        // Add line for Property slider
+        // TODO: Add line for Property slider reset
         resetSchoolMap();
+        hidePopups(); // clear any active popups
+        resetZoom();
+    }
+
+    public void resetZoom(){
+        mapView.setViewpoint(new Viewpoint(53.5000, -113.4909, 220000));
     }
 
 
@@ -303,6 +348,7 @@ public class MapScreenController {
         getMapOverlay().getGraphics().clear();
         resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
         drawSchools(schoolList, getMapOverlay());
+
     }
 
 
