@@ -51,7 +51,7 @@ class CalculateDistanceTest {
 
         String average = Calculations.CalculateAverageAssessmentValue(residences,distance,coordinates);
 
-        double expected = 15000.0;
+        String expected = "$15,000.00";
 
         assertEquals(expected,average);
 
