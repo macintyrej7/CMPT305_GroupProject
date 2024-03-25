@@ -29,6 +29,19 @@ class SchoolTest {
         List<String> gradeLevels = new ArrayList<>();
         gradeLevels.add("Elementary");
 
+        List<String> gradeList = new ArrayList<>();
+        gradeList.add("K");
+        gradeList.add("1");
+        gradeList.add("2");
+        gradeList.add("3");
+        gradeList.add("4");
+        gradeList.add("5");
+        gradeList.add("6");
+
+        List<String> languageList = new ArrayList<>();
+        languageList.add("Italian Language and Culture");
+        languageList.add("Spanish Language and Culture");
+
         testSchool = new School(1234,
                 "Fake School",
                 new Address("123","Fake Street"),
@@ -39,7 +52,9 @@ class SchoolTest {
                 "email@school.com",
                 new PhoneNumber("1234567890"),
                 "http://school.com",
-                "Public"
+                "Public",
+                gradeList,
+                languageList
         );
 
 
@@ -117,10 +132,46 @@ class SchoolTest {
     }
 
     @Test
+    void getGradeList() {
+        List<String> expected = new ArrayList<>();
+        expected.add("K");
+        expected.add("1");
+        expected.add("2");
+        expected.add("3");
+        expected.add("4");
+        expected.add("5");
+        expected.add("6");
+
+        assertEquals(expected, testSchool.getSchoolGradeList());
+    }
+
+
+    @Test
+    void getLanguageList() {
+        List<String> expected = new ArrayList<>();
+        expected.add("Italian Language and Culture");
+        expected.add("Spanish Language and Culture");
+        assertEquals(expected, testSchool.getSchoolLanguageList());
+    }
+
+    @Test
     void testEquals() {
 
         List<String> expectedGradeLevels = new ArrayList<>();
         expectedGradeLevels.add("Elementary");
+
+        List<String> gradeList = new ArrayList<>();
+        gradeList.add("K");
+        gradeList.add("1");
+        gradeList.add("2");
+        gradeList.add("3");
+        gradeList.add("4");
+        gradeList.add("5");
+        gradeList.add("6");
+
+        List<String> languageList = new ArrayList<>();
+        languageList.add("Italian Language and Culture");
+        languageList.add("Spanish Language and Culture");
 
         School expected = new School(1234,
                 "Fake School",
@@ -132,7 +183,9 @@ class SchoolTest {
                 "email@school.com",
                 new PhoneNumber("1234567890"),
                 "http://school.com",
-                "Public"
+                "Public",
+                gradeList,
+                languageList
         );
         assertEquals(expected,testSchool);
     }
@@ -143,6 +196,19 @@ class SchoolTest {
         List<String> expectedGradeLevels = new ArrayList<>();
         expectedGradeLevels.add("Elementary");
 
+        List<String> gradeList = new ArrayList<>();
+        gradeList.add("K");
+        gradeList.add("1");
+        gradeList.add("2");
+        gradeList.add("3");
+        gradeList.add("4");
+        gradeList.add("5");
+        gradeList.add("6");
+
+        List<String> languageList = new ArrayList<>();
+        languageList.add("Italian Language and Culture");
+        languageList.add("Spanish Language and Culture");
+
         School expected = new School(1234,
                 "Fake School",
                 new Address("123","Fake Street"),
@@ -153,7 +219,9 @@ class SchoolTest {
                 "email@school.com",
                 new PhoneNumber("1234567890"),
                 "http://school.com",
-                "Public"
+                "Public",
+                gradeList,
+                languageList
         );
         assertEquals(expected.hashCode(),testSchool.hashCode());
 
@@ -174,7 +242,9 @@ class SchoolTest {
                         "School Grade Levels: [Elementary]\n" +
                         "French Immersion: true\n" +
                         "Spanish Bilingual: true\n" +
-                        "School Coordinates: (123.123, 456.456)\n";
+                        "School Coordinates: (123.123, 456.456)\n" +
+                        "School Grade List: [K, 1, 2, 3, 4, 5, 6]\n" +
+                        "School Language List: [Italian Language and Culture, Spanish Language and Culture]\n";
 
         assertEquals(expected,testSchool.toString());
 

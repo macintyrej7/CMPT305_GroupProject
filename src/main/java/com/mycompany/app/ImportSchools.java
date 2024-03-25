@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ImportSchools {
@@ -101,9 +102,31 @@ public class ImportSchools {
 
         String schoolType = values[14];
 
+        List<String> schoolGradeList = stringToList(values[15]);
+
+        List<String> schoolLanguageList = stringToList(values[16]);
+
         // return a new School object with parsed information.
         return new School(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels,
                 schoolSpanishBilingual, schoolFrenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite,
-                schoolType);
+                schoolType, schoolGradeList, schoolLanguageList);
+    }
+
+    public static List<String> stringToList(String input) {
+        // Split the input string by semicolons and trim whitespace
+        String[] items = input.split("\\s*;\\s*");
+        // Convert the array to a list and return it
+        return Arrays.asList(items);
+    }
+
+    private static int parseSchoolNumberToInt(String value, int defaultValue) {
+        if (!value.isEmpty()) {
+            try {
+                return (int) Double.parseDouble(value);
+            } catch (NumberFormatException e) {
+                System.err.println("NumberFormatException: " + e.getMessage());
+            }
+        }
+        return defaultValue;
     }
 }

@@ -34,10 +34,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -72,6 +69,9 @@ public class MapScreenController {
     @FXML
     private CheckBox spanishCheckbox, frenchCheckbox, publicCheckbox, catholicCheckbox;
 
+    @FXML
+    private ListView<String> gradeFilterListView;
+
 
 
 
@@ -98,8 +98,11 @@ public class MapScreenController {
         GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
+        List<String> grades = List.of("K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
+        gradeFilterListView.getItems().addAll(grades);
+        gradeFilterListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
+        schoolList = ImportSchools.readCSV("merged_file.csv");
         residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
 
         popupList = new ArrayList<>();
@@ -293,6 +296,11 @@ public class MapScreenController {
         Predicate<School> allPred = school -> school.equals(school);
         Predicate<School> finalPred = school -> school.equals(school);
 
+        Predicate<School> gradePred = school -> {
+            List<String> selectedGrades = new ArrayList<>(gradeFilterListView.getSelectionModel().getSelectedItems());
+            return selectedGrades.isEmpty() || school.getSchoolGradeList().stream().anyMatch(selectedGrades::contains);
+        };
+
         String appliedFiltersString = "Applied Filters: ";
 
         if (spanishCheckbox.isSelected()){
@@ -317,6 +325,14 @@ public class MapScreenController {
             //showingString = showingString + "";
             finalPred = allPred;
         }
+
+        if (!gradeFilterListView.getSelectionModel().getSelectedItems().isEmpty()) {
+            finalPred = finalPred.and(gradePred);
+        }
+
+
+
+
 
         appliedFiltersLabel.setText(appliedFiltersString);
 
