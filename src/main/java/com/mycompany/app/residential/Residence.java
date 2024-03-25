@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Residence extends Property {
     private int accountNumber;
     private final List<AssessmentClass> assessementClassList;
-    private int assessedValue;
+    private long assessedValue;
 
 
     public Residence(int accountNumber, List<AssessmentClass> assessmentClassList, int assessedValue,
@@ -33,7 +33,7 @@ public class Residence extends Property {
         return assessementClassList;
     }
 
-    public int getAssessedValue() {
+    public long getAssessedValue() {
         return assessedValue;
     }
 
