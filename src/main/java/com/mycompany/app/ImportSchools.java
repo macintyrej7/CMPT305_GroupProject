@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ImportSchools {
@@ -105,5 +106,12 @@ public class ImportSchools {
         return new School(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels,
                 schoolSpanishBilingual, schoolFrenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite,
                 schoolType);
+    }
+
+    public static List<String> stringToList(String input) {
+        // Split the input string by semicolons and trim whitespace
+        String[] items = input.split("\\s*;\\s*");
+        // Convert the array to a list and return it
+        return Arrays.asList(items);
     }
 }
