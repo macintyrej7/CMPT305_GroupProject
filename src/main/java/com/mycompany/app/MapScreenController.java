@@ -88,7 +88,7 @@ public class MapScreenController {
         map = new ArcGISMap(BasemapStyle.OSM_NAVIGATION);
         mapView.setMap(map);
 
-        // Set Default location
+        // Set Default location & Zoom level.
         resetZoom();
 
         // Set to StackPane inside tab
@@ -224,8 +224,7 @@ public class MapScreenController {
     }
 
     private void changeGraphicColor(Graphic graphic, Color color) {
-        if (graphic.getSymbol() instanceof SimpleMarkerSymbol) {
-            SimpleMarkerSymbol originalSymbol = (SimpleMarkerSymbol) graphic.getSymbol();
+        if (graphic.getSymbol() instanceof SimpleMarkerSymbol originalSymbol) {
             SimpleMarkerSymbol newSymbol = new SimpleMarkerSymbol(originalSymbol.getStyle(), color, originalSymbol.getSize());
             SimpleLineSymbol blackOutlineSymbol =
                     new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.rgb(0, 0, 0, 0.5), 1);
@@ -340,7 +339,10 @@ public class MapScreenController {
         List<School> filteredSchools = schoolList.stream().filter(finalPred).toList();
         resultsReturnedLabel.setText(String.valueOf(filteredSchools.size()) + " Results");
         lastClickedSchoolGraphic = null; // Reset last clicked if screen re-drawn with new.
-        drawSchools(filteredSchools, getMapOverlay());
+        hidePopups(); // Similarly, hide popups when new filter criteria are applied
+        drawSchools(filteredSchools, getMapOverlay()); // Draw schools with new filter critiera
+        resetZoom();
+
     }
 
 
