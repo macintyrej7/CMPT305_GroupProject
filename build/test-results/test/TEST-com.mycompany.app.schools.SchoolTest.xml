@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mycompany.app.schools.SchoolTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2024-03-25T20:24:10" hostname="brians-mac.lan" time="0.029">
+  <properties/>
+  <testcase name="getSchoolAddress()" classname="com.mycompany.app.schools.SchoolTest" time="0.01"/>
+  <testcase name="isHasSpanish()" classname="com.mycompany.app.schools.SchoolTest" time="0.001"/>
+  <testcase name="getSchoolCoordinates()" classname="com.mycompany.app.schools.SchoolTest" time="0.001"/>
+  <testcase name="testToString()" classname="com.mycompany.app.schools.SchoolTest" time="0.008"/>
+  <testcase name="getSchoolNumber()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
+  <testcase name="getLanguageList()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
+  <testcase name="getSchoolName()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
+  <testcase name="getSchoolType()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
+  <testcase name="getSchooLGradeLevel()" classname="com.mycompany.app.schools.SchoolTest" time="0.001"/>
+  <testcase name="getSchoolPhoneNumber()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
+  <testcase name="getSchoolWebsite()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
+  <testcase name="isHasFrench()" classname="com.mycompany.app.schools.SchoolTest" time="0.001"/>
+  <testcase name="testHashCode()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
+  <testcase name="testEquals()" classname="com.mycompany.app.schools.SchoolTest" time="0.001"/>
+  <testcase name="getEmail()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
