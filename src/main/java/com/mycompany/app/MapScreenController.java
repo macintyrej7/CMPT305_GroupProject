@@ -50,6 +50,8 @@ import java.util.function.Predicate;
 
 public class MapScreenController {
 
+    private long MAX_VALUE = 500000;
+
     private MapView mapView;
     private ArcGISMap map;
 
@@ -98,7 +100,7 @@ public class MapScreenController {
 
 
         schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
-        residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv");
+        residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
 
         popupList = new ArrayList<>();
 

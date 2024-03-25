@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ImportResidences {
 
-    public static List<Residence> readCSV(String fileName) throws IOException {
+    public static List<Residence> readCSV(String fileName, long maxValue) throws IOException {
 
         List<Residence> residences = new ArrayList<>();
 
@@ -29,6 +29,8 @@ public class ImportResidences {
             String[] values = currentLine.split(",");
 
             Residence currentResidence = residenceHelper(values);
+
+            if (currentResidence.getAssessedValue() > maxValue) continue;
 
             residences.add(currentResidence);
         }

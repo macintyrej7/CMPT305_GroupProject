@@ -14,7 +14,7 @@ class ImportResidencesTest {
     @Test
     void readCSV() throws IOException {
         ImportResidences importResidences = new ImportResidences();
-        List<Residence> residences = importResidences.readCSV("residenceTest.csv");
+        List<Residence> residences = importResidences.readCSV("residenceTest.csv", 500000);
         // Assuming the CSV file contains at least one valid entry
         assertEquals(1, residences.size());
         Residence residence = residences.get(0);
