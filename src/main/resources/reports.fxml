@@ -37,9 +37,9 @@
                         </Label>
                         <StackPane fx:id="myStackPlane" prefHeight="835.0" prefWidth="1348.0">
                            <children>
-                              <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                              <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
                                  <content>
-                                    <BarChart fx:id="barChart" prefHeight="386.0" prefWidth="642.0" title="barChart">
+                                    <BarChart fx:id="barChart" prefHeight="416.0" prefWidth="1216.0" title="barChart">
                                       <xAxis>
                                         <CategoryAxis side="BOTTOM" />
                                       </xAxis>
