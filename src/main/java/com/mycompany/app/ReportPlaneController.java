@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 
 public class ReportPlaneController {
 
+    private long MAX_VALUE = 500000;
+
     @FXML
     private BarChart<String, Number> barChart;
 
@@ -34,7 +36,7 @@ public class ReportPlaneController {
         xAxis.setLabel("Category");
         yAxis.setLabel("Value");
 
-        myResidences = ImportResidences.readCSV("Property_Assessment_Data_2024.csv");
+        myResidences = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
         xyDataImporter = new XYDataImporter(myResidences);
         xyDataImporter.incrementContainers(10);
         xyDataImporter.updateContainers(10);
