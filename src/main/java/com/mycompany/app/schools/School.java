@@ -29,11 +29,14 @@ public class School extends Property{
     private boolean spanishBilingual;
     private boolean frenchImmersion;
     private String schoolType;
+    private List<String> schoolGradeList;
+    private List<String> schoolLanguageList;
+
 
     public School(int schoolNumber, String schoolName, Address address,
                   Coordinates coordinates, List<String> schoolGradeLevels, boolean spanishBilingual,
                   boolean frenchImmersion, String schoolEmail, PhoneNumber schoolPhoneNumber,
-                  String schoolWebsite, String schoolType) {
+                  String schoolWebsite, String schoolType, List schoolGradeList, List schoolLanguageList) {
 
         super(address,coordinates,null);
         //setting neighbourhood null for now, but left it in in case we want to use it later
@@ -47,6 +50,8 @@ public class School extends Property{
         this.schoolPhoneNumber = schoolPhoneNumber;
         this.schoolWebsite = schoolWebsite;
         this.schoolType = schoolType;
+        this.schoolGradeList = schoolGradeList;
+        this.schoolLanguageList = schoolLanguageList;
     }
 
     public int getSchoolNumber() {
@@ -82,6 +87,14 @@ public class School extends Property{
 
     public String getSchoolType() {return this.schoolType;}
 
+    public List<String> getSchoolGradeList() {
+        return schoolGradeList;
+    }
+
+    public List<String> getSchoolLanguageList() {
+        return schoolLanguageList;
+    }
+
     @Override
     public String toString() {
 
@@ -98,6 +111,8 @@ public class School extends Property{
         schoolString.append("French Immersion: " + frenchImmersion + "\n");
         schoolString.append("Spanish Bilingual: " + spanishBilingual + "\n");
         schoolString.append("School Coordinates: " + getCoordinates() + "\n");
+        schoolString.append("School Grade List: " + schoolGradeList + "\n");
+        schoolString.append("School Language List: " + schoolLanguageList + "\n");
 
         return schoolString.toString();
     }
@@ -107,14 +122,12 @@ public class School extends Property{
         if (this == o) return true;
         if (!(o instanceof School school)) return false;
         if (!super.equals(o)) return false;
-        return schoolNumber == school.schoolNumber && spanishBilingual == school.spanishBilingual && frenchImmersion == school.frenchImmersion && schoolName.equals(school.schoolName) && schoolPhoneNumber.equals(school.schoolPhoneNumber) && schoolEmail.equals(school.schoolEmail) && schoolWebsite.equals(school.schoolWebsite) && schoolGradeLevels.equals(school.schoolGradeLevels) && schoolType.equals(school.schoolType);
+        return schoolNumber == school.schoolNumber && spanishBilingual == school.spanishBilingual && frenchImmersion == school.frenchImmersion && schoolName.equals(school.schoolName) && schoolPhoneNumber.equals(school.schoolPhoneNumber) && schoolEmail.equals(school.schoolEmail) && schoolWebsite.equals(school.schoolWebsite) && schoolGradeLevels.equals(school.schoolGradeLevels) && schoolType.equals(school.schoolType) && schoolGradeList.equals(school.schoolGradeList) && schoolLanguageList.equals(school.schoolLanguageList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), schoolNumber, schoolName, schoolPhoneNumber, schoolEmail, schoolWebsite, schoolGradeLevels, spanishBilingual, frenchImmersion, schoolType);
+        return Objects.hash(super.hashCode(), schoolNumber, schoolName, schoolPhoneNumber, schoolEmail, schoolWebsite, schoolGradeLevels, spanishBilingual, frenchImmersion, schoolType, schoolGradeList, schoolLanguageList);
     }
-
-
 }
 

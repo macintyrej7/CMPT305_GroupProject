@@ -102,10 +102,14 @@ public class ImportSchools {
 
         String schoolType = values[14];
 
+        List<String> schoolGradeList = stringToList(values[15]);
+
+        List<String> schoolLanguageList = stringToList(values[16]);
+
         // return a new School object with parsed information.
         return new School(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels,
                 schoolSpanishBilingual, schoolFrenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite,
-                schoolType);
+                schoolType, schoolGradeList, schoolLanguageList);
     }
 
     public static List<String> stringToList(String input) {
