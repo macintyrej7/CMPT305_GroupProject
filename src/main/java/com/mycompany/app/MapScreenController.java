@@ -99,7 +99,7 @@ public class MapScreenController {
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
 
-        schoolList = ImportSchools.readCSV("Edmonton_Schools_Merged - Mar_21_2024.csv");
+        schoolList = ImportSchools.readCSV("merged_file.csv");
         residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
 
         popupList = new ArrayList<>();

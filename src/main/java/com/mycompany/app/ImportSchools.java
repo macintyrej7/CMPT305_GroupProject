@@ -118,4 +118,15 @@ public class ImportSchools {
         // Convert the array to a list and return it
         return Arrays.asList(items);
     }
+
+    private static int parseSchoolNumberToInt(String value, int defaultValue) {
+        if (!value.isEmpty()) {
+            try {
+                return (int) Double.parseDouble(value);
+            } catch (NumberFormatException e) {
+                System.err.println("NumberFormatException: " + e.getMessage());
+            }
+        }
+        return defaultValue;
+    }
 }
