@@ -1,14 +1,8 @@
 package com.mycompany.app;
 
 import com.mycompany.app.residential.Residence;
-import com.mycompany.app.schools.School;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class XYDataImporter {
 
@@ -27,16 +21,11 @@ public class XYDataImporter {
                 .map(Residence::getAssessedValue)
                 .min(Long::compare);
 
-        minNum.ifPresentOrElse(
-                num -> System.out.println("Minimum assessed value: " + num),
-                () -> System.out.println("No residences found.")
-        );
-
         Optional<Long> maxNum = residenceRawList.stream()
                 .map(Residence::getAssessedValue)
                 .max(Long::compare);
 
-        return null;
+        return Arrays.asList(minNum.get(), maxNum.get());
     }
 
     // divide data in n containers
@@ -44,6 +33,18 @@ public class XYDataImporter {
     // if less than n(increment) add in container
 
     // eg:  <500{100,120,156,...}, <1000{700, 770, 899,...}, 1500, ...
+
+    // creates empty containers with incremented values of the loaded list
+    public HashMap<Long, Integer> incrementContainers(Integer nContainers){
+
+        long incrementVal = (this.minAndMax().get(1) - this.minAndMax().get(0))/nContainers;
+       HashMap<Long, Integer> containers = new HashMap<>();
+
+       for (int i = 1; i <= nContainers; i++){
+            containers.put(i * incrementVal, null);
+       }
+        return containers;
+    }
 
 
 }

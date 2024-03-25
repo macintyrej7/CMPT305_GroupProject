@@ -33,7 +33,7 @@ public class ReportPlaneController {
 
         myResidences = ImportResidences.readCSV("Property_Assessment_Data_2024.csv");
         xyDataImporter = new XYDataImporter(myResidences);
-        xyDataImporter.minAndMax();
+        xyDataImporter.incrementContainers(10);
 
 //
 //        // Create series and add data
