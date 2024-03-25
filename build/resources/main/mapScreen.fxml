@@ -10,11 +10,13 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ListView?>
 <HBox maxHeight="1440.0" maxWidth="2560.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" spacing="10.0" stylesheets="@styles/mapScreenStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.app.MapScreenController">
    <children>
       <StackPane fx:id="mapPane" minHeight="1080.0" prefWidth="1200.0" />
       <VBox fx:id="filterBox" minHeight="1080.0" minWidth="200.0" prefHeight="1080.0" prefWidth="335.0" spacing="15.0">
          <children>
+            <ListView fx:id="gradeFilterListView" prefHeight="200.0" prefWidth="150.0" />
             <VBox fx:id="LanguageFilterVBox" prefHeight="58.0" prefWidth="210.0">
                <children>
                   <HBox prefHeight="78.0" prefWidth="188.0">
