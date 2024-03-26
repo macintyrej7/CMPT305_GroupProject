@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -14,9 +15,8 @@
 <HBox maxHeight="1440.0" maxWidth="2560.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" spacing="10.0" stylesheets="@styles/mapScreenStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.app.MapScreenController">
    <children>
       <StackPane fx:id="mapPane" minHeight="1080.0" prefWidth="1200.0" />
-      <VBox fx:id="filterBox" minHeight="1080.0" minWidth="200.0" prefHeight="1080.0" prefWidth="335.0" spacing="15.0">
+      <VBox fx:id="filterBox" minHeight="1080.0" minWidth="200.0" prefHeight="1080.0" prefWidth="310.0" spacing="15.0">
          <children>
-            <ListView fx:id="gradeFilterListView" prefHeight="200.0" prefWidth="150.0" />
             <VBox fx:id="LanguageFilterVBox" prefHeight="58.0" prefWidth="210.0">
                <children>
                   <HBox prefHeight="78.0" prefWidth="188.0">
@@ -46,6 +46,9 @@
                            </font>
                         </CheckBox>
                      </children>
+                     <padding>
+                        <Insets top="-15.0" />
+                     </padding>
                   </VBox>
                </children>
             </VBox>
@@ -78,14 +81,20 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="mapSliderBox" prefHeight="60.0" prefWidth="244.0" spacing="10.0">
+            <VBox fx:id="mapSliderBox" prefHeight="249.0" prefWidth="298.0" spacing="10.0">
                <children>
-                  <Label text="Property Radius" textFill="#21bf75" underline="true">
+                  <Label fx:id="propertyRadiusLabel" text="Property Radius" textFill="#21bf75" underline="true">
                      <font>
                         <Font name="Dubai Regular" size="20.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="propertyRadiusSlider" majorTickUnit="0.5" max="8.0" min="0.5" minorTickCount="0" prefHeight="14.0" prefWidth="230.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <Slider fx:id="propertyRadiusSlider" majorTickUnit="0.5" max="8.0" min="2.0" minorTickCount="0" prefHeight="14.0" prefWidth="230.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <Label fx:id="gradeLevelLabel" text="Grade Level" underline="true">
+                     <padding>
+                        <Insets bottom="-10.0" />
+                     </padding>
+                  </Label>
+                  <ListView fx:id="gradeFilterListView" prefHeight="126.0" prefWidth="302.0" />
                </children>
             </VBox>
             <VBox prefHeight="250.0" prefWidth="210.0" spacing="10.0">
@@ -100,20 +109,20 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Label fx:id="appliedFiltersLabel" prefHeight="143.0" prefWidth="212.0" style="-fx-padding: -14 0 0 0;" text="Applied Filters: " textFill="#21bf75" underline="true">
-                     <font>
-                        <Font name="Arial" size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox prefHeight="175.0" prefWidth="214.0">
-               <children>
-                  <Label fx:id="resultsReturnedLabel" prefHeight="55.0" prefWidth="133.0" text="n returned: ">
-                     <font>
-                        <Font name="Dubai Regular" size="24.0" />
-                     </font>
-                  </Label>
+                  <VBox prefHeight="175.0" prefWidth="214.0">
+                     <children>
+                        <Label fx:id="resultsReturnedLabel" prefHeight="55.0" prefWidth="133.0" text="n returned: ">
+                           <font>
+                              <Font name="Dubai Regular" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="appliedFiltersLabel" prefHeight="143.0" prefWidth="212.0" style="-fx-padding: -14 0 0 0;" text="Applied Filters: " textFill="#21bf75" underline="true" visible="false">
+                           <font>
+                              <Font name="Arial" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>

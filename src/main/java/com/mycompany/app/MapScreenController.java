@@ -29,6 +29,7 @@ import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.residential.Residence;
 import com.mycompany.app.schools.School;
 import com.mycompany.app.utilities.Calculations;
+import com.mycompany.app.utilities.Extractors;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -109,11 +110,15 @@ public class MapScreenController {
         GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
-        List<String> grades = List.of("K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
-        gradeFilterListView.getItems().addAll(grades);
+
+        //List<String> grades = List.of("K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
+        //gradeFilterListView.getItems().addAll(grades);
         gradeFilterListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         schoolList = ImportSchools.readCSV("merged_file.csv");
+        List<String> grades = Extractors.uniqueListValues(schoolList, School::getSchoolGradeList);
+
+        gradeFilterListView.getItems().addAll(grades);
         residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
 
         popupList = new ArrayList<>();
