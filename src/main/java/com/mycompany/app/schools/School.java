@@ -14,7 +14,10 @@ package com.mycompany.app.schools;
 import com.mycompany.app.properties.Address;
 import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.properties.Property;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -129,5 +132,64 @@ public class School extends Property{
     public int hashCode() {
         return Objects.hash(super.hashCode(), schoolNumber, schoolName, schoolPhoneNumber, schoolEmail, schoolWebsite, schoolGradeLevels, spanishBilingual, frenchImmersion, schoolType, schoolGradeList, schoolLanguageList);
     }
+
+
+    public List<VBox> convertToStyledLabelsGrouped() {
+        List<VBox> vBoxList = new ArrayList<>();
+
+        // School name styled separately
+        Label schoolNameLabel = new Label(schoolName);
+        Label schoolTypeLabel = new Label(schoolType +  " School");
+        schoolNameLabel.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;");
+        schoolTypeLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
+        VBox schoolNameBox = new VBox(schoolNameLabel);
+        schoolNameBox.getChildren().add(schoolTypeLabel);
+        schoolNameBox.getChildren().add(createLabel(""));
+        vBoxList.add(schoolNameBox);
+
+
+        // Contact info category
+        VBox contactInfoBox = new VBox();
+        Label contactInfoLabel = new Label("Contact Information");
+        contactInfoLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
+        contactInfoBox.getChildren().add(contactInfoLabel);
+        // Address, Add email, phone number
+        contactInfoBox.getChildren().add(createLabel("Address: " + this.getAddress().getSchoolAddress()));
+        contactInfoBox.getChildren().add(createLabel("Email: " + schoolEmail));
+        contactInfoBox.getChildren().add(createLabel("Phone Number: " + schoolPhoneNumber));
+        vBoxList.add(contactInfoBox);
+
+        // Language category
+        VBox languageBox = new VBox();
+        Label languageLabel = new Label("Language");
+        languageLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
+        languageBox.getChildren().add(languageLabel);
+        // Add language-related information
+        languageBox.getChildren().add(createLabel("French Immersion: " + frenchImmersion));
+        languageBox.getChildren().add(createLabel("Spanish Bilingual: " + spanishBilingual));
+        vBoxList.add(languageBox);
+
+        // Grade information category
+        VBox gradeInfoBox = new VBox();
+        Label gradeInfoLabel = new Label("Grade Information");
+        gradeInfoLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
+        gradeInfoBox.getChildren().add(gradeInfoLabel);
+        // Add grade-related information
+        gradeInfoBox.getChildren().add(createLabel("Grade Levels: " + schoolGradeLevels));
+        gradeInfoBox.getChildren().add(createLabel("School Grade List: " + schoolGradeList));
+        vBoxList.add(gradeInfoBox);
+
+        // Add more VBox for other categories if needed
+
+        return vBoxList;
+    }
+
+    private Label createLabel(String text) {
+        Label label = new Label(text);
+        label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+        return label;
+    }
 }
+
+
 

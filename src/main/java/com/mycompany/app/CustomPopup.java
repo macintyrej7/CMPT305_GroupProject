@@ -1,14 +1,19 @@
 package com.mycompany.app;
 
-import javafx.scene.Scene;
+import javafx.application.HostServices;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
 
 public class CustomPopup extends Popup {
     private double xOffset = 0;
@@ -18,18 +23,6 @@ public class CustomPopup extends Popup {
         VBox root = new VBox();
         // mint green + rounded edges
         root.setStyle("-fx-padding: 10px; -fx-background-color: rgba(118, 194, 175, 0.8); -fx-background-radius: 10;");
-        Label titleLabel = new Label();
-        Label descriptionLabel = new Label();
-
-        titleLabel.setStyle("-fx-text-fill: #ffffff; " +
-                "-fx-font-family: 'Verdana'; " +
-                "-fx-font-size: 40px; " +
-                "-fx-font-weight: bold;");
-
-        descriptionLabel.setStyle("-fx-text-fill: #ffffff; " +
-                "-fx-font-family: 'Arial'; " +
-                "-fx-font-size: 18px; " +
-                "-fx-font-weight: normal;");
 
         // Add close button
         SVGPath closeIcon = new SVGPath();
@@ -45,8 +38,6 @@ public class CustomPopup extends Popup {
         root.getChildren().add(closeButtonBox);
         closeButton.setOnAction(event -> this.hide());
 
-        root.getChildren().addAll(titleLabel, descriptionLabel);
-
         // Add event handlers for mouse press and drag events
         root.setOnMousePressed(event -> {
             xOffset = event.getSceneX();
@@ -60,14 +51,43 @@ public class CustomPopup extends Popup {
         this.getContent().add(root);
     }
 
-    public void setContent(String title, String description) {
+    public void setContent(List<VBox> nodes) {
         VBox root = (VBox) this.getContent().get(0);
-        // Update the labels with the provided title and description
-        ((Label) root.getChildren().get(1)).setText(title);
-        ((Label) root.getChildren().get(2)).setText(description);
+        root.getChildren().addAll(nodes); // Add new nodes
     }
 
+    public void addNode(Node newNode){
+        VBox root = (VBox) this.getContent().get(0);
+        root.getChildren().add(newNode);
+    }
 
+    public static Button generateURLButton(String URL){
+        Button resultButton = new Button("\uD83C\uDF10");
+        resultButton.setStyle(
+                "-fx-background-color: green;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-font-size: 16px;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-padding: 10px 20px;" +
+                        "-fx-border-radius: 5px;" +
+                        "-fx-background-radius: 5px;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 1);"
+        );
+        resultButton.setOnMouseClicked(mouseEvent -> launchURL(URL));
+        return resultButton;
+    }
 
-
+    public static void launchURL(String url) {
+        if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Desktop browsing is not supported.");
+            // Handle the case where desktop browsing is not supported
+        }
+    }
 }

@@ -42,6 +42,7 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -191,22 +192,31 @@ public class MapScreenController {
                 double schoolLongitude = (Double) clickedGraphic.getAttributes().get("Y");
                 Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
 
-                // TODO: Modify radius based on slider here.
+                // Surrounding Property Calculation based on slider radius
                 String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
 
-                String schoolName = (String) clickedGraphic.getAttributes().get("name") + " School";
-                String contentText = (String) clickedGraphic.getAttributes().get("school info") + "Average Value within " + sliderValue + " KM: " + averageValue;
+                String schoolName = (String) clickedGraphic.getAttributes().get("name");
+                String calcText = "Average Value within " + sliderValue + " KM: " + averageValue;
+                Label calcLabel = new Label(calcText);
+                calcLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
                 String schoolType = (String) clickedGraphic.getAttributes().get("school type");
+                School theSchool = findSchoolByName(schoolName);
+
+
 
                 // Zoom on school click
                 moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
 
                 // Create Custom popup for school info
                 CustomPopup schoolPopup = new CustomPopup();
-                double sceneX = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterX();
-                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.7;
+                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.4;
                 double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMaxY() - yOffset;
-                schoolPopup.setContent(schoolName, contentText);
+                List<VBox> schooLabelList = theSchool.convertToStyledLabelsGrouped();
+                Button schoolWebsiteButton = CustomPopup.generateURLButton(theSchool.getSchoolWebsite());
+                schoolPopup.setContent(schooLabelList);
+                schoolPopup.addNode(calcLabel);
+                schoolPopup.addNode(schoolWebsiteButton);
+
 
                 hidePopups();
                 popupList.add(schoolPopup);
@@ -227,6 +237,10 @@ public class MapScreenController {
             // on any error, display the stack trace
             e.printStackTrace();
         }
+    }
+
+    private School findSchoolByName(String schoolName){
+        return schoolList.stream().filter(school -> school.getSchoolName().equals(schoolName)).toList().get(0);
     }
 
     private void changeGraphicColor(Graphic graphic, Color color) {
