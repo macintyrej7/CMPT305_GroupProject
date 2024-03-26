@@ -39,10 +39,10 @@ public class School extends Property{
     public School(int schoolNumber, String schoolName, Address address,
                   Coordinates coordinates, List<String> schoolGradeLevels, boolean spanishBilingual,
                   boolean frenchImmersion, String schoolEmail, PhoneNumber schoolPhoneNumber,
-                  String schoolWebsite, String schoolType, List schoolGradeList, List schoolLanguageList) {
+                  String schoolWebsite, String schoolType, List<String> schoolGradeList, List<String> schoolLanguageList) {
 
         super(address,coordinates,null);
-        //setting neighbourhood null for now, but left it in in case we want to use it later
+        //setting neighbourhood null for now, but left it in case we want to use it later
 
         this.schoolNumber = schoolNumber;
         this.schoolName = schoolName;
@@ -140,18 +140,19 @@ public class School extends Property{
         // School name styled separately
         Label schoolNameLabel = new Label(schoolName);
         Label schoolTypeLabel = new Label(schoolType +  " School");
-        schoolNameLabel.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;");
-        schoolTypeLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
+        schoolNameLabel.setStyle("-fx-font-size: 36px; -fx-font-family: 'Playfair Display'; -fx-font-weight: bold; -fx-text-fill: black;");
+        schoolTypeLabel.setStyle("-fx-font-size: 20px; -fx-font-family: 'Playfair Display'; -fx-font-weight: bold; -fx-text-fill: black;");
         VBox schoolNameBox = new VBox(schoolNameLabel);
         schoolNameBox.getChildren().add(schoolTypeLabel);
         schoolNameBox.getChildren().add(createLabel(""));
         vBoxList.add(schoolNameBox);
 
-
+        // Group related Info
+        String relatedInfoStyle = "-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: midnightblue;";
         // Contact info category
         VBox contactInfoBox = new VBox();
         Label contactInfoLabel = new Label("Contact Information");
-        contactInfoLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
+        contactInfoLabel.setStyle(relatedInfoStyle);
         contactInfoBox.getChildren().add(contactInfoLabel);
         // Address, Add email, phone number
         contactInfoBox.getChildren().add(createLabel("Address: " + this.getAddress().getSchoolAddress()));
@@ -161,18 +162,17 @@ public class School extends Property{
 
         // Language category
         VBox languageBox = new VBox();
-        Label languageLabel = new Label("Language");
-        languageLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
+        Label languageLabel = new Label("Language Programs");
+        languageLabel.setStyle(relatedInfoStyle);
         languageBox.getChildren().add(languageLabel);
         // Add language-related information
-        languageBox.getChildren().add(createLabel("French Immersion: " + frenchImmersion));
-        languageBox.getChildren().add(createLabel("Spanish Bilingual: " + spanishBilingual));
+        languageBox.getChildren().add(createLabel(schoolLanguageList.toString()));
         vBoxList.add(languageBox);
 
         // Grade information category
         VBox gradeInfoBox = new VBox();
         Label gradeInfoLabel = new Label("Grade Information");
-        gradeInfoLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
+        gradeInfoLabel.setStyle(relatedInfoStyle);
         gradeInfoBox.getChildren().add(gradeInfoLabel);
         // Add grade-related information
         gradeInfoBox.getChildren().add(createLabel("Grade Levels: " + schoolGradeLevels));
@@ -186,7 +186,7 @@ public class School extends Property{
 
     private Label createLabel(String text) {
         Label label = new Label(text);
-        label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;");
+        label.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
         return label;
     }
 }

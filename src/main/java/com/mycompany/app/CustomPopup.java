@@ -22,7 +22,7 @@ public class CustomPopup extends Popup {
     public CustomPopup() {
         VBox root = new VBox();
         // mint green + rounded edges
-        root.setStyle("-fx-padding: 10px; -fx-background-color: rgba(118, 194, 175, 0.8); -fx-background-radius: 10;");
+        root.setStyle("-fx-padding: 10px; -fx-background-color: rgb(227, 251, 255, 0.9); -fx-background-radius: 10;");
 
         // Add close button
         SVGPath closeIcon = new SVGPath();
@@ -62,9 +62,9 @@ public class CustomPopup extends Popup {
     }
 
     public static Button generateURLButton(String URL){
-        Button resultButton = new Button("\uD83C\uDF10");
+        Button resultButton = new Button();
         resultButton.setStyle(
-                "-fx-background-color: green;" +
+                "-fx-background-color: midnightblue;" +
                         "-fx-text-fill: white;" +
                         "-fx-font-size: 16px;" +
                         "-fx-font-weight: bold;" +
