@@ -138,15 +138,20 @@ public class School extends Property{
         List<VBox> vBoxList = new ArrayList<>();
 
         // School name styled separately
-        Label schoolNameLabel = new Label(schoolName + " School");
+        Label schoolNameLabel = new Label(schoolName);
+        Label schoolTypeLabel = new Label(schoolType +  " School");
         schoolNameLabel.setStyle("-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;");
+        schoolTypeLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;");
         VBox schoolNameBox = new VBox(schoolNameLabel);
+        schoolNameBox.getChildren().add(schoolTypeLabel);
+        schoolNameBox.getChildren().add(createLabel(""));
         vBoxList.add(schoolNameBox);
+
 
         // Contact info category
         VBox contactInfoBox = new VBox();
         Label contactInfoLabel = new Label("Contact Information");
-        contactInfoLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2E4053 ;");
+        contactInfoLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
         contactInfoBox.getChildren().add(contactInfoLabel);
         // Address, Add email, phone number
         contactInfoBox.getChildren().add(createLabel("Address: " + this.getAddress().getSchoolAddress()));
@@ -157,7 +162,7 @@ public class School extends Property{
         // Language category
         VBox languageBox = new VBox();
         Label languageLabel = new Label("Language");
-        languageLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2E4053 ;");
+        languageLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
         languageBox.getChildren().add(languageLabel);
         // Add language-related information
         languageBox.getChildren().add(createLabel("French Immersion: " + frenchImmersion));
@@ -167,7 +172,7 @@ public class School extends Property{
         // Grade information category
         VBox gradeInfoBox = new VBox();
         Label gradeInfoLabel = new Label("Grade Information");
-        gradeInfoLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2E4053;");
+        gradeInfoLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
         gradeInfoBox.getChildren().add(gradeInfoLabel);
         // Add grade-related information
         gradeInfoBox.getChildren().add(createLabel("Grade Levels: " + schoolGradeLevels));

@@ -196,19 +196,27 @@ public class MapScreenController {
                 String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
 
                 String schoolName = (String) clickedGraphic.getAttributes().get("name");
-                String contentText = (String) clickedGraphic.getAttributes().get("school info") + "Average Value within " + sliderValue + " KM: " + averageValue;
+                String calcText = "Average Value within " + sliderValue + " KM: " + averageValue;
+                Label calcLabel = new Label(calcText);
+                calcLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
                 String schoolType = (String) clickedGraphic.getAttributes().get("school type");
                 School theSchool = findSchoolByName(schoolName);
-                List<VBox> schooLabelList = theSchool.convertToStyledLabelsGrouped();
+
+
 
                 // Zoom on school click
                 moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
 
                 // Create Custom popup for school info
                 CustomPopup schoolPopup = new CustomPopup();
-                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.7;
+                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.4;
                 double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMaxY() - yOffset;
+                List<VBox> schooLabelList = theSchool.convertToStyledLabelsGrouped();
+                Button schoolWebsiteButton = CustomPopup.generateURLButton(theSchool.getSchoolWebsite());
                 schoolPopup.setContent(schooLabelList);
+                schoolPopup.addNode(calcLabel);
+                schoolPopup.addNode(schoolWebsiteButton);
+
 
                 hidePopups();
                 popupList.add(schoolPopup);
