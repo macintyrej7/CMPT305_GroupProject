@@ -35,7 +35,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -196,13 +199,11 @@ public class MapScreenController {
                 String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
 
                 String schoolName = (String) clickedGraphic.getAttributes().get("name");
-                String calcText = "Average Value within " + sliderValue + " KM: " + averageValue;
+                String calcText = "Average Value within " + sliderValue + " KM: " + averageValue + "\n ";
                 Label calcLabel = new Label(calcText);
-                calcLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
+                calcLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
                 String schoolType = (String) clickedGraphic.getAttributes().get("school type");
                 School theSchool = findSchoolByName(schoolName);
-
-
 
                 // Zoom on school click
                 moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
@@ -212,13 +213,23 @@ public class MapScreenController {
                 double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.4;
                 double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMaxY() - yOffset;
                 List<VBox> schooLabelList = theSchool.convertToStyledLabelsGrouped();
+                // Buttons formatting
+                HBox schoolButtonLayout = new HBox();
+                schoolButtonLayout.setSpacing(10);
                 Button schoolWebsiteButton = CustomPopup.generateURLButton(theSchool.getSchoolWebsite());
+                Button schoolGoogleButton = CustomPopup.generateURLButton("https://www.google.com/search?q=" + schoolNameToQuery(schoolName + " School"));
+                ImageView googleIcon = new ImageView("images/googs.png");
+                googleIcon.setFitHeight(schoolGoogleButton.getHeight());
+                googleIcon.setFitHeight(schoolGoogleButton.getWidth());
+                schoolGoogleButton.setGraphic(googleIcon);
+                schoolWebsiteButton.setText("\uD83C\uDF10" + "Website ");
                 schoolPopup.setContent(schooLabelList);
                 schoolPopup.addNode(calcLabel);
-                schoolPopup.addNode(schoolWebsiteButton);
+                schoolButtonLayout.getChildren().addAll(schoolGoogleButton, schoolWebsiteButton);
+                schoolPopup.addNode(schoolButtonLayout);
 
 
-                hidePopups();
+                hidePopups(); // Hide any existing popups and replace them with the new one
                 popupList.add(schoolPopup);
                 schoolPopup.show(mapView.getScene().getWindow(), 0, sceneY - 300);
 
@@ -238,6 +249,13 @@ public class MapScreenController {
             e.printStackTrace();
         }
     }
+
+    private String schoolNameToQuery(String schoolName){
+        String[] schoolNameSplit = schoolName.split(" ");
+        return String.join("+", schoolNameSplit);
+    }
+
+
 
     private School findSchoolByName(String schoolName){
         return schoolList.stream().filter(school -> school.getSchoolName().equals(schoolName)).toList().get(0);
