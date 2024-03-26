@@ -23,7 +23,7 @@ Label {
 }
 
 /* Styling for subheadings */
-#languageProgramsLabel, #schoolBoardLabel, #resultsReturnedLabel, #gradeLevelLabel, #propertyRadiusLabe, #appliedFiltersLabel, #propertyRadiusLabel {
+#languageProgramsLabel, #schoolBoardLabel, #resultsReturnedLabel, #gradeLevelLabel, #propertyRadiusLabe, #appliedFiltersLabel, #propertyRadiusLabel, #languageProgramLabel {
     -fx-font-size: 24px;
     -fx-text-fill: #21bf75; /* Green */
 }
