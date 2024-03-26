@@ -55,7 +55,7 @@ public class MapScreenController {
     private List<School> schoolList;
     private List<Residence> residenceList;
 
-    private boolean popupShowing = false;
+
     private List<CustomPopup> popupList;
 
     private Graphic lastClickedSchoolGraphic = null; // Used to keep track of point colors.
@@ -71,6 +71,11 @@ public class MapScreenController {
 
     @FXML
     private ListView<String> gradeFilterListView;
+
+    @FXML
+    private Slider propertyRadiusSlider;
+
+    private double sliderValue;
 
 
 
@@ -88,8 +93,9 @@ public class MapScreenController {
         map = new ArcGISMap(BasemapStyle.OSM_NAVIGATION);
         mapView.setMap(map);
 
-        // Set Default location
+        // Set Default location, zoom and UI elements position.
         resetZoom();
+        sliderValue = propertyRadiusSlider.getValue();
 
         // Set to StackPane inside tab
         mapPane.getChildren().add(mapView);
@@ -186,10 +192,10 @@ public class MapScreenController {
                 Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
 
                 // TODO: Modify radius based on slider here.
-                String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,2.0,schoolCoordinates);
+                String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
 
                 String schoolName = (String) clickedGraphic.getAttributes().get("name") + " School";
-                String contentText = (String) clickedGraphic.getAttributes().get("school info") + "Average Value within 2.0 KM: " + averageValue;
+                String contentText = (String) clickedGraphic.getAttributes().get("school info") + "Average Value within " + sliderValue + " KM: " + averageValue;
                 String schoolType = (String) clickedGraphic.getAttributes().get("school type");
 
                 // Zoom on school click
@@ -224,8 +230,7 @@ public class MapScreenController {
     }
 
     private void changeGraphicColor(Graphic graphic, Color color) {
-        if (graphic.getSymbol() instanceof SimpleMarkerSymbol) {
-            SimpleMarkerSymbol originalSymbol = (SimpleMarkerSymbol) graphic.getSymbol();
+        if (graphic.getSymbol() instanceof SimpleMarkerSymbol originalSymbol) {
             SimpleMarkerSymbol newSymbol = new SimpleMarkerSymbol(originalSymbol.getStyle(), color, originalSymbol.getSize());
             SimpleLineSymbol blackOutlineSymbol =
                     new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.rgb(0, 0, 0, 0.5), 1);
@@ -330,17 +335,17 @@ public class MapScreenController {
             finalPred = finalPred.and(gradePred);
         }
 
-
-
-
-
         appliedFiltersLabel.setText(appliedFiltersString);
 
         getMapOverlay().getGraphics().clear();
         List<School> filteredSchools = schoolList.stream().filter(finalPred).toList();
         resultsReturnedLabel.setText(String.valueOf(filteredSchools.size()) + " Results");
         lastClickedSchoolGraphic = null; // Reset last clicked if screen re-drawn with new.
-        drawSchools(filteredSchools, getMapOverlay());
+        sliderValue = propertyRadiusSlider.getValue(); // Get new slider value
+        hidePopups(); // Similarly, hide popups when new filter criteria are applied
+        drawSchools(filteredSchools, getMapOverlay()); // Draw schools with new filter critiera
+        resetZoom();
+
     }
 
 
@@ -355,6 +360,8 @@ public class MapScreenController {
         resetSchoolMap();
         hidePopups(); // clear any active popups
         resetZoom();
+        propertyRadiusSlider.setValue(propertyRadiusSlider.getMin()); // set slider back to default pos.
+        sliderValue = propertyRadiusSlider.getValue();
     }
 
     public void resetZoom(){
