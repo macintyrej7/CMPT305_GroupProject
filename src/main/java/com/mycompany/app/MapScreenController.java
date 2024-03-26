@@ -79,6 +79,9 @@ public class MapScreenController {
     private ListView<String> gradeFilterListView;
 
     @FXML
+    private ListView<String> languageFilterListView;
+
+    @FXML
     private Slider propertyRadiusSlider;
 
     private double sliderValue;
@@ -111,14 +114,17 @@ public class MapScreenController {
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
 
-        //List<String> grades = List.of("K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12");
-        //gradeFilterListView.getItems().addAll(grades);
+
         gradeFilterListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         schoolList = ImportSchools.readCSV("merged_file.csv");
         List<String> grades = Extractors.uniqueListValues(schoolList, School::getSchoolGradeList);
 
         gradeFilterListView.getItems().addAll(grades);
+
+        List<String> languagePrograms = Extractors.uniqueListValues(schoolList, School::getSchoolLanguageList);
+        languageFilterListView.getItems().addAll(languagePrograms);
+
         residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
 
         popupList = new ArrayList<>();
@@ -350,6 +356,11 @@ public class MapScreenController {
             return selectedGrades.isEmpty() || school.getSchoolGradeList().stream().anyMatch(selectedGrades::contains);
         };
 
+        Predicate<School> languagePred = school -> {
+            List<String> selectedLanguages= new ArrayList<>(languageFilterListView.getSelectionModel().getSelectedItems());
+            return selectedLanguages.isEmpty() || school.getSchoolLanguageList().stream().anyMatch(selectedLanguages::contains);
+        };
+
         String appliedFiltersString = "Applied Filters: ";
 
         if (spanishCheckbox.isSelected()){
@@ -377,6 +388,10 @@ public class MapScreenController {
 
         if (!gradeFilterListView.getSelectionModel().getSelectedItems().isEmpty()) {
             finalPred = finalPred.and(gradePred);
+        }
+
+        if (!languageFilterListView.getSelectionModel().getSelectedItems().isEmpty()) {
+            finalPred = finalPred.and(languagePred);
         }
 
         appliedFiltersLabel.setText(appliedFiltersString);

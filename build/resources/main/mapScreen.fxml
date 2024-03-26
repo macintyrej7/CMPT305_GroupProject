@@ -95,6 +95,12 @@
                      </padding>
                   </Label>
                   <ListView fx:id="gradeFilterListView" prefHeight="126.0" prefWidth="302.0" />
+                  <Label fx:id="LanguageProgramlLabel" text="Language Programs" underline="true">
+                     <padding>
+                        <Insets bottom="-10.0" />
+                     </padding>
+                  </Label>
+                  <ListView fx:id="languageFilterListView" prefHeight="126.0" prefWidth="302.0" />
                </children>
             </VBox>
             <VBox prefHeight="250.0" prefWidth="210.0" spacing="10.0">
