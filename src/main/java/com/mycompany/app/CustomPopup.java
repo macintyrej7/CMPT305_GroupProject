@@ -1,13 +1,14 @@
 package com.mycompany.app;
 
-import javafx.application.HostServices;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
-import javafx.stage.Popup;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.io.IOException;
@@ -15,11 +16,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-public class CustomPopup extends Popup {
+public class CustomPopup extends Stage {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    public CustomPopup() {
+    public CustomPopup(double x, double y) {
+        this.setX(x);
+        this.setY(y);
+        initModality(Modality.NONE);
+        initStyle(StageStyle.UNDECORATED);
         VBox root = new VBox();
         // mint green + rounded edges
         root.setStyle("-fx-padding: 10px; -fx-background-color: rgb(227, 251, 255, 0.9); -fx-background-radius: 10;");
@@ -32,7 +37,7 @@ public class CustomPopup extends Popup {
         Button closeButton = new Button();
         closeButton.setGraphic(closeIcon);
         closeButton.setStyle("-fx-background-color: transparent;");
-        closeButton.setOnMouseClicked(event -> hide());
+        closeButton.setOnMouseClicked(event -> this.hide());
         HBox closeButtonBox = new HBox(closeButton);
         closeButtonBox.setStyle("-fx-alignment: center-right;");
         root.getChildren().add(closeButtonBox);
@@ -48,16 +53,16 @@ public class CustomPopup extends Popup {
             setX(event.getScreenX() - xOffset);
             setY(event.getScreenY() - yOffset);
         });
-        this.getContent().add(root);
+        this.setScene(new javafx.scene.Scene(root));
     }
 
     public void setContent(List<VBox> nodes) {
-        VBox root = (VBox) this.getContent().get(0);
+        VBox root = (VBox) this.getScene().getRoot();
         root.getChildren().addAll(nodes); // Add new nodes
     }
 
     public void addNode(Node newNode){
-        VBox root = (VBox) this.getContent().get(0);
+        VBox root = (VBox) this.getScene().getRoot();
         root.getChildren().add(newNode);
     }
 

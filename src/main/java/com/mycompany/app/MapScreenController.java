@@ -42,6 +42,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Popup;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -172,7 +173,7 @@ public class MapScreenController {
         Point targetPoint = new Point(x, y, SpatialReference.create(4326));
 
         // Set the viewpoint to center on the target point
-        mapView.setViewpoint(new Viewpoint(targetPoint, 10000)); // 10,000 is the scale
+        mapView.setViewpoint(new Viewpoint(targetPoint, 4000)); // 10,000 is the scale
     }
 
 
@@ -209,9 +210,10 @@ public class MapScreenController {
                 moveToTargetPoint((Double) clickedGraphic.getAttributes().get("Y"), (Double) clickedGraphic.getAttributes().get("X"));
 
                 // Create Custom popup for school info
-                CustomPopup schoolPopup = new CustomPopup();
-                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.1;
+                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY();
                 double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMaxY() - yOffset;
+                CustomPopup schoolPopup = new CustomPopup(0,yOffset / 2);
+
                 List<VBox> schooLabelList = theSchool.convertToStyledLabelsGrouped();
                 // Buttons formatting
                 HBox schoolButtonLayout = new HBox();
@@ -228,10 +230,15 @@ public class MapScreenController {
                 schoolButtonLayout.getChildren().addAll(schoolGoogleButton, schoolWebsiteButton);
                 schoolPopup.addNode(schoolButtonLayout);
 
+                //Dialog testPopup = new Dialog<ButtonType>();
+                //testPopup.initOwner(mapView.getScene().getWindow());
+
 
                 hidePopups(); // Hide any existing popups and replace them with the new one
                 popupList.add(schoolPopup);
-                schoolPopup.show(mapView.getScene().getWindow(), 0, sceneY - 300);
+                schoolPopup.show();
+                //Popup myPopup = new Popup();
+                //testPopup.showAndWait();
 
                 // modify color on click && reset old clicked point
                 if (lastClickedSchoolGraphic!= null){
