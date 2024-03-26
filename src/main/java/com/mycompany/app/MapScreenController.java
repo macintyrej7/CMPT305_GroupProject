@@ -210,7 +210,7 @@ public class MapScreenController {
 
                 // Create Custom popup for school info
                 CustomPopup schoolPopup = new CustomPopup();
-                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.4;
+                double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY() / 1.1;
                 double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMaxY() - yOffset;
                 List<VBox> schooLabelList = theSchool.convertToStyledLabelsGrouped();
                 // Buttons formatting

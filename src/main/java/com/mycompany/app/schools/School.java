@@ -39,10 +39,10 @@ public class School extends Property{
     public School(int schoolNumber, String schoolName, Address address,
                   Coordinates coordinates, List<String> schoolGradeLevels, boolean spanishBilingual,
                   boolean frenchImmersion, String schoolEmail, PhoneNumber schoolPhoneNumber,
-                  String schoolWebsite, String schoolType, List schoolGradeList, List schoolLanguageList) {
+                  String schoolWebsite, String schoolType, List<String> schoolGradeList, List<String> schoolLanguageList) {
 
         super(address,coordinates,null);
-        //setting neighbourhood null for now, but left it in in case we want to use it later
+        //setting neighbourhood null for now, but left it in case we want to use it later
 
         this.schoolNumber = schoolNumber;
         this.schoolName = schoolName;
@@ -162,12 +162,11 @@ public class School extends Property{
 
         // Language category
         VBox languageBox = new VBox();
-        Label languageLabel = new Label("Language");
+        Label languageLabel = new Label("Language Programs");
         languageLabel.setStyle(relatedInfoStyle);
         languageBox.getChildren().add(languageLabel);
         // Add language-related information
-        languageBox.getChildren().add(createLabel("French Immersion: " + frenchImmersion));
-        languageBox.getChildren().add(createLabel("Spanish Bilingual: " + spanishBilingual));
+        languageBox.getChildren().add(createLabel(schoolLanguageList.toString()));
         vBoxList.add(languageBox);
 
         // Grade information category
