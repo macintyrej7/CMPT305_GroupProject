@@ -1,6 +1,7 @@
 package com.mycompany.app;
 
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,12 +27,13 @@ public class CustomPopup extends Stage {
         this.setY(y);
         initOwner(owner);
         initModality(Modality.NONE);
-        initStyle(StageStyle.UNDECORATED);
-        VBox root = new VBox();
-        // mint green + rounded edges
-        root.setStyle("-fx-padding: 10px; -fx-background-color: rgb(227, 251, 255, 0.9); -fx-background-radius: 10;");
+        initStyle(StageStyle.TRANSPARENT);
 
-        // Add close button
+        VBox root = new VBox();
+        // Set popup CSS styling
+        root.setStyle("-fx-padding: 10px; -fx-background-color: rgba(245,255,250, 0.8); -fx-background-radius: 10;");
+
+        // Add close button || TODO: Creation of Custom JavaFX objects could be encapsulated into their own class
         SVGPath closeIcon = new SVGPath();
         closeIcon.setContent("M 4.5 4.5 L 11.5 11.5 M 11.5 4.5 L 4.5 11.5");
         closeIcon.setStroke(Color.BLACK);
@@ -41,7 +43,7 @@ public class CustomPopup extends Stage {
         closeButton.setStyle("-fx-background-color: transparent;");
         closeButton.setOnMouseClicked(event -> this.hide());
         HBox closeButtonBox = new HBox(closeButton);
-        closeButtonBox.setStyle("-fx-alignment: center-right;");
+        closeButtonBox.setStyle("-fx-alignment: center-right; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 1);");
         root.getChildren().add(closeButtonBox);
         closeButton.setOnAction(event -> this.hide());
 
@@ -55,7 +57,9 @@ public class CustomPopup extends Stage {
             setX(event.getScreenX() - xOffset);
             setY(event.getScreenY() - yOffset);
         });
-        this.setScene(new javafx.scene.Scene(root));
+        Scene scene = new Scene(root);
+        scene.setFill(null);
+        this.setScene(scene);
     }
 
     public void setContent(List<VBox> nodes) {
@@ -96,5 +100,17 @@ public class CustomPopup extends Stage {
             System.out.println("Desktop browsing is not supported.");
             // Handle the case where desktop browsing is not supported
         }
+    }
+
+
+    // Method to extract background color from CSS style string
+    private String getBackgroundColor(String style) {
+        String[] parts = style.split(";");
+        for (String part : parts) {
+            if (part.trim().startsWith("-fx-background-color:")) {
+                return part.split(":")[1].trim();
+            }
+        }
+        return "transparent"; // Default transparent color if not found
     }
 }

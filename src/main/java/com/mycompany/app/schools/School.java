@@ -139,9 +139,15 @@ public class School extends Property{
 
         // School name styled separately
         Label schoolNameLabel = new Label(schoolName);
+
         Label schoolTypeLabel = new Label(schoolType +  " School");
-        schoolNameLabel.setStyle("-fx-font-size: 36px; -fx-font-family: 'Playfair Display'; -fx-font-weight: bold; -fx-text-fill: black;");
-        schoolTypeLabel.setStyle("-fx-font-size: 20px; -fx-font-family: 'Playfair Display'; -fx-font-weight: bold; -fx-text-fill: black;");
+        schoolNameLabel.setStyle(
+                "-fx-font-size: 36px;" +
+                " -fx-font-family: 'Tahoma'; -fx-font-weight: bold;" +
+                " -fx-text-fill: black;" +
+                "-fx-background-radius: 5px;");
+        schoolTypeLabel.setStyle("-fx-font-size: 20px; -fx-font-family: 'Tahoma';" +
+                " -fx-font-weight: bold; -fx-text-fill: darkviolet;");
         VBox schoolNameBox = new VBox(schoolNameLabel);
         schoolNameBox.getChildren().add(schoolTypeLabel);
         schoolNameBox.getChildren().add(createLabel(""));

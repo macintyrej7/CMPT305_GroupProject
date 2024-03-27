@@ -184,7 +184,7 @@ public class MapScreenController {
         Point targetPoint = new Point(x, y, SpatialReference.create(4326));
 
         // Set the viewpoint to center on the target point
-        mapView.setViewpoint(new Viewpoint(targetPoint, 4000)); // 10,000 is the scale
+        mapView.setViewpoint(new Viewpoint(targetPoint, 3000)); // 10,000 is the scale
     }
 
 
