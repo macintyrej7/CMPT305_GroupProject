@@ -9,6 +9,7 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 import java.awt.*;
 import java.io.IOException;
@@ -20,9 +21,10 @@ public class CustomPopup extends Stage {
     private double xOffset = 0;
     private double yOffset = 0;
 
-    public CustomPopup(double x, double y) {
+    public CustomPopup(Window owner, double x, double y) {
         this.setX(x);
         this.setY(y);
+        initOwner(owner);
         initModality(Modality.NONE);
         initStyle(StageStyle.UNDECORATED);
         VBox root = new VBox();

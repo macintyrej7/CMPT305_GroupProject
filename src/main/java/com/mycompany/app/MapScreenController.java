@@ -223,7 +223,7 @@ public class MapScreenController {
                 // Create Custom popup for school info
                 double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY();
                 double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMaxY() - yOffset;
-                CustomPopup schoolPopup = new CustomPopup(0,yOffset / 2);
+                CustomPopup schoolPopup = new CustomPopup(mapView.getScene().getWindow(), 0,yOffset / 2);
 
                 List<VBox> schooLabelList = theSchool.convertToStyledLabelsGrouped();
                 // Buttons formatting
@@ -241,15 +241,10 @@ public class MapScreenController {
                 schoolButtonLayout.getChildren().addAll(schoolGoogleButton, schoolWebsiteButton);
                 schoolPopup.addNode(schoolButtonLayout);
 
-                //Dialog testPopup = new Dialog<ButtonType>();
-                //testPopup.initOwner(mapView.getScene().getWindow());
-
 
                 hidePopups(); // Hide any existing popups and replace them with the new one
                 popupList.add(schoolPopup);
                 schoolPopup.show();
-                //Popup myPopup = new Popup();
-                //testPopup.showAndWait();
 
                 // modify color on click && reset old clicked point
                 if (lastClickedSchoolGraphic!= null){
@@ -415,12 +410,13 @@ public class MapScreenController {
         publicCheckbox.setSelected(false);
         lastClickedSchoolGraphic = null;
         appliedFiltersLabel.setText("Applied filters: ");
-        // TODO: Add line for Property slider reset
         resetSchoolMap();
         hidePopups(); // clear any active popups
         resetZoom();
         propertyRadiusSlider.setValue(propertyRadiusSlider.getMin()); // set slider back to default pos.
         sliderValue = propertyRadiusSlider.getValue();
+        languageFilterListView.getSelectionModel().clearSelection();
+        gradeFilterListView.getSelectionModel().clearSelection();
     }
 
     public void resetZoom(){
