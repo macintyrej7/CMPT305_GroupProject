@@ -51,7 +51,8 @@ import java.util.function.Predicate;
 
 public class MapScreenController {
 
-    private long MAX_VALUE = 500000;
+    private long MAX_VALUE = 500000 * 4;
+    private long MIN_VALUE = 100000;
 
     private MapView mapView;
     private ArcGISMap map;
@@ -123,10 +124,7 @@ public class MapScreenController {
         List<String> languagePrograms = Extractors.uniqueListValues(schoolList, School::getSchoolLanguageList);
         languageFilterListView.getItems().addAll(languagePrograms);
 
-        residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
-        residenceList = residenceList.stream()
-                .filter(residence -> residence.containsAssessmentClass("RESIDENTIAL"))
-                .toList();
+        residenceList = ImportResidences.readCSVResidentialBetweenValues("Property_Assessment_Data_2024.csv", MIN_VALUE, MAX_VALUE);
 
         popupList = new ArrayList<>();
 
