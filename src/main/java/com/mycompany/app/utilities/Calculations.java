@@ -67,7 +67,8 @@ public class Calculations {
 
         double medianValue = calculateMedian(filteredValues);
 
-        return new AssessmentValueStatistics(statistics.getAverage(),statistics.getMax(),statistics.getMin(),medianValue);
+        return new AssessmentValueStatistics(statistics.getAverage(),statistics.getMax(),statistics.getMin(),
+                medianValue,filteredValues.size());
 
     }
 

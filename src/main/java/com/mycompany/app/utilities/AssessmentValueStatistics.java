@@ -9,12 +9,15 @@ public class AssessmentValueStatistics {
     private double max;
     private double min;
     private double median;
+    private int size;
 
-        public AssessmentValueStatistics(double average, double max, double min, double median){
+
+        public AssessmentValueStatistics(double average, double max, double min, double median, int size){
             this.average = average;
             this.max = max;
             this.min = min;
             this.median = median;
+            this.size = size;
         }
 
     public double getAverage() {
@@ -33,6 +36,10 @@ public class AssessmentValueStatistics {
         return median;
     }
 
+    public int getSize(){
+            return size;
+    }
+
     @Override
     public String toString() {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
@@ -40,7 +47,8 @@ public class AssessmentValueStatistics {
         return "average: " + currencyFormat.format(average) +"\n" +
                 "max: " + currencyFormat.format(max) +"\n" +
                 "min: " + currencyFormat.format(min) +"\n" +
-                "median: " + currencyFormat.format(median);
+                "median: " + currencyFormat.format(median) + "\n" +
+                "number of residences: " + size;
     }
 
     @Override
