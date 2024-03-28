@@ -86,7 +86,7 @@ public class App extends Application {
         // Load objects from FXML file into scenes and then into tabs
         Scene tabLayout = loadSceneFromFXML("tabLayout.fxml");
         //tabLayout.getStylesheets().add(Objects.requireNonNull(getClass().getResource("tabStyle.css")).toExternalForm());
-        Image titleBarIcon = new Image(new File("images/map.png").toURI().toString());
+        Image titleBarIcon = new Image("file:map.png");
         stage.getIcons().add(titleBarIcon);
         stage.setScene(tabLayout);
         stage.setHeight(screenSizeHeight);

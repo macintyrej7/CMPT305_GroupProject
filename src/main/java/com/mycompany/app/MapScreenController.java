@@ -38,6 +38,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
@@ -45,6 +46,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -231,9 +233,9 @@ public class MapScreenController {
                 schoolButtonLayout.setSpacing(10);
                 Button schoolWebsiteButton = CustomPopup.generateURLButton(theSchool.getSchoolWebsite());
                 Button schoolGoogleButton = CustomPopup.generateURLButton("https://www.google.com/search?q=" + schoolNameToQuery(schoolName + " School"));
-                ImageView googleIcon = new ImageView("images/googs.png");
+                ImageView googleIcon = new ImageView("file:googs.png");
                 googleIcon.setFitHeight(schoolGoogleButton.getHeight());
-                googleIcon.setFitHeight(schoolGoogleButton.getWidth());
+                googleIcon.setFitWidth(schoolGoogleButton.getWidth());
                 schoolGoogleButton.setGraphic(googleIcon);
                 schoolWebsiteButton.setText("\uD83C\uDF10" + "Website ");
                 schoolPopup.addNodes(schooLabelList);
