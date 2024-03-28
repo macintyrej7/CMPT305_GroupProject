@@ -27,6 +27,8 @@ public class ReportPlaneController {
     @FXML
     private BarChart<Number, String> highestChart;
 
+    @FXML BarChart<Number, String> lowestChart;
+
     private List<School> myschools;
     private List<Residence> myResidences;
     private XYDataImporter xyDataImporter;
@@ -82,22 +84,32 @@ public class ReportPlaneController {
         CategoryAxis highestY = new CategoryAxis();
 
         XYChart.Series<Number, String> highestSeries = new XYChart.Series<>();
-
-        int counter = 0;
+        XYChart.Series<Number, String> lowestSeries = new XYChart.Series<>();
 
         for (int i = 0; i < 10; i++){
 
-            Map.Entry entry = sortedSchoolValuesMap.get(sortedSchoolValuesMap.size()-(10-i));
+            Map.Entry highestEntry = sortedSchoolValuesMap.get(sortedSchoolValuesMap.size()-(10-i));
 
-            School school = (School) entry.getKey();
+            School highestSchool = (School) highestEntry.getKey();
 
-            AssessmentValueStatistics schoolValues = (AssessmentValueStatistics) entry.getValue();
+            AssessmentValueStatistics highestSchoolValues = (AssessmentValueStatistics) highestEntry.getValue();
 
-            highestSeries.getData().add(new XYChart.Data<Number, String>(schoolValues.getAverage(), school.getSchoolName()));
+            highestSeries.getData().add(new XYChart.Data<Number, String>(highestSchoolValues.getAverage(), highestSchool.getSchoolName()));
+
+            Map.Entry lowestEntry = sortedSchoolValuesMap.get(i);
+
+            School lowestSchool = (School) lowestEntry.getKey();
+
+            AssessmentValueStatistics lowestSchoolValues = (AssessmentValueStatistics) lowestEntry.getValue();
+
+            lowestSeries.getData().add(new XYChart.Data<Number, String>(lowestSchoolValues.getAverage(), lowestSchool.getSchoolName()));
         }
 
         highestChart.getData().add(highestSeries);
         highestChart.setLegendVisible(false);
+
+        lowestChart.getData().add(lowestSeries);
+        lowestChart.setLegendVisible(false);
     }
 
     private Map<School, AssessmentValueStatistics> mapSchoolValues(List<School> schools, List<Residence> residences){

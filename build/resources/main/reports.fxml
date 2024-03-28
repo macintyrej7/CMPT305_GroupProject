@@ -75,6 +75,23 @@
                                                </content>
                                            </ScrollPane>
                                        </Tab>
+                                       <Tab fx:id="lowestValuesReport" text="Lowest Surrounding Value">
+                                           <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
+                                               <content>
+                                                   <BarChart fx:id="lowestChart" prefHeight="416.0" prefWidth="1216.0" title="Bottom 10 Schools Ranked by Lowest Surrounding Property Value (within 2 km)">
+                                                       <xAxis>
+                                                           <NumberAxis side="BOTTOM" label="Value"/>
+                                                       </xAxis>
+                                                       <yAxis>
+                                                           <CategoryAxis side="LEFT" label="School"/>
+                                                       </yAxis>
+                                                       <padding>
+                                                           <Insets top="50.0" />
+                                                       </padding>
+                                                   </BarChart>
+                                               </content>
+                                           </ScrollPane>
+                                       </Tab>
                                    </tabs>
                                </TabPane>
                            </children></StackPane>
