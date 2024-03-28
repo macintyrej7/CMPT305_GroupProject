@@ -124,6 +124,9 @@ public class MapScreenController {
         languageFilterListView.getItems().addAll(languagePrograms);
 
         residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
+        residenceList = residenceList.stream()
+                .filter(residence -> residence.containsAssessmentClass("RESIDENTIAL"))
+                .toList();
 
         popupList = new ArrayList<>();
 

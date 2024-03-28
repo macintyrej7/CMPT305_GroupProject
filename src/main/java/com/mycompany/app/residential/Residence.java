@@ -37,6 +37,14 @@ public class Residence extends Property {
         return assessedValue;
     }
 
+    public boolean containsAssessmentClass(String assessmentClassName){
+        for (AssessmentClass ac: assessementClassList){
+            if (assessmentClassName.equals(ac.getAssessmentClassName()))
+                return true;
+        }
+        return false;
+    }
+
 
     @Override
     public boolean equals(Object o) {
