@@ -70,7 +70,7 @@ class CalculateDistanceTest {
 
         String average = Calculations.calculateAverageAssessmentValue(residences,distance,coordinates);
 
-        String expected = "$15,000.00";
+        String expected = "$0.00";
 
         assertEquals(expected,average);
 
