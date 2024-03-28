@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static com.mycompany.app.utilities.PopupHelper.createLabel;
+
 public class School extends Property{
 
     private int schoolNumber;
@@ -190,11 +192,8 @@ public class School extends Property{
         return vBoxList;
     }
 
-    private Label createLabel(String text) {
-        Label label = new Label(text);
-        label.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #333333;");
-        return label;
-    }
+
+
 }
 
 

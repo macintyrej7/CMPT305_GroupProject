@@ -12,9 +12,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="1440.0" maxWidth="2560.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0"
-      prefWidth="1920.0" spacing="10.0" stylesheets="@styles/mapScreenStyle.css" xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.app.MapScreenController">
+<HBox maxHeight="1440.0" maxWidth="2560.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" spacing="10.0" stylesheets="@styles/mapScreenStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.app.MapScreenController">
    <children>
       <StackPane fx:id="mapPane" minHeight="1080.0" prefWidth="1200.0" />
       <VBox fx:id="filterBox" minHeight="1080.0" minWidth="200.0" prefHeight="1080.0" prefWidth="310.0" spacing="15.0">
@@ -97,7 +95,7 @@
                      </padding>
                   </Label>
                   <ListView fx:id="gradeFilterListView" prefHeight="126.0" prefWidth="302.0" />
-                  <Label fx:id="languageProgramLabel" text="Language Programs" underline="true">
+                  <Label fx:id="languageProgramLabel" text="Language Programs (exp.)" underline="true">
                      <padding>
                         <Insets bottom="-10.0" />
                      </padding>
