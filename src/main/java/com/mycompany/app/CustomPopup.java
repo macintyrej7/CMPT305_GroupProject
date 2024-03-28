@@ -1,12 +1,11 @@
 package com.mycompany.app;
 
+import com.mycompany.app.utilities.PopupHelper;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.SVGPath;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -33,19 +32,12 @@ public class CustomPopup extends Stage {
         // Set popup CSS styling
         root.setStyle("-fx-padding: 10px; -fx-background-color: rgba(245,255,250, 0.8); -fx-background-radius: 10;");
 
-        // Add close button || TODO: Creation of Custom JavaFX objects could be encapsulated into their own class
-        SVGPath closeIcon = new SVGPath();
-        closeIcon.setContent("M 4.5 4.5 L 11.5 11.5 M 11.5 4.5 L 4.5 11.5");
-        closeIcon.setStroke(Color.BLACK);
-        closeIcon.setStrokeWidth(2);
-        Button closeButton = new Button();
-        closeButton.setGraphic(closeIcon);
-        closeButton.setStyle("-fx-background-color: transparent;");
+        // Add close button
+        Button closeButton = PopupHelper.generateCloseButton();
         closeButton.setOnMouseClicked(event -> this.hide());
         HBox closeButtonBox = new HBox(closeButton);
         closeButtonBox.setStyle("-fx-alignment: center-right; -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 1);");
         root.getChildren().add(closeButtonBox);
-        closeButton.setOnAction(event -> this.hide());
 
         // Add event handlers for mouse press and drag events
         root.setOnMousePressed(event -> {
@@ -62,7 +54,7 @@ public class CustomPopup extends Stage {
         this.setScene(scene);
     }
 
-    public void setContent(List<VBox> nodes) {
+    public void addNodes(List<VBox> nodes) {
         VBox root = (VBox) this.getScene().getRoot();
         root.getChildren().addAll(nodes); // Add new nodes
     }
@@ -71,6 +63,7 @@ public class CustomPopup extends Stage {
         VBox root = (VBox) this.getScene().getRoot();
         root.getChildren().add(newNode);
     }
+
 
     public static Button generateURLButton(String URL){
         Button resultButton = new Button();

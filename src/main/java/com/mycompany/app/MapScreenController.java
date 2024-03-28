@@ -31,6 +31,7 @@ import com.mycompany.app.schools.School;
 import com.mycompany.app.utilities.AssessmentValueStatistics;
 import com.mycompany.app.utilities.Calculations;
 import com.mycompany.app.utilities.Extractors;
+import com.mycompany.app.utilities.PopupHelper;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -209,16 +210,11 @@ public class MapScreenController {
                 // Surrounding Property Calculation based on slider radius
                 AssessmentValueStatistics assessmentValueStatistics = Calculations.calculateAssessmentValueStatistics(
                         residenceList,sliderValue,schoolCoordinates);
-                //String averageValue = Calculations.calculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
-
 
                 String schoolName = (String) clickedGraphic.getAttributes().get("name");
-                String calcText = "Assessment Value Statistics within " + sliderValue + " KM: "
-                        + "\n"
-                        + assessmentValueStatistics.toString();
+                String calcText = "Assessment Value Statistics within " + sliderValue + " KM: ";
+                VBox calcBox = PopupHelper.createCategoryVbox(calcText, assessmentValueStatistics.toString(), true);
 
-                Label calcLabel = new Label(calcText);
-                calcLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
                 String schoolType = (String) clickedGraphic.getAttributes().get("school type");
                 School theSchool = findSchoolByName(schoolName);
 
@@ -227,7 +223,6 @@ public class MapScreenController {
 
                 // Create Custom popup for school info
                 double yOffset = mapPane.localToScene(mapPane.getBoundsInLocal()).getCenterY();
-                double sceneY = mapPane.localToScene(mapPane.getBoundsInLocal()).getMaxY() - yOffset;
                 CustomPopup schoolPopup = new CustomPopup(mapView.getScene().getWindow(), 0,yOffset / 2);
 
                 List<VBox> schooLabelList = theSchool.convertToStyledLabelsGrouped();
@@ -241,8 +236,8 @@ public class MapScreenController {
                 googleIcon.setFitHeight(schoolGoogleButton.getWidth());
                 schoolGoogleButton.setGraphic(googleIcon);
                 schoolWebsiteButton.setText("\uD83C\uDF10" + "Website ");
-                schoolPopup.setContent(schooLabelList);
-                schoolPopup.addNode(calcLabel);
+                schoolPopup.addNodes(schooLabelList);
+                schoolPopup.addNode(calcBox);
                 schoolButtonLayout.getChildren().addAll(schoolGoogleButton, schoolWebsiteButton);
                 schoolPopup.addNode(schoolButtonLayout);
 
