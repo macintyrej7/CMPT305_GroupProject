@@ -28,6 +28,7 @@ import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.residential.Residence;
 import com.mycompany.app.schools.School;
+import com.mycompany.app.utilities.AssessmentValueStatistics;
 import com.mycompany.app.utilities.Calculations;
 import com.mycompany.app.utilities.Extractors;
 import javafx.application.Platform;
@@ -36,18 +37,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Popup;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -126,6 +124,9 @@ public class MapScreenController {
         languageFilterListView.getItems().addAll(languagePrograms);
 
         residenceList = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
+        residenceList = residenceList.stream()
+                .filter(residence -> residence.containsAssessmentClass("RESIDENTIAL"))
+                .toList();
 
         popupList = new ArrayList<>();
 
@@ -208,10 +209,16 @@ public class MapScreenController {
                 Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
 
                 // Surrounding Property Calculation based on slider radius
-                String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
+                AssessmentValueStatistics assessmentValueStatistics = Calculations.calculateAssessmentValueStatistics(
+                        residenceList,sliderValue,schoolCoordinates);
+                //String averageValue = Calculations.calculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
+
 
                 String schoolName = (String) clickedGraphic.getAttributes().get("name");
-                String calcText = "Average Value within " + sliderValue + " KM: " + averageValue + "\n ";
+                String calcText = "Assessment Value Statistics within " + sliderValue + " KM: "
+                        + "\n"
+                        + assessmentValueStatistics.toString();
+
                 Label calcLabel = new Label(calcText);
                 calcLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
                 String schoolType = (String) clickedGraphic.getAttributes().get("school type");
