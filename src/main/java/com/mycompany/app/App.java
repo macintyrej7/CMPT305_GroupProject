@@ -54,6 +54,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -85,7 +86,7 @@ public class App extends Application {
         // Load objects from FXML file into scenes and then into tabs
         Scene tabLayout = loadSceneFromFXML("tabLayout.fxml");
         //tabLayout.getStylesheets().add(Objects.requireNonNull(getClass().getResource("tabStyle.css")).toExternalForm());
-        Image titleBarIcon = new Image("images/map.png");
+        Image titleBarIcon = new Image(new File("images/map.png").toURI().toString());
         stage.getIcons().add(titleBarIcon);
         stage.setScene(tabLayout);
         stage.setHeight(screenSizeHeight);
