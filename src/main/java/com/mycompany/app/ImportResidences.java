@@ -38,6 +38,35 @@ public class ImportResidences {
         return residences;
     }
 
+    public static List<Residence> readCSVResidentialBetweenValues(String fileName, long minValue, long maxValue) throws IOException {
+
+        List<Residence> residences = new ArrayList<>();
+
+        BufferedReader reader = Files.newBufferedReader(Paths.get(fileName));
+
+        reader.readLine();
+
+        String currentLine;
+
+        while ((currentLine = reader.readLine()) != null){
+
+            String[] values = currentLine.split(",");
+
+            Residence currentResidence = residenceHelper(values);
+
+            if (!currentResidence.containsAssessmentClass("RESIDENTIAL"))
+                continue; // only consider residential properties
+
+            if (currentResidence.getAssessedValue() <= maxValue && currentResidence.getAssessedValue() >= minValue){
+                residences.add(currentResidence); // add residence if it falls into the value range
+            }
+
+
+        }
+
+        return residences;
+    }
+
     private static Residence residenceHelper(String[] values) {
 
         int propertyAssessmentNumber;
