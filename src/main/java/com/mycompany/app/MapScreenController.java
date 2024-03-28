@@ -28,6 +28,7 @@ import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.residential.Residence;
 import com.mycompany.app.schools.School;
+import com.mycompany.app.utilities.AssessmentValueStatistics;
 import com.mycompany.app.utilities.Calculations;
 import com.mycompany.app.utilities.Extractors;
 import javafx.application.Platform;
@@ -205,10 +206,16 @@ public class MapScreenController {
                 Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
 
                 // Surrounding Property Calculation based on slider radius
-                String averageValue = Calculations.calculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
+                AssessmentValueStatistics assessmentValueStatistics = Calculations.calculateAssessmentValueStatistics(
+                        residenceList,sliderValue,schoolCoordinates);
+                //String averageValue = Calculations.calculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
+
 
                 String schoolName = (String) clickedGraphic.getAttributes().get("name");
-                String calcText = "Average Value within " + sliderValue + " KM: " + averageValue + "\n ";
+                String calcText = "Assessment Value Statistics within " + sliderValue + " KM: "
+                        + "\n"
+                        + assessmentValueStatistics.toString();
+
                 Label calcLabel = new Label(calcText);
                 calcLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: midnightblue;");
                 String schoolType = (String) clickedGraphic.getAttributes().get("school type");

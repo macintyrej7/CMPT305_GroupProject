@@ -1,5 +1,7 @@
 package com.mycompany.app.utilities;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 public class AssessmentValueStatistics {
@@ -33,12 +35,12 @@ public class AssessmentValueStatistics {
 
     @Override
     public String toString() {
-        return "AssessmentValueStatistics{" +
-                "average=" + average +
-                ", max=" + max +
-                ", min=" + min +
-                ", median=" + median +
-                '}';
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
+
+        return "average: " + currencyFormat.format(average) +"\n" +
+                "max: " + currencyFormat.format(max) +"\n" +
+                "min: " + currencyFormat.format(min) +"\n" +
+                "median: " + currencyFormat.format(median);
     }
 
     @Override
