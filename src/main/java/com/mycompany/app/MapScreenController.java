@@ -36,18 +36,15 @@ import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Popup;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -208,7 +205,7 @@ public class MapScreenController {
                 Coordinates schoolCoordinates = new Coordinates(schoolLatitude, schoolLongitude);
 
                 // Surrounding Property Calculation based on slider radius
-                String averageValue = Calculations.CalculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
+                String averageValue = Calculations.calculateAverageAssessmentValue(residenceList,sliderValue,schoolCoordinates);
 
                 String schoolName = (String) clickedGraphic.getAttributes().get("name");
                 String calcText = "Average Value within " + sliderValue + " KM: " + averageValue + "\n ";

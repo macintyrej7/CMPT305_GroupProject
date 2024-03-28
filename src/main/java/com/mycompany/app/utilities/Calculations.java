@@ -4,9 +4,8 @@ import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.residential.Residence;
 
 import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
-import java.util.OptionalDouble;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Calculations {
 
@@ -24,17 +23,54 @@ public class Calculations {
         return distance;
     }
 
-        public static String CalculateAverageAssessmentValue(List<Residence> residences, Double distance, Coordinates coordinates) {
-        OptionalDouble average = residences.stream()
-                .filter(t -> CalculateDistance(t.getCoordinates(), coordinates) < distance)
-                .mapToDouble(t -> t.getAssessedValue())
-                .average();
+    public static String calculateAverageAssessmentValue(List<Residence> residences, Double distance, Coordinates coordinates) {
+    OptionalDouble average = residences.stream()
+            .filter(t -> CalculateDistance(t.getCoordinates(), coordinates) < distance)
+            .mapToDouble(t -> t.getAssessedValue())
+            .average();
 
-            if (average.isPresent()) {
-                NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
-                return currencyFormat.format(average.getAsDouble());
-            } else {
-                return NumberFormat.getCurrencyInstance(Locale.CANADA).format(0.0);
-            }
+        if (average.isPresent()) {
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
+            return currencyFormat.format(average.getAsDouble());
+        } else {
+            return NumberFormat.getCurrencyInstance(Locale.CANADA).format(0.0);
+        }
     }
+
+    public static double calculateMedian(List<Double> doublesList){
+        int length = doublesList.size();
+
+        if (length == 0) {
+            return 0.0;
+        }
+
+        Collections.sort(doublesList);
+
+        if (length % 2 == 0) {
+            return (doublesList.get(length / 2 - 1) + doublesList.get(length / 2)) / 2.0;
+        } else {
+            return doublesList.get(length /2);
+        }
+    }
+
+    public static AssessmentValueStatistics calculateAssessmentValueStatistics(
+            List<Residence> residences, Double distance, Coordinates coordinates){
+
+        List<Double> filteredValues = residences.stream()
+                .filter(t -> CalculateDistance(t.getCoordinates(), coordinates) < distance)
+                .map(t -> (double)t.getAssessedValue())
+                .collect(Collectors.toList());
+
+        DoubleSummaryStatistics statistics = filteredValues.stream()
+                .mapToDouble(Double::doubleValue)
+                .summaryStatistics();
+
+        double medianValue = calculateMedian(filteredValues);
+
+        return new AssessmentValueStatistics(statistics.getAverage(),statistics.getMax(),statistics.getMin(),medianValue);
+
+    }
+
+
+
 }
