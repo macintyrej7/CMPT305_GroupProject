@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 
 public class ReportPlaneController {
 
-    private long MAX_VALUE = 500000;
-
     @FXML
     private BarChart<String, Number> barChart;
 
@@ -32,8 +30,11 @@ public class ReportPlaneController {
     private List<School> myschools;
     private List<Residence> myResidences;
     private XYDataImporter xyDataImporter;
+    private long MIN_VALUE = 40000;
+    private long MAX_VALUE = 500000;
 
     public void initialize() throws IOException {
+
         // Create axes
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -44,7 +45,7 @@ public class ReportPlaneController {
 
         barChart.setTitle("Count of Residential Properties by Value");*/
 
-        myResidences = ImportResidences.readCSV("Property_Assessment_Data_2024.csv", MAX_VALUE);
+        myResidences = ImportResidences.readCSVResidentialBetweenValues("Property_Assessment_Data_2024.csv", MIN_VALUE, MAX_VALUE);
         xyDataImporter = new XYDataImporter(myResidences);
         xyDataImporter.incrementContainers(10);
         xyDataImporter.updateContainers(10);
@@ -82,7 +83,11 @@ public class ReportPlaneController {
 
         XYChart.Series<Number, String> highestSeries = new XYChart.Series<>();
 
-        for (Map.Entry entry : sortedSchoolValuesMap) {
+        int counter = 0;
+
+        for (int i = 0; i < 10; i++){
+
+            Map.Entry entry = sortedSchoolValuesMap.get(sortedSchoolValuesMap.size()-(10-i));
 
             School school = (School) entry.getKey();
 
@@ -92,6 +97,7 @@ public class ReportPlaneController {
         }
 
         highestChart.getData().add(highestSeries);
+        highestChart.setLegendVisible(false);
     }
 
     private Map<School, AssessmentValueStatistics> mapSchoolValues(List<School> schools, List<Residence> residences){

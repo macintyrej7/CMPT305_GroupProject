@@ -4,14 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 /*
 class AssessmentValueStatisticsTest {
     AssessmentValueStatistics testAssessmentValueStatistics;
 
     @BeforeEach
     void setup(){
-        testAssessmentValueStatistics = new AssessmentValueStatistics(1.0,2.0, 3.0, 4.0);
+        testAssessmentValueStatistics = new AssessmentValueStatistics(1.0,2.0, 3.0, 4.0, 1);
 
     }
 
@@ -47,14 +46,14 @@ class AssessmentValueStatisticsTest {
 
     @Test
     void testEquals() {
-        AssessmentValueStatistics expected = new AssessmentValueStatistics(1.0,2.0, 3.0, 4.0);
+        AssessmentValueStatistics expected = new AssessmentValueStatistics(1.0,2.0, 3.0, 4.0, 1);
         assertEquals(expected,testAssessmentValueStatistics);
 
     }
 
     @Test
     void testHashCode() {
-        AssessmentValueStatistics expected = new AssessmentValueStatistics(1.0,2.0, 3.0, 4.0);
+        AssessmentValueStatistics expected = new AssessmentValueStatistics(1.0,2.0, 3.0, 4.0, 1);
         assertEquals(expected.hashCode(),testAssessmentValueStatistics.hashCode());
     }
 }*/

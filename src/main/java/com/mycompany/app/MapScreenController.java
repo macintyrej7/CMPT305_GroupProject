@@ -233,10 +233,11 @@ public class MapScreenController {
                 schoolButtonLayout.setSpacing(10);
                 Button schoolWebsiteButton = CustomPopup.generateURLButton(theSchool.getSchoolWebsite());
                 Button schoolGoogleButton = CustomPopup.generateURLButton("https://www.google.com/search?q=" + schoolNameToQuery(schoolName + " School"));
-                ImageView googleIcon = new ImageView("file:googs.png");
-                googleIcon.setFitHeight(schoolGoogleButton.getHeight());
-                googleIcon.setFitWidth(schoolGoogleButton.getWidth());
-                schoolGoogleButton.setGraphic(googleIcon);
+                //ImageView googleIcon = new ImageView("file:googs.png");
+                //googleIcon.setFitHeight(schoolGoogleButton.getHeight());
+                //googleIcon.setFitWidth(schoolGoogleButton.getWidth());
+                //schoolGoogleButton.setGraphic(googleIcon);
+                schoolGoogleButton.setText("Google");
                 schoolWebsiteButton.setText("\uD83C\uDF10" + "Website ");
                 schoolPopup.addNodes(schooLabelList);
                 schoolPopup.addNode(calcBox);
