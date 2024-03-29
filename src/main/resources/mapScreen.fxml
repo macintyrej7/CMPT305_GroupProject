@@ -2,14 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <HBox maxHeight="1440.0" maxWidth="2560.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" spacing="10.0" stylesheets="@styles/mapScreenStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.app.MapScreenController">
@@ -35,36 +33,18 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox prefHeight="61.0" prefWidth="195.0" spacing="10.0">
+            <VBox fx:id="schoolBoardBox" prefHeight="61.0" prefWidth="195.0" spacing="5.0">
                <children>
                   <Label fx:id="schoolBoardLabel" text="School board" textFill="#21bf75" underline="true">
                      <font>
                         <Font name="Dubai Regular" size="20.0" />
                      </font>
                   </Label>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="27.0">
-                     <children>
-                        <CheckBox fx:id="publicCheckbox" mnemonicParsing="false" text="Public">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </CheckBox>
-                        <Circle fill="#2e4d4da3" radius="10.0" stroke="#0000008a" strokeType="INSIDE" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-                     <children>
-                        <CheckBox fx:id="catholicCheckbox" mnemonicParsing="false" text="Catholic">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </CheckBox>
-                        <Circle fill="KHAKI" radius="10.0" stroke="#0000006c" strokeType="INSIDE" />
-                     </children>
-                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="27.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" />
                </children>
                <VBox.margin>
-                  <Insets top="-15.0" />
+                  <Insets top="-20.0" />
                </VBox.margin>
             </VBox>
             <VBox fx:id="mapSliderBox" prefHeight="249.0" prefWidth="298.0" spacing="10.0">
