@@ -137,7 +137,7 @@ public class MapScreenController {
         // Add zoom reset / home button to the map
         Button homeButton = new Button("\uD83C\uDFE0");
         StackPane.setMargin(homeButton, new Insets(0, 10, -450, 0)); // Adjust margin as needed
-        StackPane.setAlignment(homeButton, Pos.CENTER_RIGHT);
+        StackPane.setAlignment(homeButton, Pos.TOP_LEFT);
         homeButton.setOnAction(e -> resetZoom());
         mapPane.getChildren().add(homeButton);
 
@@ -306,17 +306,17 @@ public class MapScreenController {
     /**
      * Decide a color for a school point graphic based on its school Type.
      * @param schoolType
-     * @return
+     * @return java.graphics Color
      */
     public Color decideColor(String schoolType){
         schoolType = schoolType.toLowerCase();
-        double opacity = 0.2;
+        double opacity = 0.5;
         if(schoolType.equals("public")){
-            return Color.rgb(0, 0, 128, opacity); // purple
+            return Color.rgb(47,79,79, opacity); // gray
 
         }
         else if(schoolType.equals("catholic")){
-            return Color.rgb(255, 215, 0, opacity); // yellow
+            return Color.rgb(240,230,140, opacity + 0.2); // yellow
         }
         return Color.ORANGE;
     }
@@ -326,9 +326,9 @@ public class MapScreenController {
         Point point = new Point(longitude, latitude, SpatialReferences.getWgs84());
         // create an opaque orange point symbol with a opaque blue outline symbol
         SimpleMarkerSymbol simpleMarkerSymbol =
-                new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, pointColor, 14);
+                new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, pointColor, 13);
         SimpleLineSymbol blueOutlineSymbol =
-                new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.rgb(0, 0, 0, 0.5), 1);
+                new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.rgb(0, 0, 0, 0.2), 1);
         simpleMarkerSymbol.setOutline(blueOutlineSymbol);
 
         // create a graphic with the point geometry and symbol
