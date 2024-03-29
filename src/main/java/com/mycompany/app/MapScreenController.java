@@ -53,8 +53,11 @@ import java.util.function.Predicate;
 
 public class MapScreenController {
 
-    private long MAX_VALUE = 500000 * 4;
-    private long MIN_VALUE = 100000;
+    private final long MAX_VALUE = 500000 * 4;
+    private final long MIN_VALUE = 100000;
+    private final Color PUBLIC_COLOR = Color.rgb(47,79,79, 0.5);
+    private final Color CATHOLIC_COLOR =  Color.rgb(240,230,140, 0.7);
+    private final Color CLICKED_COLOR = Color.CRIMSON;
 
     private MapView mapView;
     private ArcGISMap map;
@@ -70,10 +73,6 @@ public class MapScreenController {
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
 
     private RadioButton publicButton, catholicButton, allButton;
-
-    private final Color PUBLIC_COLOR = Color.rgb(47,79,79, 0.5);
-    private final Color CATHOLIC_COLOR =  Color.rgb(240,230,140, 0.7);
-    private final Color CLICKED_COLOR = Color.CRIMSON;
 
     @FXML
     public Label languageProgramsLabel, appliedFiltersLabel, resultsReturnedLabel;
@@ -124,14 +123,22 @@ public class MapScreenController {
 
         // Some initialization for filter elements
         ToggleGroup schoolBoardToggleGroup = new ToggleGroup();
-        allButton = new RadioButton("all");
-        publicButton = new RadioButton("public");
-        catholicButton = new RadioButton("catholic");
+        allButton = new RadioButton("All");
+        publicButton = new RadioButton("Public");
+        catholicButton = new RadioButton("Catholic");
+        Circle publicCircle = new Circle(10, PUBLIC_COLOR);
+        Circle catholicCircle = new Circle(10, CATHOLIC_COLOR);
         allButton.setToggleGroup(schoolBoardToggleGroup);
         publicButton.setToggleGroup(schoolBoardToggleGroup);
         catholicButton.setToggleGroup(schoolBoardToggleGroup);
+        publicButton.setPrefWidth(100);
+        catholicButton.setPrefWidth(100);
         allButton.setSelected(true);
-        schoolBoardBox.getChildren().addAll(allButton, publicButton,catholicButton);
+        HBox publicRadioBox = new HBox(publicButton, publicCircle);
+        HBox catholicRadioBox = new HBox(catholicButton, catholicCircle);
+        publicRadioBox.setAlignment(Pos.CENTER_LEFT);
+        catholicRadioBox.setAlignment(Pos.CENTER_LEFT);
+        schoolBoardBox.getChildren().addAll(allButton, publicRadioBox,catholicRadioBox);
 
         gradeFilterListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -183,9 +190,6 @@ public class MapScreenController {
     private VBox createLegend(){
        VBox legendUIContainer = new VBox();
        legendUIContainer.setMaxWidth(200);
-       Label legendLabel = new Label("Legend:");
-       legendLabel.setStyle("-fx-font-size: 22; -fx-text-fill: black; -fx-font-weight: bold;");
-       legendUIContainer.getChildren().add(legendLabel);
        Label publicLabel = new Label("Public");
        publicLabel.setStyle("-fx-font-size: 16px;");
        Circle publicCircle = new Circle(10, PUBLIC_COLOR);

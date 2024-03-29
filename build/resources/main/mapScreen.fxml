@@ -33,12 +33,15 @@
                   </VBox>
                </children>
             </VBox>
-            <VBox fx:id="schoolBoardBox" prefHeight="61.0" prefWidth="195.0" spacing="5.0">
+            <VBox fx:id="schoolBoardBox" prefHeight="61.0" prefWidth="195.0" spacing="10.0">
                <children>
                   <Label fx:id="schoolBoardLabel" text="School board" textFill="#21bf75" underline="true">
                      <font>
                         <Font name="Dubai Regular" size="20.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="-30.0" />
+                     </VBox.margin>
                   </Label>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="27.0" />
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" />
