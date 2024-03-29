@@ -75,7 +75,7 @@ public class MapScreenController {
     @FXML
     private StackPane mapPane;
     @FXML
-    private CheckBox spanishCheckbox, frenchCheckbox, publicCheckbox, catholicCheckbox;
+    private CheckBox publicCheckbox, catholicCheckbox;
 
     @FXML
     private ListView<String> gradeFilterListView;
@@ -359,29 +359,13 @@ public class MapScreenController {
             return selectedLanguages.isEmpty() || school.getSchoolLanguageList().stream().anyMatch(selectedLanguages::contains);
         };
 
-        String appliedFiltersString = "Applied Filters: ";
 
-        if (spanishCheckbox.isSelected()){
-            appliedFiltersString = appliedFiltersString + "\nSPANISH";
-            finalPred = finalPred.and(spanishPred);
-        }
-        if (frenchCheckbox.isSelected()){
-            appliedFiltersString = appliedFiltersString + "\nFRENCH";
-            finalPred = finalPred.and(frenchPred);
-        }
 
         if (publicCheckbox.isSelected()) {
-            appliedFiltersString = appliedFiltersString + "\nPUBLIC";
             finalPred = finalPred.and(publicPred);
         }
         if (catholicCheckbox.isSelected()) {
-            appliedFiltersString = appliedFiltersString + "\nCATHOLIC";
             finalPred = finalPred.and(catholicPred);
-        }
-
-        if (!frenchCheckbox.isSelected() && !spanishCheckbox.isSelected() && !publicCheckbox.isSelected() && !catholicCheckbox.isSelected()){
-            //showingString = showingString + "";
-            finalPred = allPred;
         }
 
         if (!gradeFilterListView.getSelectionModel().getSelectedItems().isEmpty()) {
@@ -392,7 +376,15 @@ public class MapScreenController {
             finalPred = finalPred.and(languagePred);
         }
 
-        appliedFiltersLabel.setText(appliedFiltersString);
+        if (    // No Criteria selected.
+                gradeFilterListView.getSelectionModel().getSelectedItems().isEmpty()
+                        && languageFilterListView.getSelectionModel().getSelectedItems().isEmpty()
+                        && !publicCheckbox.isSelected()
+                        && !catholicCheckbox.isSelected()
+        ){
+            finalPred = allPred;
+        }
+
 
         getMapOverlay().getGraphics().clear();
         List<School> filteredSchools = schoolList.stream().filter(finalPred).toList();
@@ -407,8 +399,6 @@ public class MapScreenController {
 
 
     public void onResetButtonClick(){
-        spanishCheckbox.setSelected(false);
-        frenchCheckbox.setSelected(false);
         catholicCheckbox.setSelected(false);
         publicCheckbox.setSelected(false);
         lastClickedSchoolGraphic = null;

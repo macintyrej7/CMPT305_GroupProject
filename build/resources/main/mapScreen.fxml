@@ -66,7 +66,7 @@
                               <Font size="14.0" />
                            </font>
                         </CheckBox>
-                        <Circle fill="#0000803b" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="#2e4d4da3" radius="10.0" stroke="#0000008a" strokeType="INSIDE" />
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
@@ -76,7 +76,7 @@
                               <Font size="14.0" />
                            </font>
                         </CheckBox>
-                        <Circle fill="#ffd4003b" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fill="KHAKI" radius="10.0" stroke="#0000006c" strokeType="INSIDE" />
                      </children>
                   </HBox>
                </children>
