@@ -41,10 +41,9 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,8 +53,11 @@ import java.util.function.Predicate;
 
 public class MapScreenController {
 
-    private long MAX_VALUE = 500000 * 4;
-    private long MIN_VALUE = 100000;
+    private final long MAX_VALUE = 500000 * 4;
+    private final long MIN_VALUE = 100000;
+    private final Color PUBLIC_COLOR = Color.rgb(47,79,79, 0.5);
+    private final Color CATHOLIC_COLOR =  Color.rgb(240,230,140, 0.7);
+    private final Color CLICKED_COLOR = Color.CRIMSON;
 
     private MapView mapView;
     private ArcGISMap map;
@@ -70,12 +72,13 @@ public class MapScreenController {
 
     private ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphics;
 
+    private RadioButton publicButton, catholicButton, allButton;
+
     @FXML
     public Label languageProgramsLabel, appliedFiltersLabel, resultsReturnedLabel;
     @FXML
     private StackPane mapPane;
-    @FXML
-    private CheckBox spanishCheckbox, frenchCheckbox, publicCheckbox, catholicCheckbox;
+
 
     @FXML
     private ListView<String> gradeFilterListView;
@@ -85,6 +88,8 @@ public class MapScreenController {
 
     @FXML
     private Slider propertyRadiusSlider;
+
+    @FXML VBox schoolBoardBox;
 
     private double sliderValue;
 
@@ -116,6 +121,24 @@ public class MapScreenController {
         mapView.getGraphicsOverlays().add(graphicsOverlay);
 
 
+        // Some initialization for filter elements
+        ToggleGroup schoolBoardToggleGroup = new ToggleGroup();
+        allButton = new RadioButton("All");
+        publicButton = new RadioButton("Public");
+        catholicButton = new RadioButton("Catholic");
+        Circle publicCircle = new Circle(10, PUBLIC_COLOR);
+        Circle catholicCircle = new Circle(10, CATHOLIC_COLOR);
+        allButton.setToggleGroup(schoolBoardToggleGroup);
+        publicButton.setToggleGroup(schoolBoardToggleGroup);
+        catholicButton.setToggleGroup(schoolBoardToggleGroup);
+        publicButton.setPrefWidth(100);
+        catholicButton.setPrefWidth(100);
+        allButton.setSelected(true);
+        HBox publicRadioBox = new HBox(publicButton, publicCircle);
+        HBox catholicRadioBox = new HBox(catholicButton, catholicCircle);
+        publicRadioBox.setAlignment(Pos.CENTER_LEFT);
+        catholicRadioBox.setAlignment(Pos.CENTER_LEFT);
+        schoolBoardBox.getChildren().addAll(allButton, publicRadioBox,catholicRadioBox);
 
         gradeFilterListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -134,12 +157,6 @@ public class MapScreenController {
         drawSchools(schoolList, graphicsOverlay);
         resultsReturnedLabel.setText(String.valueOf(schoolList.size()) + " Results");
 
-        // Add zoom reset / home button to the map
-        Button homeButton = new Button("\uD83C\uDFE0");
-        StackPane.setMargin(homeButton, new Insets(0, 10, -450, 0)); // Adjust margin as needed
-        StackPane.setAlignment(homeButton, Pos.CENTER_RIGHT);
-        homeButton.setOnAction(e -> resetZoom());
-        mapPane.getChildren().add(homeButton);
 
         // Handle map click events
         mapView.setOnMouseClicked(mouseEvent -> {
@@ -157,6 +174,58 @@ public class MapScreenController {
 
             }
         });
+
+        // Add zoom reset / home button to the map
+        VBox legendUIBox = new VBox(); legendUIBox.setSpacing(5);
+        legendUIBox.setMaxWidth(200);
+        legendUIBox.setMaxHeight(200);
+        VBox legendContent = createLegend();
+        Button homeButton = getZoomButton();
+        homeButton.setOnAction(e -> resetZoom());
+        legendUIBox.getChildren().addAll(legendContent, homeButton);
+        StackPane.setAlignment(legendUIBox, Pos.TOP_LEFT);
+        mapPane.getChildren().addAll(legendUIBox);
+    }
+
+    private VBox createLegend(){
+       VBox legendUIContainer = new VBox();
+       legendUIContainer.setMaxWidth(200);
+       Label publicLabel = new Label("Public");
+       publicLabel.setStyle("-fx-font-size: 16px;");
+       Circle publicCircle = new Circle(10, PUBLIC_COLOR);
+       Label catholicLabel = new Label("Catholic");
+       catholicLabel.setStyle("-fx-font-size: 16px;");
+       Circle catholicCircle = new Circle(10, CATHOLIC_COLOR);
+       publicLabel.setPrefWidth(60);
+       catholicLabel.setPrefWidth(60);
+
+        HBox catholicBox = new HBox(10, catholicLabel,catholicCircle);
+       HBox publicBox = new HBox(10, publicLabel,publicCircle);
+       catholicBox.setAlignment(Pos.CENTER_LEFT);
+       publicBox.setAlignment(Pos.CENTER_LEFT);
+       BackgroundFill backgroundFill = new BackgroundFill(Color.rgb(125,125,125,0.3), CornerRadii.EMPTY, javafx.geometry.Insets.EMPTY);
+       Background background = new Background(backgroundFill);
+
+       legendUIContainer.setBackground(background);
+       legendUIContainer.getChildren().addAll(publicBox, catholicBox);
+       return legendUIContainer;
+    }
+
+
+    private Button getZoomButton(){
+        Button zoomOutButton = new Button("Reset Zoom \u21BB");
+        zoomOutButton.setStyle("-fx-background-color: #ffffff; " +
+                "-fx-background-radius: 5px; " +
+                "-fx-border-color: #333333; " +
+                "-fx-border-radius: 5px; " +
+                "-fx-padding: 8px 12px; " +
+                "-fx-font-size: 20px; " +
+                "-fx-font-weight: bold; " +
+                "-fx-text-fill: #333333; " +
+                "-fx-cursor: hand;");
+
+
+        return zoomOutButton;
     }
 
 
@@ -256,7 +325,7 @@ public class MapScreenController {
                             decideColor(schoolType)
                     );
                 }
-                changeGraphicColor(clickedGraphic, Color.RED);
+                changeGraphicColor(clickedGraphic, CLICKED_COLOR);
                 lastClickedSchoolGraphic = clickedGraphic;
 
             }
@@ -306,17 +375,17 @@ public class MapScreenController {
     /**
      * Decide a color for a school point graphic based on its school Type.
      * @param schoolType
-     * @return
+     * @return java.graphics Color
      */
     public Color decideColor(String schoolType){
         schoolType = schoolType.toLowerCase();
-        double opacity = 0.2;
+        double opacity = 0.5;
         if(schoolType.equals("public")){
-            return Color.rgb(0, 0, 128, opacity); // purple
+            return PUBLIC_COLOR; // gray
 
         }
         else if(schoolType.equals("catholic")){
-            return Color.rgb(255, 215, 0, opacity); // yellow
+            return CATHOLIC_COLOR; // yellow
         }
         return Color.ORANGE;
     }
@@ -326,9 +395,9 @@ public class MapScreenController {
         Point point = new Point(longitude, latitude, SpatialReferences.getWgs84());
         // create an opaque orange point symbol with a opaque blue outline symbol
         SimpleMarkerSymbol simpleMarkerSymbol =
-                new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, pointColor, 14);
+                new SimpleMarkerSymbol(SimpleMarkerSymbol.Style.CIRCLE, pointColor, 13);
         SimpleLineSymbol blueOutlineSymbol =
-                new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.rgb(0, 0, 0, 0.5), 1);
+                new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.rgb(0, 0, 0, 0.2), 1);
         simpleMarkerSymbol.setOutline(blueOutlineSymbol);
 
         // create a graphic with the point geometry and symbol
@@ -359,29 +428,13 @@ public class MapScreenController {
             return selectedLanguages.isEmpty() || school.getSchoolLanguageList().stream().anyMatch(selectedLanguages::contains);
         };
 
-        String appliedFiltersString = "Applied Filters: ";
 
-        if (spanishCheckbox.isSelected()){
-            appliedFiltersString = appliedFiltersString + "\nSPANISH";
-            finalPred = finalPred.and(spanishPred);
-        }
-        if (frenchCheckbox.isSelected()){
-            appliedFiltersString = appliedFiltersString + "\nFRENCH";
-            finalPred = finalPred.and(frenchPred);
-        }
 
-        if (publicCheckbox.isSelected()) {
-            appliedFiltersString = appliedFiltersString + "\nPUBLIC";
+        if (publicButton.isSelected()) {
             finalPred = finalPred.and(publicPred);
         }
-        if (catholicCheckbox.isSelected()) {
-            appliedFiltersString = appliedFiltersString + "\nCATHOLIC";
+        if (catholicButton.isSelected()) {
             finalPred = finalPred.and(catholicPred);
-        }
-
-        if (!frenchCheckbox.isSelected() && !spanishCheckbox.isSelected() && !publicCheckbox.isSelected() && !catholicCheckbox.isSelected()){
-            //showingString = showingString + "";
-            finalPred = allPred;
         }
 
         if (!gradeFilterListView.getSelectionModel().getSelectedItems().isEmpty()) {
@@ -392,7 +445,15 @@ public class MapScreenController {
             finalPred = finalPred.and(languagePred);
         }
 
-        appliedFiltersLabel.setText(appliedFiltersString);
+        if (    // No Criteria selected.
+                gradeFilterListView.getSelectionModel().getSelectedItems().isEmpty()
+                        && languageFilterListView.getSelectionModel().getSelectedItems().isEmpty()
+                        && !publicButton.isSelected()
+                        && !catholicButton.isSelected()
+        ){
+            finalPred = allPred;
+        }
+
 
         getMapOverlay().getGraphics().clear();
         List<School> filteredSchools = schoolList.stream().filter(finalPred).toList();
@@ -407,10 +468,6 @@ public class MapScreenController {
 
 
     public void onResetButtonClick(){
-        spanishCheckbox.setSelected(false);
-        frenchCheckbox.setSelected(false);
-        catholicCheckbox.setSelected(false);
-        publicCheckbox.setSelected(false);
         lastClickedSchoolGraphic = null;
         appliedFiltersLabel.setText("Applied filters: ");
         resetSchoolMap();
@@ -420,6 +477,9 @@ public class MapScreenController {
         sliderValue = propertyRadiusSlider.getValue();
         languageFilterListView.getSelectionModel().clearSelection();
         gradeFilterListView.getSelectionModel().clearSelection();
+        publicButton.setSelected(false);
+        catholicButton.setSelected(false);
+        allButton.setSelected(true);
     }
 
     public void resetZoom(){
