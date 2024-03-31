@@ -14,8 +14,8 @@ public class Extractors {
         }
 
         Comparator<String> customComparator = (s1, s2) -> {
-            if (s1.equals("K")) return -1; // "K" comes before everything else
-            if (s2.equals("K")) return 1;  // Everything else comes after "K"
+            if (s1.equals("K")) return -1;
+            if (s2.equals("K")) return 1;
 
             try {
                 int num1 = Integer.parseInt(s1);

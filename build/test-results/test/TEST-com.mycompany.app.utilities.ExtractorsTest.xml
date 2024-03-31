@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.app.utilities.ExtractorsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-28T21:01:14" hostname="Brians-Mac.local" time="0.003">
-  <properties/>
-  <testcase name="uniqueSortedListItems()" classname="com.mycompany.app.utilities.ExtractorsTest" time="0.003"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
