@@ -16,7 +16,7 @@ public class GradeList {
 
     @Override
     public String toString() {
-        if (gradeList.get(0) == "N/A"){
+        if (gradeList.get(0).equals("['N/A']") || gradeList.get(0) == ""){
             return "No grades";
         }
         return gradeList.get(0) + "-" + gradeList.get(gradeList.size() - 1);

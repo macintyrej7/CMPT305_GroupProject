@@ -26,6 +26,10 @@ class GradeListTest {
     void testToString() {
         String expected = "K-3";
         assertEquals(expected, testGradeList.toString());
+
+        GradeList testGradeList2 = new GradeList(Arrays.asList(""));
+        String expected2 = "No grades";
+        assertEquals(expected2, testGradeList2.toString());
     }
 
     @Test
