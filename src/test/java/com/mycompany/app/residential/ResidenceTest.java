@@ -68,4 +68,16 @@ class ResidenceTest {
 
         assertEquals(expected,testResidence.toString());
     }
+
+    @Test
+    void testContainsAssessmentClass(){
+        Boolean expected = true;
+        assertEquals(expected,testResidence.containsAssessmentClass("Residential"));
+
+        Boolean expected2 = false;
+        assertEquals(expected2,testResidence.containsAssessmentClass("Industrial"));
+
+    }
+
+
 }

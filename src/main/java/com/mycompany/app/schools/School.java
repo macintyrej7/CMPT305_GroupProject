@@ -164,7 +164,7 @@ public class School extends Property{
         contactInfoLabel.setStyle(relatedInfoStyle);
         contactInfoBox.getChildren().add(contactInfoLabel);
         // Address, Add email, phone number
-        contactInfoBox.getChildren().add(createLabel("Address: " + this.getAddress().getSchoolAddress()));
+        contactInfoBox.getChildren().add(createLabel("Address: " + this.getAddress().getAddress()));
         contactInfoBox.getChildren().add(createLabel("Email: " + schoolEmail));
         contactInfoBox.getChildren().add(createLabel("Phone Number: " + schoolPhoneNumber));
         vBoxList.add(contactInfoBox);

@@ -17,6 +17,18 @@ public class AddressTest {
     }
 
     @Test
+    void testGetPostalCode(){
+        String expected = "Fake Street";
+        assertEquals(expected, testAddress.getPostalCode());
+    }
+
+    @Test
+    void testGetAddress(){
+        String expected = "1234";
+        assertEquals(expected, testAddress.getAddress());
+    }
+
+    @Test
     void testToString() {
         String expected = "1234 Fake Street";
         assertEquals(expected,testAddress.toString());

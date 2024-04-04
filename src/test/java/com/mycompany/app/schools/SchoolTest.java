@@ -243,7 +243,7 @@ class SchoolTest {
                         "French Immersion: true\n" +
                         "Spanish Bilingual: true\n" +
                         "School Coordinates: (123.123, 456.456)\n" +
-                        "School Grade List: [K, 1, 2, 3, 4, 5, 6]\n" +
+                        "School Grade List: K-6\n" +
                         "School Language List: [Italian Language and Culture, Spanish Language and Culture]\n";
 
         assertEquals(expected,testSchool.toString());
