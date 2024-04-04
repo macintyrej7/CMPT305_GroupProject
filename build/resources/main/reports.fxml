@@ -6,7 +6,6 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -55,7 +54,7 @@
                                             <Tab fx:id="highestValuesReport" text="Highest Surrounding Value">
                                                 <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
                                                     <content>
-                                                        <BarChart fx:id="highestChart" prefHeight="416.0" prefWidth="1216.0" title="Top 10 Schools Ranked by Highest Average Property Value (within 2 km)">
+                                                        <BarChart fx:id="highestChart" prefHeight="525" prefWidth="1216.0" title="Top 10 Schools Ranked by Highest Average Property Value (within 2 km)">
                                                             <xAxis>
                                                                 <NumberAxis side="BOTTOM" label="Average Property Value (CA$)"/>
                                                             </xAxis>
@@ -72,7 +71,7 @@
                                             <Tab fx:id="lowestValuesReport" text="Lowest Surrounding Value">
                                                 <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
                                                     <content>
-                                                        <BarChart fx:id="lowestChart" prefHeight="416.0" prefWidth="1216.0" title="Bottom 10 Schools Ranked by Lowest Average Property Value (within 2 km)">
+                                                        <BarChart fx:id="lowestChart" prefHeight="525" prefWidth="1216.0" title="Bottom 10 Schools Ranked by Lowest Average Property Value (within 2 km)">
                                                             <xAxis>
                                                                 <NumberAxis side="BOTTOM" label="Average Property Value (CA$)"/>
                                                             </xAxis>

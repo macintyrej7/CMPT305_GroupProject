@@ -83,8 +83,14 @@ public class ReportPlaneController {
         NumberAxis highestX = new NumberAxis();
         CategoryAxis highestY = new CategoryAxis();
 
-        XYChart.Series<Number, String> highestSeries = new XYChart.Series<>();
-        XYChart.Series<Number, String> lowestSeries = new XYChart.Series<>();
+        XYChart.Series<Number, String> highestMeanSeries = new XYChart.Series<>();
+        highestMeanSeries.setName("Mean");
+        XYChart.Series<Number, String> lowestMeanSeries = new XYChart.Series<>();
+        lowestMeanSeries.setName("Mean");
+        XYChart.Series<Number, String> highestMedianSeries = new XYChart.Series<>();
+        highestMedianSeries.setName("Median");
+        XYChart.Series<Number, String> lowestMedianSeries = new XYChart.Series<>();
+        lowestMedianSeries.setName("Median");
 
         for (int i = 0; i < 10; i++){
 
@@ -94,7 +100,8 @@ public class ReportPlaneController {
 
             AssessmentValueStatistics highestSchoolValues = (AssessmentValueStatistics) highestEntry.getValue();
 
-            highestSeries.getData().add(new XYChart.Data<Number, String>(highestSchoolValues.getAverage(), highestSchool.getSchoolName()));
+            highestMeanSeries.getData().add(new XYChart.Data<Number, String>(highestSchoolValues.getAverage(), highestSchool.getSchoolName()));
+            highestMedianSeries.getData().add(new XYChart.Data<Number, String>(highestSchoolValues.getMedian(), highestSchool.getSchoolName()));
 
             Map.Entry lowestEntry = sortedSchoolValuesMap.get(i);
 
@@ -102,14 +109,13 @@ public class ReportPlaneController {
 
             AssessmentValueStatistics lowestSchoolValues = (AssessmentValueStatistics) lowestEntry.getValue();
 
-            lowestSeries.getData().add(new XYChart.Data<Number, String>(lowestSchoolValues.getAverage(), lowestSchool.getSchoolName()));
+            lowestMeanSeries.getData().add(new XYChart.Data<Number, String>(lowestSchoolValues.getAverage(), lowestSchool.getSchoolName()));
+            lowestMedianSeries.getData().add(new XYChart.Data<Number, String>(lowestSchoolValues.getMedian(), lowestSchool.getSchoolName()));
         }
 
-        highestChart.getData().add(highestSeries);
-        highestChart.setLegendVisible(false);
+        highestChart.getData().addAll(highestMeanSeries, highestMedianSeries);
 
-        lowestChart.getData().add(lowestSeries);
-        lowestChart.setLegendVisible(false);
+        lowestChart.getData().addAll(lowestMeanSeries, lowestMedianSeries);
     }
 
     private Map<School, AssessmentValueStatistics> mapSchoolValues(List<School> schools, List<Residence> residences){
