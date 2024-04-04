@@ -33,19 +33,13 @@ public class ReportPlaneController {
     private List<Residence> myResidences;
     private XYDataImporter xyDataImporter;
     private long MIN_VALUE = 40000;
-    private long MAX_VALUE = 500000;
+    private long MAX_VALUE = 1000000;
 
     public void initialize() throws IOException {
 
         // Create axes
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
-
-        // Set labels for axes
-        /*xAxis.setLabel("Category");
-        yAxis.setLabel("Value");
-
-        barChart.setTitle("Count of Residential Properties by Value");*/
 
         myResidences = ImportResidences.readCSVResidentialBetweenValues("Property_Assessment_Data_2024.csv", MIN_VALUE, MAX_VALUE);
         xyDataImporter = new XYDataImporter(myResidences);
@@ -54,8 +48,7 @@ public class ReportPlaneController {
 
         Map<Long, Long> incrementContainer = xyDataImporter.container;
 
-//
-//        // Create series and add data
+        // Create series and add data
         XYChart.Series<String, Number> series = new XYChart.Series<>();
 
         // get from class and add to the data
@@ -85,10 +78,13 @@ public class ReportPlaneController {
 
         XYChart.Series<Number, String> highestMeanSeries = new XYChart.Series<>();
         highestMeanSeries.setName("Mean");
+
         XYChart.Series<Number, String> lowestMeanSeries = new XYChart.Series<>();
         lowestMeanSeries.setName("Mean");
+
         XYChart.Series<Number, String> highestMedianSeries = new XYChart.Series<>();
         highestMedianSeries.setName("Median");
+
         XYChart.Series<Number, String> lowestMedianSeries = new XYChart.Series<>();
         lowestMedianSeries.setName("Median");
 
@@ -113,9 +109,11 @@ public class ReportPlaneController {
             lowestMedianSeries.getData().add(new XYChart.Data<Number, String>(lowestSchoolValues.getMedian(), lowestSchool.getSchoolName()));
         }
 
-        highestChart.getData().addAll(highestMeanSeries, highestMedianSeries);
+        highestChart.getData().add(highestMeanSeries);
+        highestChart.getData().add(highestMedianSeries);
 
-        lowestChart.getData().addAll(lowestMeanSeries, lowestMedianSeries);
+        lowestChart.getData().add(lowestMeanSeries);
+        lowestChart.getData().add(lowestMedianSeries);
     }
 
     private Map<School, AssessmentValueStatistics> mapSchoolValues(List<School> schools, List<Residence> residences){

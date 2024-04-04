@@ -53,7 +53,7 @@ import java.util.function.Predicate;
 
 public class MapScreenController {
 
-    private final long MAX_VALUE = 500000 * 4;
+    private final long MAX_VALUE = 2000000;
     private final long MIN_VALUE = 100000;
     private final Color PUBLIC_COLOR = Color.rgb(47,79,79, 0.5);
     private final Color CATHOLIC_COLOR =  Color.rgb(240,230,140, 0.7);
