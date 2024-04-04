@@ -16,103 +16,84 @@
 <?import javafx.scene.control.Tab?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.app.ReportPlaneController">
-    <children>
-      <Label text="Data">
-         <font>
-            <Font size="96.0" />
-         </font>
-      </Label>
-      <Separator minHeight="-Infinity" prefWidth="1920.0" style="-fx-background-color: grey;" />
-      <SplitPane dividerPositions="0.7" prefHeight="917.0" prefWidth="1920.0" style="-fx-background-color: white;">
+<children>
+    <SplitPane dividerPositions="0.7" prefHeight="917.0" prefWidth="1920.0" style="-fx-background-color: white;">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="916.0" prefWidth="486.0">
-               <children>
-                  <VBox prefHeight="933.0" prefWidth="1348.0">
-                     <children>
-                        <Label prefHeight="83.0" prefWidth="447.0" text="Graphs">
-                           <padding>
-                              <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-                           </padding>
-                           <font>
-                              <Font name="System Bold" size="48.0" />
-                           </font>
-                        </Label>
-                        <StackPane fx:id="myStackPlane" prefHeight="835.0" prefWidth="1348.0">
-                           <children>
-                               <TabPane fx:id="reportTabs" tabClosingPolicy="UNAVAILABLE">
-                                   <tabs>
-                                       <Tab fx:id="valueReport" text="Properties by Value">
-                                           <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
-                                               <content>
-                                                   <BarChart fx:id="barChart" prefHeight="416.0" prefWidth="1216.0" title="Count of Properties by Value">
-                                                       <xAxis>
-                                                           <CategoryAxis side="BOTTOM" label="Value" />
-                                                       </xAxis>
-                                                       <yAxis>
-                                                           <NumberAxis side="LEFT" label="Count" />
-                                                       </yAxis>
-                                                       <padding>
-                                                           <Insets left="50.0" />
-                                                       </padding>
-                                                   </BarChart>
-                                               </content>
-                                           </ScrollPane>
-                                       </Tab>
-                                       <Tab fx:id="highestValuesReport" text="Highest Surrounding Value">
-                                           <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
-                                               <content>
-                                                   <BarChart fx:id="highestChart" prefHeight="416.0" prefWidth="1216.0" title="Top 10 Schools Ranked by Highest Surrounding Property Value (within 2 km)">
-                                                       <xAxis>
-                                                           <NumberAxis side="BOTTOM" label="Value"/>
-                                                       </xAxis>
-                                                       <yAxis>
-                                                           <CategoryAxis side="LEFT" label="School"/>
-                                                       </yAxis>
-                                                       <padding>
-                                                           <Insets top="50.0" />
-                                                       </padding>
-                                                   </BarChart>
-                                               </content>
-                                           </ScrollPane>
-                                       </Tab>
-                                       <Tab fx:id="lowestValuesReport" text="Lowest Surrounding Value">
-                                           <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
-                                               <content>
-                                                   <BarChart fx:id="lowestChart" prefHeight="416.0" prefWidth="1216.0" title="Bottom 10 Schools Ranked by Lowest Surrounding Property Value (within 2 km)">
-                                                       <xAxis>
-                                                           <NumberAxis side="BOTTOM" label="Value"/>
-                                                       </xAxis>
-                                                       <yAxis>
-                                                           <CategoryAxis side="LEFT" label="School"/>
-                                                       </yAxis>
-                                                       <padding>
-                                                           <Insets top="50.0" />
-                                                       </padding>
-                                                   </BarChart>
-                                               </content>
-                                           </ScrollPane>
-                                       </Tab>
-                                   </tabs>
-                               </TabPane>
-                           </children></StackPane>
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <Label text="Filters">
-                     <font>
-                        <Font name="System Bold" size="48.0" />
-                     </font>
-                     <padding>
-                        <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
-                     </padding>
-                  </Label>
-                  <VBox prefHeight="917.0" prefWidth="516.0" />
-               </children>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="916.0" prefWidth="486.0">
+                <children>
+                    <VBox prefHeight="933.0" prefWidth="1348.0">
+                        <children>
+                            <Label prefHeight="89.0" prefWidth="447.0" text="Reports">
+                                <padding>
+                                    <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                </padding>
+                                <font>
+                                    <Font name="Dubai Regular" size="60.0" />
+                                </font>
+                            </Label>
+                            <StackPane fx:id="myStackPlane" prefHeight="835.0" prefWidth="1348.0">
+                                <children>
+                                    <TabPane fx:id="reportTabs" tabClosingPolicy="UNAVAILABLE">
+                                        <tabs>
+                                            <Tab fx:id="valueReport" text="Properties by Value">
+                                                <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
+                                                    <content>
+                                                        <BarChart fx:id="barChart" prefHeight="416.0" prefWidth="1216.0" title="Count of Properties by Assessed Value">
+                                                            <xAxis>
+                                                                <CategoryAxis side="BOTTOM" label="Maximum Assessed Value (CA$)" />
+                                                            </xAxis>
+                                                            <yAxis>
+                                                                <NumberAxis side="LEFT" label="Count of Properties" />
+                                                            </yAxis>
+                                                            <padding>
+                                                                <Insets left="50.0" />
+                                                            </padding>
+                                                        </BarChart>
+                                                    </content>
+                                                </ScrollPane>
+                                            </Tab>
+                                            <Tab fx:id="highestValuesReport" text="Highest Surrounding Value">
+                                                <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
+                                                    <content>
+                                                        <BarChart fx:id="highestChart" prefHeight="416.0" prefWidth="1216.0" title="Top 10 Schools Ranked by Highest Average Property Value (within 2 km)">
+                                                            <xAxis>
+                                                                <NumberAxis side="BOTTOM" label="Average Property Value (CA$)"/>
+                                                            </xAxis>
+                                                            <yAxis>
+                                                                <CategoryAxis side="LEFT" label="Name of School"/>
+                                                            </yAxis>
+                                                            <padding>
+                                                                <Insets top="50.0" />
+                                                            </padding>
+                                                        </BarChart>
+                                                    </content>
+                                                </ScrollPane>
+                                            </Tab>
+                                            <Tab fx:id="lowestValuesReport" text="Lowest Surrounding Value">
+                                                <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
+                                                    <content>
+                                                        <BarChart fx:id="lowestChart" prefHeight="416.0" prefWidth="1216.0" title="Bottom 10 Schools Ranked by Lowest Average Property Value (within 2 km)">
+                                                            <xAxis>
+                                                                <NumberAxis side="BOTTOM" label="Average Property Value (CA$)"/>
+                                                            </xAxis>
+                                                            <yAxis>
+                                                                <CategoryAxis side="LEFT" label="Name of School"/>
+                                                            </yAxis>
+                                                            <padding>
+                                                                <Insets top="50.0" />
+                                                            </padding>
+                                                        </BarChart>
+                                                    </content>
+                                                </ScrollPane>
+                                            </Tab>
+                                        </tabs>
+                                    </TabPane>
+                                </children></StackPane>
+                        </children>
+                    </VBox>
+                </children>
             </AnchorPane>
         </items>
-      </SplitPane>
-    </children>
+    </SplitPane>
+</children>
 </VBox>
