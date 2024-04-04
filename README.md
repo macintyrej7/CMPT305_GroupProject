@@ -1,3 +1,5 @@
+Documentation from Arcgis library: 
+
 # java-gradle-starter-project
 
 Here is a starter project for the ArcGIS Maps SDK for Java with Gradle. 
