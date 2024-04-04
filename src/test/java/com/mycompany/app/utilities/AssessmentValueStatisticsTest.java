@@ -4,14 +4,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-/*
+
 class AssessmentValueStatisticsTest {
     AssessmentValueStatistics testAssessmentValueStatistics;
 
     @BeforeEach
     void setup(){
         testAssessmentValueStatistics = new AssessmentValueStatistics(1.0,2.0, 3.0, 4.0, 1);
-
     }
 
     @Test
@@ -40,7 +39,11 @@ class AssessmentValueStatisticsTest {
 
     @Test
     void testToString() {
-        String expected = "AssessmentValueStatistics{average=1.0, max=2.0, min=3.0, median=4.0}";
+        String expected = "average: $1.00\n" +
+        "max: $2.00\n" +
+        "min: $3.00\n" +
+        "median: $4.00\n" +
+        "number of residences: 1";
         assertEquals(expected,testAssessmentValueStatistics.toString());
     }
 
@@ -56,4 +59,4 @@ class AssessmentValueStatisticsTest {
         AssessmentValueStatistics expected = new AssessmentValueStatistics(1.0,2.0, 3.0, 4.0, 1);
         assertEquals(expected.hashCode(),testAssessmentValueStatistics.hashCode());
     }
-}*/
+}
