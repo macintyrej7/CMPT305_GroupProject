@@ -83,6 +83,13 @@ class CalculationsTest {
 
         assertEquals(expected, median);
 
+        List<Double> doublesList2 = Arrays.asList();
+        double median2 = Calculations.calculateMedian(doublesList2);
+        double expected2 = 0.0;
+
+        assertEquals(expected2,median2);
+
+
     }
 
     @Test

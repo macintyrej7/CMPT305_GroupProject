@@ -38,6 +38,13 @@ class AssessmentValueStatisticsTest {
     }
 
     @Test
+    void testGetSize(){
+       int expected = 1;
+       assertEquals(expected,testAssessmentValueStatistics.getSize());
+    }
+
+
+    @Test
     void testToString() {
         String expected = "average: $1.00\n" +
         "max: $2.00\n" +
