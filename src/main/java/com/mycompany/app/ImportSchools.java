@@ -102,7 +102,7 @@ public class ImportSchools {
 
         String schoolType = values[14];
 
-        List<String> schoolGradeList = stringToList(values[15]);
+        GradeList schoolGradeList = new GradeList(stringToList(values[15]));
 
         List<String> schoolLanguageList = stringToList(values[16]);
 

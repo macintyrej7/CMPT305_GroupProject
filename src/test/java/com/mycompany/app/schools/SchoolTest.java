@@ -53,7 +53,7 @@ class SchoolTest {
                 new PhoneNumber("1234567890"),
                 "http://school.com",
                 "Public",
-                gradeList,
+                new GradeList(gradeList),
                 languageList
         );
 
@@ -184,7 +184,7 @@ class SchoolTest {
                 new PhoneNumber("1234567890"),
                 "http://school.com",
                 "Public",
-                gradeList,
+                new GradeList(gradeList),
                 languageList
         );
         assertEquals(expected,testSchool);
@@ -220,7 +220,7 @@ class SchoolTest {
                 new PhoneNumber("1234567890"),
                 "http://school.com",
                 "Public",
-                gradeList,
+                new GradeList(gradeList),
                 languageList
         );
         assertEquals(expected.hashCode(),testSchool.hashCode());

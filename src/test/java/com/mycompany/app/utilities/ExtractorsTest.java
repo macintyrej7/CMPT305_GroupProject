@@ -2,6 +2,7 @@ package com.mycompany.app.utilities;
 
 import com.mycompany.app.properties.Address;
 import com.mycompany.app.properties.Coordinates;
+import com.mycompany.app.schools.GradeList;
 import com.mycompany.app.schools.PhoneNumber;
 import com.mycompany.app.schools.School;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +48,7 @@ class ExtractorsTest {
                 new PhoneNumber("1234567890"),
                 "http://school.com",
                 "Public",
-                gradeList,
+                new GradeList(gradeList),
                 languageList
         );
 

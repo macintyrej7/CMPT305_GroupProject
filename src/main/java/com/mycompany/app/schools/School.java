@@ -34,14 +34,15 @@ public class School extends Property{
     private boolean spanishBilingual;
     private boolean frenchImmersion;
     private String schoolType;
-    private List<String> schoolGradeList;
+    private GradeList schoolGradeList;
     private List<String> schoolLanguageList;
 
 
     public School(int schoolNumber, String schoolName, Address address,
                   Coordinates coordinates, List<String> schoolGradeLevels, boolean spanishBilingual,
                   boolean frenchImmersion, String schoolEmail, PhoneNumber schoolPhoneNumber,
-                  String schoolWebsite, String schoolType, List<String> schoolGradeList, List<String> schoolLanguageList) {
+                  String schoolWebsite, String schoolType, GradeList schoolGradeList,
+                  List<String> schoolLanguageList) {
 
         super(address,coordinates,null);
         //setting neighbourhood null for now, but left it in case we want to use it later
@@ -93,7 +94,7 @@ public class School extends Property{
     public String getSchoolType() {return this.schoolType;}
 
     public List<String> getSchoolGradeList() {
-        return schoolGradeList;
+        return schoolGradeList.getGradeList();
     }
 
     public List<String> getSchoolLanguageList() {
