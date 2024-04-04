@@ -1,6 +1,5 @@
 package com.mycompany.app.utilities;
 
-import com.mycompany.app.ImportResidences;
 import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.properties.Neighbourhood;
 import com.mycompany.app.residential.AssessmentClass;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CalculateDistanceTest {
+class CalculationsTest {
     List<Residence> residences;
 
     @BeforeEach
