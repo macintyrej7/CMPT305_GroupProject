@@ -3,9 +3,7 @@
  * Course: CMPT 305 AS01
  * Instructor: Dr. Indratmo
  * Assignment: Group project
- * Due date: ???
- * Last worked on: Mar 21, 2024
- * Program name: ImportSchool.java
+ * Program name: 'ImportSchool.java'
  * Program description: this program parses a passed .csv file for Edmonton school data, and converts each row in the
  * .csv file into a School object.
  */

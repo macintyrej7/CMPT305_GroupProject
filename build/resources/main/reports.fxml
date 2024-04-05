@@ -54,7 +54,7 @@
                                             <Tab fx:id="highestValuesReport" text="Highest Surrounding Value">
                                                 <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
                                                     <content>
-                                                        <BarChart fx:id="highestChart" prefHeight="525" prefWidth="1216.0" title="Top 10 Edmonton Schools Ranked by Average Property Value (within 2 km)">
+                                                        <BarChart fx:id="highestChart" prefHeight="525" prefWidth="1216.0" title="Top 10 Edmonton Schools Ranked by Mean Property Values (within 2 km)">
                                                             <xAxis>
                                                                 <NumberAxis side="BOTTOM" label="Average Property Value (CA$)"/>
                                                             </xAxis>
@@ -71,7 +71,7 @@
                                             <Tab fx:id="lowestValuesReport" text="Lowest Surrounding Value">
                                                 <ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS">
                                                     <content>
-                                                        <BarChart fx:id="lowestChart" prefHeight="525" prefWidth="1216.0" title="Bottom 10 Edmonton Schools Ranked by Average Property Value (within 2 km)">
+                                                        <BarChart fx:id="lowestChart" prefHeight="525" prefWidth="1216.0" title="Bottom 10 Edmonton Schools Ranked by Mean Property Values (within 2 km)">
                                                             <xAxis>
                                                                 <NumberAxis side="BOTTOM" label="Average Property Value (CA$)"/>
                                                             </xAxis>

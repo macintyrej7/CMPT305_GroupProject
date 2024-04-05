@@ -3,10 +3,9 @@
  * Course: CMPT 305 AS01
  * Instructor: Dr. Indratmo
  * Assignment: Group project
- * Due date: ???
- * Last worked on: Mar 21, 2024
- * Program name:
- * Program description:
+ * Program name: 'MapScreenController.java'
+ * Program description: this program initializes the Map tab scene and provides interactive functionality for its
+ * various features.
  */
 
 package com.mycompany.app;

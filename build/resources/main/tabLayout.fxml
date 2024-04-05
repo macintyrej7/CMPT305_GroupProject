@@ -30,17 +30,5 @@
           </graphic>
 
       </Tab>
-      <Tab fx:id="settingsTab">
-        <content>
-            <fx:include fx:id="settingsPage" source="settings.fxml" />
-        </content>
-          <graphic>
-              <ImageView>
-                  <image>
-                      <Image url="@images/settings_alt.png" />
-                  </image>
-              </ImageView>
-          </graphic>
-      </Tab>
    </tabs>
 </TabPane>
