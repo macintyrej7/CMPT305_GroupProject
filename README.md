@@ -1,4 +1,23 @@
-Documentation from Arcgis library: 
+# CMPT305 Group Project WINTER 2024 
+
+## Members
+1. Legan Hunter-Mutima
+2. Brian Lin
+3. Sankalp Shrivastav
+4. Jason Macintyre
+
+##  Disclaimer
+The base configuration of this project was from the java-gradle-starter-project found here:
+https://github.com/Esri/java-gradle-starter-project
+
+If needed, our project repository can be cloned here: https://github.com/macintyrej7/CMPT305_GroupProject
+
+# Setup instructions
+Upon building the project with Gradle the main application should work out of the box. However, the tests may or may not be broken:
+
+#### Solution: Open a test file and resolve any error messages.
+(This involves just clicking the intellij suggestions).
+More troubleshooting from esri below, however this should not be necessary to run the applciation.
 
 # java-gradle-starter-project
 
