@@ -18,7 +18,6 @@ class ExtractorsTest {
 
     @BeforeEach
     void setUp() {
-        // Initialize the instance variable
         testSchoolList = new ArrayList<>();
 
         List<String> gradeLevels = new ArrayList<>();

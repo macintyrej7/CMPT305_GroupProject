@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.app.schools.SchoolTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2024-04-05T16:23:23" hostname="brians-mac.lan" time="0.028">
+<testsuite name="com.mycompany.app.schools.SchoolTest" tests="14" skipped="0" failures="0" errors="0" timestamp="2024-04-05T18:39:04" hostname="brians-mac.lan" time="0.007">
   <properties/>
-  <testcase name="getSchoolAddress()" classname="com.mycompany.app.schools.SchoolTest" time="0.011"/>
+  <testcase name="getSchoolAddress()" classname="com.mycompany.app.schools.SchoolTest" time="0.001"/>
   <testcase name="getGradeList()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
   <testcase name="getSchoolCoordinates()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
-  <testcase name="testToString()" classname="com.mycompany.app.schools.SchoolTest" time="0.007"/>
+  <testcase name="testToString()" classname="com.mycompany.app.schools.SchoolTest" time="0.002"/>
   <testcase name="getSchoolNumber()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
-  <testcase name="getLanguageList()" classname="com.mycompany.app.schools.SchoolTest" time="0.001"/>
+  <testcase name="getLanguageList()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
   <testcase name="getSchoolName()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
   <testcase name="getSchoolType()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
-  <testcase name="getSchooLGradeLevel()" classname="com.mycompany.app.schools.SchoolTest" time="0.001"/>
+  <testcase name="getSchooLGradeLevel()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
   <testcase name="getSchoolPhoneNumber()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
   <testcase name="getSchoolWebsite()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
-  <testcase name="testHashCode()" classname="com.mycompany.app.schools.SchoolTest" time="0.001"/>
+  <testcase name="testHashCode()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
   <testcase name="testEquals()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
   <testcase name="getEmail()" classname="com.mycompany.app.schools.SchoolTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.app.ImportSchoolsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-05T16:23:23" hostname="brians-mac.lan" time="0.003">
+<testsuite name="com.mycompany.app.ImportSchoolsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-04-05T18:39:04" hostname="brians-mac.lan" time="0.002">
   <properties/>
-  <testcase name="stringToList()" classname="com.mycompany.app.ImportSchoolsTest" time="0.003"/>
+  <testcase name="stringToList()" classname="com.mycompany.app.ImportSchoolsTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

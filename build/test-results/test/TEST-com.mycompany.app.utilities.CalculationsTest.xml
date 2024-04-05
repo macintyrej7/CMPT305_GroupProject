@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.app.utilities.CalculationsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-04-05T16:23:23" hostname="brians-mac.lan" time="0.005">
+<testsuite name="com.mycompany.app.utilities.CalculationsTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-04-05T18:39:04" hostname="brians-mac.lan" time="0.007">
   <properties/>
-  <testcase name="AssessmentValueStatisticsTest()" classname="com.mycompany.app.utilities.CalculationsTest" time="0.003"/>
+  <testcase name="AssessmentValueStatisticsTest()" classname="com.mycompany.app.utilities.CalculationsTest" time="0.004"/>
   <testcase name="calculateDistance()" classname="com.mycompany.app.utilities.CalculationsTest" time="0.0"/>
   <testcase name="calculateMedianTest()" classname="com.mycompany.app.utilities.CalculationsTest" time="0.0"/>
   <testcase name="averageAssessmentValue()" classname="com.mycompany.app.utilities.CalculationsTest" time="0.001"/>
-  <testcase name="averageAssessmentValueWithDataset()" classname="com.mycompany.app.utilities.CalculationsTest" time="0.0"/>
+  <testcase name="averageAssessmentValueWithDataset()" classname="com.mycompany.app.utilities.CalculationsTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

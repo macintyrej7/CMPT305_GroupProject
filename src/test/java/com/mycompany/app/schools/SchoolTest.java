@@ -55,14 +55,12 @@ class SchoolTest {
                 languageList
         );
 
-
-
     }
 
     @Test
     void getSchoolNumber() {
-        int exptected = 1234;
-        assertEquals(exptected,testSchool.getSchoolNumber());
+        int expected = 1234;
+        assertEquals(expected,testSchool.getSchoolNumber());
     }
 
     @Test
