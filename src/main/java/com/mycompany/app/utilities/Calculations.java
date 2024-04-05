@@ -23,20 +23,6 @@ public class Calculations {
         return distance;
     }
 
-    public static String calculateAverageAssessmentValue(List<Residence> residences, Double distance, Coordinates coordinates) {
-    OptionalDouble average = residences.stream()
-            .filter(t -> CalculateDistance(t.getCoordinates(), coordinates) < distance)
-            .mapToDouble(t -> t.getAssessedValue())
-            .average();
-
-        if (average.isPresent()) {
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
-            return currencyFormat.format(average.getAsDouble());
-        } else {
-            return NumberFormat.getCurrencyInstance(Locale.CANADA).format(0.0);
-        }
-    }
-
     public static double calculateMedian(List<Double> doublesList){
         int length = doublesList.size();
 

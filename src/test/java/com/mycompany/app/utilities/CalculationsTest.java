@@ -46,34 +46,6 @@ class CalculationsTest {
 
     }
 
-    @Test
-    void averageAssessmentValue(){
-        double distance = 8.0;
-        Coordinates coordinates = new Coordinates(53.63235491366557,-113.43446135956096);
-
-        String average = Calculations.calculateAverageAssessmentValue(residences,distance,coordinates);
-
-        String expected = "$15,000.00";
-
-        assertEquals(expected,average);
-
-    }
-
-    @Test
-    void averageAssessmentValueWithDataset(){
-
-        double distance = 2.0;
-
-        Coordinates coordinates = new Coordinates(53.4638631,-113.5281877);
-
-
-        String average = Calculations.calculateAverageAssessmentValue(residences,distance,coordinates);
-
-        String expected = "$0.00";
-
-        assertEquals(expected,average);
-
-    }
 
     @Test
     void calculateMedianTest(){
@@ -88,8 +60,6 @@ class CalculationsTest {
         double expected2 = 0.0;
 
         assertEquals(expected2,median2);
-
-
     }
 
     @Test
