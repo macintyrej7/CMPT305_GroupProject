@@ -90,9 +90,6 @@ public class ImportSchools {
             schoolGradeLevels.add(values[9]);
         }
 
-        boolean schoolFrenchImmersion = Boolean.parseBoolean(values[10]);
-
-        boolean schoolSpanishBilingual = Boolean.parseBoolean(values[11]);
 
         double schoolLatitude = Double.parseDouble(values[12]);
 
@@ -108,7 +105,7 @@ public class ImportSchools {
 
         // return a new School object with parsed information.
         return new School(schoolNumber, schoolName, schoolAddress, schoolCoordinates, schoolGradeLevels,
-                schoolSpanishBilingual, schoolFrenchImmersion, schoolEmail, schoolPhoneNumber, schoolWebsite,
+                schoolEmail, schoolPhoneNumber, schoolWebsite,
                 schoolType, schoolGradeList, schoolLanguageList);
     }
 

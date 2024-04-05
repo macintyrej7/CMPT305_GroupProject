@@ -142,7 +142,7 @@ public class MapScreenController {
 
         gradeFilterListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        schoolList = ImportSchools.readCSV("merged_file.csv");
+        schoolList = ImportSchools.readCSV("Data/merged_school_data.csv");
         List<String> grades = Extractors.uniqueListValues(schoolList, School::getSchoolGradeList);
 
         gradeFilterListView.getItems().addAll(grades);
@@ -150,7 +150,7 @@ public class MapScreenController {
         List<String> languagePrograms = Extractors.uniqueListValues(schoolList, School::getSchoolLanguageList);
         languageFilterListView.getItems().addAll(languagePrograms);
 
-        residenceList = ImportResidences.readCSVResidentialBetweenValues("Property_Assessment_Data_2024.csv", MIN_VALUE, MAX_VALUE);
+        residenceList = ImportResidences.readCSVResidentialBetweenValues("Data/Property_Assessment_Data_2024.csv", MIN_VALUE, MAX_VALUE);
 
         popupList = new ArrayList<>();
 
@@ -411,8 +411,6 @@ public class MapScreenController {
 
     public void onMapApplyButtonClick() {
 
-        Predicate<School> frenchPred = school -> school.isFrenchImmersion();
-        Predicate<School> spanishPred = school -> school.isSpanishBilingual();
         Predicate<School> publicPred = school -> school.getSchoolType().equals("Public");
         Predicate<School> catholicPred = school -> school.getSchoolType().equals("Catholic");
         Predicate<School> allPred = school -> school.equals(school);

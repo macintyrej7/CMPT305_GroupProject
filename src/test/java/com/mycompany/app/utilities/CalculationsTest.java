@@ -1,6 +1,5 @@
 package com.mycompany.app.utilities;
 
-import com.mycompany.app.ImportResidences;
 import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.properties.Neighbourhood;
 import com.mycompany.app.residential.AssessmentClass;
@@ -15,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CalculateDistanceTest {
+class CalculationsTest {
     List<Residence> residences;
 
     @BeforeEach
@@ -83,6 +82,13 @@ class CalculateDistanceTest {
         double expected = 2.0;
 
         assertEquals(expected, median);
+
+        List<Double> doublesList2 = Arrays.asList();
+        double median2 = Calculations.calculateMedian(doublesList2);
+        double expected2 = 0.0;
+
+        assertEquals(expected2,median2);
+
 
     }
 

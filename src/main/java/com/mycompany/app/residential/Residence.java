@@ -67,4 +67,6 @@ public class Residence extends Property {
                 ", assessedValue=" + assessedValue +
                 '}';
     }
+
+
 }

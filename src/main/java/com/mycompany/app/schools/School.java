@@ -31,16 +31,14 @@ public class School extends Property{
     private String schoolEmail;
     private String schoolWebsite;
     private List<String> schoolGradeLevels;
-    private boolean spanishBilingual;
-    private boolean frenchImmersion;
     private String schoolType;
     private GradeList schoolGradeList;
     private List<String> schoolLanguageList;
 
 
     public School(int schoolNumber, String schoolName, Address address,
-                  Coordinates coordinates, List<String> schoolGradeLevels, boolean spanishBilingual,
-                  boolean frenchImmersion, String schoolEmail, PhoneNumber schoolPhoneNumber,
+                  Coordinates coordinates, List<String> schoolGradeLevels,
+                   String schoolEmail, PhoneNumber schoolPhoneNumber,
                   String schoolWebsite, String schoolType, GradeList schoolGradeList,
                   List<String> schoolLanguageList) {
 
@@ -50,8 +48,6 @@ public class School extends Property{
         this.schoolNumber = schoolNumber;
         this.schoolName = schoolName;
         this.schoolGradeLevels = schoolGradeLevels;
-        this.spanishBilingual = spanishBilingual;
-        this.frenchImmersion = frenchImmersion;
         this.schoolEmail = schoolEmail;
         this.schoolPhoneNumber = schoolPhoneNumber;
         this.schoolWebsite = schoolWebsite;
@@ -69,14 +65,6 @@ public class School extends Property{
 
     public List<String> getSchoolGradeLevels() {
         return List.copyOf(schoolGradeLevels);
-    }
-
-    public boolean isSpanishBilingual() {
-        return this.spanishBilingual;
-    }
-
-    public boolean isFrenchImmersion() {
-        return this.frenchImmersion;
     }
 
     public String getSchoolEmail() {
@@ -114,8 +102,6 @@ public class School extends Property{
         schoolString.append("School Email: " + schoolEmail + "\n");
         schoolString.append("School Website: " + schoolWebsite + "\n");
         schoolString.append("School Grade Levels: " + schoolGradeLevels.toString() + "\n");
-        schoolString.append("French Immersion: " + frenchImmersion + "\n");
-        schoolString.append("Spanish Bilingual: " + spanishBilingual + "\n");
         schoolString.append("School Coordinates: " + getCoordinates() + "\n");
         schoolString.append("School Grade List: " + schoolGradeList + "\n");
         schoolString.append("School Language List: " + schoolLanguageList + "\n");
@@ -128,14 +114,13 @@ public class School extends Property{
         if (this == o) return true;
         if (!(o instanceof School school)) return false;
         if (!super.equals(o)) return false;
-        return schoolNumber == school.schoolNumber && spanishBilingual == school.spanishBilingual && frenchImmersion == school.frenchImmersion && schoolName.equals(school.schoolName) && schoolPhoneNumber.equals(school.schoolPhoneNumber) && schoolEmail.equals(school.schoolEmail) && schoolWebsite.equals(school.schoolWebsite) && schoolGradeLevels.equals(school.schoolGradeLevels) && schoolType.equals(school.schoolType) && schoolGradeList.equals(school.schoolGradeList) && schoolLanguageList.equals(school.schoolLanguageList);
+        return schoolNumber == school.schoolNumber && schoolName.equals(school.schoolName) && schoolPhoneNumber.equals(school.schoolPhoneNumber) && schoolEmail.equals(school.schoolEmail) && schoolWebsite.equals(school.schoolWebsite) && schoolGradeLevels.equals(school.schoolGradeLevels) && schoolType.equals(school.schoolType) && schoolGradeList.equals(school.schoolGradeList) && schoolLanguageList.equals(school.schoolLanguageList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), schoolNumber, schoolName, schoolPhoneNumber, schoolEmail, schoolWebsite, schoolGradeLevels, spanishBilingual, frenchImmersion, schoolType, schoolGradeList, schoolLanguageList);
+        return Objects.hash(super.hashCode(), schoolNumber, schoolName, schoolPhoneNumber, schoolEmail, schoolWebsite, schoolGradeLevels, schoolType, schoolGradeList, schoolLanguageList);
     }
-
 
     public List<VBox> convertToStyledLabelsGrouped() {
         List<VBox> vBoxList = new ArrayList<>();
@@ -164,7 +149,7 @@ public class School extends Property{
         contactInfoLabel.setStyle(relatedInfoStyle);
         contactInfoBox.getChildren().add(contactInfoLabel);
         // Address, Add email, phone number
-        contactInfoBox.getChildren().add(createLabel("Address: " + this.getAddress().getSchoolAddress()));
+        contactInfoBox.getChildren().add(createLabel("Address: " + this.getAddress().getAddress()));
         contactInfoBox.getChildren().add(createLabel("Email: " + schoolEmail));
         contactInfoBox.getChildren().add(createLabel("Phone Number: " + schoolPhoneNumber));
         vBoxList.add(contactInfoBox);

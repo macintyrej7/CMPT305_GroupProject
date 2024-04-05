@@ -65,6 +65,14 @@ public class XYDataImporter {
         );
     }
 
+    public Map<Long, Long> getContainer() {
+        return container;
+    }
+
+    public List<Residence> getResidenceRawList() {
+        return residenceRawList;
+    }
+
     private long calcKeyForVal(long value, long increment)
     {
         return Math.round((double)value / increment) * increment;

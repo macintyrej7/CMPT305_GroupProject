@@ -14,16 +14,16 @@ package com.mycompany.app.properties;
 import java.util.Objects;
 
 public class Address {
-    private String schoolAddress;
+    private String address;
     private String postalCode;
 
-    public Address(String schoolAddress, String postalCode){
-        this.schoolAddress = schoolAddress;
+    public Address(String address, String postalCode){
+        this.address = address;
         this.postalCode = postalCode;
     }
 
-    public String getSchoolAddress() {
-        return schoolAddress;
+    public String getAddress() {
+        return this.address;
     }
 
     public String getPostalCode() {
@@ -33,7 +33,7 @@ public class Address {
     @Override
     public String toString() {
 
-        String addressReturnString = this.schoolAddress + " " + this.postalCode;
+        String addressReturnString = this.address + " " + this.postalCode;
         return addressReturnString;
     }
 
@@ -42,11 +42,11 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address that = (Address) o;
-        return schoolAddress.equals(that.schoolAddress) && postalCode.equals(that.postalCode);
+        return address.equals(that.address) && postalCode.equals(that.postalCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(schoolAddress, postalCode);
+        return Objects.hash(address, postalCode);
     }
 }
