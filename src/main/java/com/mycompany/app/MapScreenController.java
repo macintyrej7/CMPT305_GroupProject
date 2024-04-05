@@ -411,8 +411,6 @@ public class MapScreenController {
 
     public void onMapApplyButtonClick() {
 
-        Predicate<School> frenchPred = school -> school.isFrenchImmersion();
-        Predicate<School> spanishPred = school -> school.isSpanishBilingual();
         Predicate<School> publicPred = school -> school.getSchoolType().equals("Public");
         Predicate<School> catholicPred = school -> school.getSchoolType().equals("Catholic");
         Predicate<School> allPred = school -> school.equals(school);

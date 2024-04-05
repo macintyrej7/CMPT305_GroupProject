@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.app.residential.ResidenceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2024-04-04T21:46:43" hostname="Brians-Mac.local" time="0.006">
+<testsuite name="com.mycompany.app.residential.ResidenceTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2024-04-05T16:23:23" hostname="brians-mac.lan" time="0.005">
   <properties/>
   <testcase name="getAccountNumber()" classname="com.mycompany.app.residential.ResidenceTest" time="0.0"/>
   <testcase name="testContainsAssessmentClass()" classname="com.mycompany.app.residential.ResidenceTest" time="0.0"/>
-  <testcase name="getAssessedValue()" classname="com.mycompany.app.residential.ResidenceTest" time="0.001"/>
-  <testcase name="testToString()" classname="com.mycompany.app.residential.ResidenceTest" time="0.004"/>
+  <testcase name="getAssessedValue()" classname="com.mycompany.app.residential.ResidenceTest" time="0.0"/>
+  <testcase name="testToString()" classname="com.mycompany.app.residential.ResidenceTest" time="0.002"/>
   <testcase name="testHashCode()" classname="com.mycompany.app.residential.ResidenceTest" time="0.0"/>
   <testcase name="testEquals()" classname="com.mycompany.app.residential.ResidenceTest" time="0.0"/>
   <testcase name="getAssessementClassList()" classname="com.mycompany.app.residential.ResidenceTest" time="0.0"/>

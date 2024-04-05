@@ -42,8 +42,6 @@ class ExtractorsTest {
                 new Address("123", "Fake Street"),
                 new Coordinates(123.123, 456.456),
                 gradeLevels,
-                true,
-                true,
                 "email@school.com",
                 new PhoneNumber("1234567890"),
                 "http://school.com",

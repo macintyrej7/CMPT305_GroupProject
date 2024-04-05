@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.mycompany.app.XYDataImporterTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-04-04T21:46:43" hostname="Brians-Mac.local" time="0.009">
+<testsuite name="com.mycompany.app.XYDataImporterTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2024-04-05T16:23:23" hostname="brians-mac.lan" time="0.006">
   <properties/>
-  <testcase name="getResidenceRawList()" classname="com.mycompany.app.XYDataImporterTest" time="0.007"/>
+  <testcase name="getResidenceRawList()" classname="com.mycompany.app.XYDataImporterTest" time="0.004"/>
   <testcase name="updateContainers()" classname="com.mycompany.app.XYDataImporterTest" time="0.0"/>
-  <testcase name="getContainer()" classname="com.mycompany.app.XYDataImporterTest" time="0.0"/>
-  <testcase name="minAndMax()" classname="com.mycompany.app.XYDataImporterTest" time="0.001"/>
-  <testcase name="incrementContainers()" classname="com.mycompany.app.XYDataImporterTest" time="0.0"/>
+  <testcase name="getContainer()" classname="com.mycompany.app.XYDataImporterTest" time="0.001"/>
+  <testcase name="minAndMax()" classname="com.mycompany.app.XYDataImporterTest" time="0.0"/>
+  <testcase name="incrementContainers()" classname="com.mycompany.app.XYDataImporterTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

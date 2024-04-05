@@ -47,8 +47,6 @@ class SchoolTest {
                 new Address("123","Fake Street"),
                 new Coordinates(123.123,456.456),
                 gradeLevels,
-                true,
-                true,
                 "email@school.com",
                 new PhoneNumber("1234567890"),
                 "http://school.com",
@@ -94,17 +92,6 @@ class SchoolTest {
         assertEquals(testGradeLevels, testSchool.getSchoolGradeLevels());
     }
 
-    @Test
-    void isHasSpanish() {
-        boolean expected = true;
-        assertEquals(expected,testSchool.isSpanishBilingual());
-    }
-
-    @Test
-    void isHasFrench() {
-        boolean expected = true;
-        assertEquals(expected,testSchool.isFrenchImmersion());
-    }
 
     @Test
     void getEmail() {
@@ -178,8 +165,6 @@ class SchoolTest {
                 new Address("123","Fake Street"),
                 new Coordinates(123.123,456.456),
                 expectedGradeLevels,
-                true,
-                true,
                 "email@school.com",
                 new PhoneNumber("1234567890"),
                 "http://school.com",
@@ -214,8 +199,6 @@ class SchoolTest {
                 new Address("123","Fake Street"),
                 new Coordinates(123.123,456.456),
                 expectedGradeLevels,
-                true,
-                true,
                 "email@school.com",
                 new PhoneNumber("1234567890"),
                 "http://school.com",
@@ -240,8 +223,6 @@ class SchoolTest {
                         "School Email: email@school.com\n" +
                         "School Website: http://school.com\n" +
                         "School Grade Levels: [Elementary]\n" +
-                        "French Immersion: true\n" +
-                        "Spanish Bilingual: true\n" +
                         "School Coordinates: (123.123, 456.456)\n" +
                         "School Grade List: K-6\n" +
                         "School Language List: [Italian Language and Culture, Spanish Language and Culture]\n";

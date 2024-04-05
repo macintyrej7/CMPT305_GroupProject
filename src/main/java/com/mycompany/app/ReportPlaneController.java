@@ -1,6 +1,5 @@
 package com.mycompany.app;
 
-import com.mycompany.app.properties.Coordinates;
 import com.mycompany.app.residential.Residence;
 import com.mycompany.app.schools.School;
 import com.mycompany.app.utilities.AssessmentValueStatistics;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ReportPlaneController {
@@ -41,7 +39,7 @@ public class ReportPlaneController {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
 
-        myResidences = ImportResidences.readCSVResidentialBetweenValues("Property_Assessment_Data_2024.csv", MIN_VALUE, MAX_VALUE);
+        myResidences = ImportResidences.readCSVResidentialBetweenValues("Data/Property_Assessment_Data_2024.csv", MIN_VALUE, MAX_VALUE);
         xyDataImporter = new XYDataImporter(myResidences);
         xyDataImporter.incrementContainers(10);
         xyDataImporter.updateContainers(10);
@@ -63,7 +61,7 @@ public class ReportPlaneController {
         // Add series to the chart
         barChart.getData().add(series);
 
-        myschools = ImportSchools.readCSV("merged_file.csv");
+        myschools = ImportSchools.readCSV("Data/merged_school_data.csv");
 
         Map<School, AssessmentValueStatistics> schoolValuesMap = mapSchoolValues(myschools, myResidences);
 
